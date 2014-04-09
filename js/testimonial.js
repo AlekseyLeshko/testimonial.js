@@ -12,15 +12,15 @@ Testimonial = function() {
 };
 
 Testimonial.prototype = {
-  start = function() {
+  start: function() {
   },
 
-  stop = function() {
+  stop: function() {
   },
 
-  next = function() {
+  next: function() {
   },
 
-  prev =  function() {
+  prev: function() {
   }
 };
