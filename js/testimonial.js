@@ -7,3 +7,17 @@
 
 Testimonial = function() {
 };
+
+Testimonial.prototype = {
+  start = function() {
+  },
+
+  stop = function() {
+  },
+
+  next = function() {
+  },
+
+  prev =  function() {
+  }
+};
