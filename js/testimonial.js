@@ -6,6 +6,9 @@
  */
 
 Testimonial = function() {
+  this.settings = {};
+  this.slides = [];
+  this.currentSlide = 0;
 };
 
 Testimonial.prototype = {
