@@ -1,20 +1,14 @@
 .main-container {
-  width: 100%;
-  height: 500px;
-  background-color: #f00;
 }
 
 .testimonial_slider {
   width: 600px;
-  height: 200px;
+  height: 175px;
   padding: 10px;
-  background-color: #30F;
+  border: 3px solid #000000;
 }
 
 .testimonial_slide {
-  width: 100%;
-  height: 100%;
-  background-color: #F0C;
 }
 
 .testimonial_slide .author_foto {
