@@ -7,7 +7,12 @@
   <script src="js/jquery-1.6.4.min.js"></script>
   <script src="../js/testimonial.js"></script>
   <script>
-    var testimonial = new Testimonial();
+    var testimonial;
+    $(window).load(function() {
+      var $container = $('.testimonial_slider');
+
+      testimonial = new Testimonial($container);
+    });
   </script>
 </head>
 <body>

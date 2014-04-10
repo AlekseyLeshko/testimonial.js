@@ -5,10 +5,13 @@
  * Copyright 2014, MIT License
  */
 
-Testimonial = function() {
+Testimonial = function($container) {
   this.settings = {};
   this.slides = [];
   this.currentSlide = 0;
+  this.$container = $container;
+
+  this.parseSlides();
 };
 
 Testimonial.prototype = {
@@ -22,5 +25,17 @@ Testimonial.prototype = {
   },
 
   prev: function() {
+  },
+
+  parseSlides: function() {
+    var $slides = this.$container.children();
+
+    this.removeInitialSlides($slides);
+  },
+
+  removeInitialSlides: function($slides) {
+    $slides.each(function() {
+      $(this).remove();
+    });
   }
 };
