@@ -38,6 +38,31 @@
   padding: 35px 0px 0px 5px;
 }
 
+.testimonial_slide .message .text {
+  position: relative;
+}
+
+.testimonial_slide .message .quote {
+  width: 22px;
+  height: 17px;
+  background: url("../img/quote.png") 0 0 no-repeat;
+
+  float: left;
+  position: relative;
+  margin-left: 20px;
+  margin-right: 5px;
+}
+
+.testimonial_slide .message .quote_inverted {
+  width: 22px;
+  height: 17px;
+  background: url("../img/quote_inverted.png") 0 0 no-repeat;
+
+  float: left;
+  position: relative;
+  margin-left: 400px;
+}
+
 .testimonial_slide .message .author_signature {
   padding: 5px 5px 5px 300px;
 }
