@@ -23,6 +23,10 @@
   background: url("../img/author_logo.png") 0 0 no-repeat;
   float: left;
   position: relative;
+
+  border: 2px solid #DDDDDD;
+  border-radius: 50%;
+  box-shadow: 1px 3px 10px 1px #000000;
 }
 
 .testimonial_slide .message {
