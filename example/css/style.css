@@ -1,14 +1,8 @@
-.main-container {
-}
-
 .testimonial_slider {
   width: 600px;
   height: 175px;
   padding: 10px;
   border: 3px solid #000000;
-}
-
-.testimonial_slide {
 }
 
 .testimonial_slide .author_foto {
@@ -59,10 +53,4 @@
 
 .testimonial_slide .quote .signature {
   padding: 5px 5px 5px 300px;
-}
-
-.testimonial_slide .quote .signature .author {
-}
-
-.testimonial_slide .quote .signature .company {
 }
