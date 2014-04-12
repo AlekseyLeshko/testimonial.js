@@ -57,6 +57,12 @@
   margin-left: 400px;
 }
 
-.testimonial_slide .quote .author_signature {
+.testimonial_slide .quote .signature {
   padding: 5px 5px 5px 300px;
+}
+
+.testimonial_slide .quote .signature .author {
+}
+
+.testimonial_slide .quote .signature .company {
 }
