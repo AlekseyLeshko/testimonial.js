@@ -12,6 +12,7 @@ Testimonial = function($container) {
   this.$container = $container;
 
   this.parseDomTree();
+  this.createPluginDomTree();
 };
 
 Testimonial.prototype = {
@@ -50,5 +51,20 @@ Testimonial.prototype = {
       fotoSrc: $container.children('.foto').attr('src')
     };
     return slide;
+  },
+
+  createPluginDomTree: function() {
+    for (var i = 0; i < 1; i++) {
+      var slide = this.slides[i];
+
+      var $slideNode = $('<div />', { 'class': 'testimonial_slide' });
+      $slideNode.append(this.createAuthorFotoNode(slide.src));
+      this.$container.append($slideNode);
+    }
+  },
+
+  createAuthorFotoNode: function(src) {
+    var $authorFoto = $('<div />', { 'class': 'author_foto', 'src':  src});
+    return $authorFoto;
   }
 };
