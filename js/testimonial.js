@@ -11,7 +11,7 @@ Testimonial = function($container) {
   this.currentSlide = 0;
   this.$container = $container;
 
-  this.parseSlides();
+  this.parseDomTree();
 };
 
 Testimonial.prototype = {
@@ -27,30 +27,28 @@ Testimonial.prototype = {
   prev: function() {
   },
 
-  parseSlides: function() {
-    var $slides = this.$container.children();
-    this.removeInitialSlides($slides);
+  parseDomTree: function() {
+    var $slideNodes = this.$container.children();
+    $slideNodes.remove();
 
-    for (var i = 0; i < $slides.length; i++) {
-      var $slide = $($slides[i]);
+    this.parseSlideNodes($slideNodes);
+  },
 
-      var data = this.parseAuthorDiv($slide.children('.author'));
-      data.quote = $slide.children('.quote').text().trim();
-      this.slides.push(data);
+  parseSlideNodes: function($slideNodes) {
+    for (var i = 0; i < $slideNodes.length; i++) {
+      var $slideNode = $($slideNodes[i]);
+
+      var slide = this.parseAuthorNode($slideNode.children('.author'));
+      slide.quote = $slideNode.children('.quote').text().trim();
+      this.slides.push(slide);
     }
   },
 
-  parseAuthorDiv: function($container) {
-    var authorInfo = { fullName: $container.children('.full_name').text().trim(),
+  parseAuthorNode: function($container) {
+    var slide = { fullName: $container.children('.full_name').text().trim(),
       company: $container.children('.company').text().trim(),
       fotoSrc: $container.children('.foto').attr('src')
     };
-    return authorInfo;
-  },
-
-  removeInitialSlides: function($slides) {
-    $slides.each(function() {
-      $(this).remove();
-    });
+    return slide;
   }
 };
