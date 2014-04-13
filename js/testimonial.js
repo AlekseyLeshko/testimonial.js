@@ -58,7 +58,9 @@ Testimonial.prototype = {
       var slide = this.slides[i];
 
       var $slideNode = $('<div />', { 'class': 'testimonial_slide' });
+      $slideNode.append(this.createQuoteNode(slide.quote, slide.fullName, slide.company));
       $slideNode.append(this.createAuthorFotoNode(slide.src));
+
       this.$container.append($slideNode);
     }
   },
@@ -66,5 +68,20 @@ Testimonial.prototype = {
   createAuthorFotoNode: function(src) {
     var $authorFoto = $('<div />', { 'class': 'author_foto', 'src':  src});
     return $authorFoto;
+  },
+
+  createQuoteNode: function(quote, fullName, company) {
+    var $quoteNode = $('<div />', { 'class': 'quote' });
+    var $quotationMark = $('<div />', { 'class': 'quotation_mark' })
+    $quoteNode.append($quotationMark);
+
+    var $text = $('<div />', { 'class': 'text'});
+    $text.text(quote);
+    $quoteNode.append($text)
+
+    var $quotationMarkInverted = $('<div />', { 'class': 'quotation_mark_inverted' })
+    $quoteNode.append($quotationMarkInverted);
+
+    return $quoteNode;
   }
 };
