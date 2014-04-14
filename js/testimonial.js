@@ -46,11 +46,23 @@ Testimonial.prototype = {
   },
 
   parseAuthorNode: function($container) {
-    var slide = { fullName: $container.children('.full_name').text().trim(),
-      company: $container.children('.company').text().trim(),
+    var $fullNameNode = $container.children('.full_name');
+    var $companyNode = $container.children('.company');
+    var slide = { fullName: $fullNameNode.text().trim(),
+      authorHref: this.getAttrHrefOrDefault($fullNameNode.children('a')),
+      company: $companyNode.text().trim(),
+      companyHref: this.getAttrHrefOrDefault($companyNode.children('a')),
       fotoSrc: $container.children('.foto').attr('src')
     };
     return slide;
+  },
+
+  getAttrHrefOrDefault: function($node) {
+    var href = $node.attr('href');
+    if (href === undefined) {
+      href = '#';
+    }
+    return href;
   },
 
   createPluginDomTree: function() {
@@ -58,44 +70,44 @@ Testimonial.prototype = {
       var slide = this.slides[i];
 
       var $slideNode = $('<div />', { 'class': 'testimonial_slide' });
-      $slideNode.append(this.createQuoteNode(slide.quote, slide.fullName, slide.company));
-      $slideNode.append(this.createAuthorFotoNode(slide.fotoSrc));
+      $slideNode.append(this.createQuoteNode(slide));
+      $slideNode.append(this.createAuthorFotoNode(slide));
 
       this.$container.append($slideNode);
     }
   },
 
-  createAuthorFotoNode: function(src) {
-    var $authorFoto = $('<img />', { 'class': 'author_foto', 'src': src});
+  createAuthorFotoNode: function(slide) {
+    var $authorFoto = $('<img />', { 'class': 'author_foto', 'src': slide.fotoSrc});
     return $authorFoto;
   },
 
-  createQuoteNode: function(quote, fullName, company) {
+  createQuoteNode: function(slide) {
     var $quoteNode = $('<div />', { 'class': 'quote' });
     var $quotationMark = $('<div />', { 'class': 'quotation_mark' })
     $quoteNode.append($quotationMark);
 
     var $text = $('<div />', { 'class': 'text'});
-    $text.text(quote);
+    $text.text(slide.quote);
     $quoteNode.append($text)
 
     var $quotationMarkInverted = $('<div />', { 'class': 'quotation_mark_inverted' })
     $quoteNode.append($quotationMarkInverted);
 
-    $quoteNode.append(this.createSignatureNode(fullName, company));
+    $quoteNode.append(this.createSignatureNode(slide));
     return $quoteNode;
   },
 
-  createSignatureNode: function(fullName, company) {
+  createSignatureNode: function(slide) {
     var $signatureNode = $('<div />', { 'class': 'signature' });
 
     var $authorNode = $('<div />', { 'class': 'author' });
     $authorNode.text('- ');
-    $authorNode.append(this.createLinkNode('#', fullName));
+    $authorNode.append(this.createLinkNode(slide.authorHref, slide.fullName));
 
 
     var $companyNode = $('<div />', { 'class': 'company' });
-    $companyNode.append(this.createLinkNode('#', company));
+    $companyNode.append(this.createLinkNode(slide.companyHref, slide.company));
 
     $signatureNode.append($authorNode);
     $signatureNode.append($companyNode);
