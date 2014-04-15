@@ -23,9 +23,27 @@ Testimonial.prototype = {
   },
 
   next: function() {
+    var $slideArr = $('.testimonial_slide');
+    $currentSlide = $($slideArr[this.currentSlideIndex]);
+    this.indexing();
+    $nextSlide = $($slideArr[this.currentSlideIndex]);
+    var self = this;
+
+    $currentSlide.animate({ "margin-left": "+=250px", opacity: "0" }, 750, function() {
+      self.hideSlide($currentSlide);
+    });
+
+    this.showSlide($nextSlide);
   },
 
   prev: function() {
+  },
+
+  indexing: function() {
+    this.currentSlideIndex++;
+    if (this.currentSlideIndex === this.slides.length) {
+      this.currentSlideIndex = 0;
+    }
   },
 
   parseDomTree: function() {
@@ -84,6 +102,10 @@ Testimonial.prototype = {
 
   hideSlide: function($slide) {
     $slide.attr('style', 'display: none; opacity: 0; margin-left: -250px');
+  },
+
+  showSlide: function($slide) {
+      $slide.show().animate({ "margin-left": "+=250px", opacity: "1" }, 1500);
   },
 
   createAuthorFotoNode: function(slide) {
