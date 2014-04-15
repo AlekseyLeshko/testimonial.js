@@ -13,13 +13,6 @@
 
       testimonial = new Testimonial($container);
     });
-
-    function show() {
-      $('.testimonial_slide').first().stop().animate({ opacity: "1" }, 1000);
-    }
-    function hide() {
-      $('.testimonial_slide').first().animate({ opacity: "0" }, 3000);
-    }
   </script>
 </head>
 <body>
@@ -76,8 +69,7 @@
         </div>
       </div>
     </div>
-    <input type="button" value="show" onclick="show();">
-    <input type="button" value="hide" onclick="hide();">
+    <input type="button" value="Next" onclick="testimonial.next();">
   </div>
 </body>
 </html>
