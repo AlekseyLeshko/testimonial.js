@@ -112,14 +112,14 @@ Testimonial.prototype = {
 
   createQuoteNode: function(slide) {
     var $quoteNode = $('<div />', { 'class': 'quote' });
-    var $quotationMark = $('<div />', { 'class': 'quotation_mark' })
+    var $quotationMark = $('<div />', { 'class': 'quotation_mark' });
     $quoteNode.append($quotationMark);
 
     var $text = $('<div />', { 'class': 'text'});
     $text.text(slide.quote);
-    $quoteNode.append($text)
+    $quoteNode.append($text);
 
-    var $quotationMarkInverted = $('<div />', { 'class': 'quotation_mark_inverted' })
+    var $quotationMarkInverted = $('<div />', { 'class': 'quotation_mark_inverted' });
     $quoteNode.append($quotationMarkInverted);
 
     $quoteNode.append(this.createSignatureNode(slide));
