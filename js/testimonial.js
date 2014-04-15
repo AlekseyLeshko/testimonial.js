@@ -36,9 +36,6 @@ Testimonial.prototype = {
     this.showSlide($nextSlide);
   },
 
-  prev: function() {
-  },
-
   indexing: function() {
     this.currentSlideIndex++;
     if (this.currentSlideIndex === this.slides.length) {
