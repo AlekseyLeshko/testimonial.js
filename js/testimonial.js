@@ -24,9 +24,9 @@ Testimonial.prototype = {
 
   next: function() {
     var $slideArr = $('.testimonial_slide');
-    $currentSlide = $($slideArr[this.currentSlideIndex]);
+    var $currentSlide = $($slideArr[this.currentSlideIndex]);
     this.indexing();
-    $nextSlide = $($slideArr[this.currentSlideIndex]);
+    var $nextSlide = $($slideArr[this.currentSlideIndex]);
     var self = this;
 
     $currentSlide.animate({ "margin-left": "+=250px", opacity: "0" }, 750, function() {
