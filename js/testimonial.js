@@ -8,7 +8,7 @@
 Testimonial = function($container) {
   this.settings = {};
   this.slides = [];
-  this.currentSlide = 0;
+  this.currentSlideIndex = 0;
   this.$container = $container;
 
   this.parseDomTree();
