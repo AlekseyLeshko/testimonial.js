@@ -75,11 +75,15 @@ Testimonial.prototype = {
       $slideNode.append(this.createAuthorFotoNode(slide));
 
       if (i !== 0) {
-        $slideNode.attr('style', 'display: none;');
+        this.hideSlide($slideNode);
       }
       $mainContainer.append($slideNode);
     }
     this.$container.append($mainContainer);
+  },
+
+  hideSlide: function($slide) {
+    $slide.attr('style', 'display: none; opacity: 0; margin-left: -250px');
   },
 
   createAuthorFotoNode: function(slide) {
