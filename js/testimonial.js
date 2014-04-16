@@ -7,13 +7,16 @@
 
 Testimonial = function($container) {
   this.settings = {};
-  this.slides = [];
+  this.$slides = [];
   this.dataArr = [];
   this.currentSlideIndex = 0;
   this.$container = $container;
+  this.$slidesWrapper;
 
   this.parseDomTree();
   this.createSlides();
+  this.createSlidesWrapper();
+  this.slideRendering();
 };
 
 Testimonial.prototype = {
@@ -35,6 +38,21 @@ Testimonial.prototype = {
     });
 
     this.showSlide($nextSlide);
+  },
+
+  createSlidesWrapper: function() {
+    this.$slidesWrapper = $('<div />', { 'class': 'main_container' });
+    this.$container.append(this.$slidesWrapper);
+  },
+
+  slideRendering: function() {
+    for (var i = 0; i < this.$slides.length; i++) {
+      var $slide = this.$slides[i];
+      if (i !== 0) {
+        this.hideSlide($slide);
+      }
+      this.$slidesWrapper.append($slide);
+    }
   },
 
   parseDomTree: function() {
