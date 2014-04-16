@@ -11,11 +11,11 @@ Testimonial = function($container) {
   this.dataArr = [];
   this.currentSlideIndex = 0;
   this.$container = $container;
-  this.$slidesWrapper;
+  this.$slidesWrapper = $('<div />', { 'class': 'main_container' });
 
   this.parseDomTree();
   this.createSlides();
-  this.createSlidesWrapper();
+  this.$container.append(this.$slidesWrapper);
   this.slideRendering();
 };
 
@@ -27,22 +27,12 @@ Testimonial.prototype = {
   },
 
   next: function() {
-    var $slideArr = $('.testimonial_slide');
-    var $currentSlide = $($slideArr[this.currentSlideIndex]);
+    var currentSlide = this.$slides[this.currentSlideIndex];
     this.indexing();
-    var $nextSlide = $($slideArr[this.currentSlideIndex]);
-    var self = this;
+    var nextSlide = this.$slides[this.currentSlideIndex];
 
-    $currentSlide.animate({ "margin-left": "+=250px", opacity: "0" }, 750, function() {
-      self.hideSlide($currentSlide);
-    });
-
-    this.showSlide($nextSlide);
-  },
-
-  createSlidesWrapper: function() {
-    this.$slidesWrapper = $('<div />', { 'class': 'main_container' });
-    this.$container.append(this.$slidesWrapper);
+    currentSlide.animateHide();
+    nextSlide.animateShow();
   },
 
   slideRendering: function() {
@@ -73,13 +63,9 @@ Testimonial.prototype = {
 
   indexing: function() {
     this.currentSlideIndex++;
-    if (this.currentSlideIndex === this.slides.length) {
+    if (this.currentSlideIndex === this.$slides.length) {
       this.currentSlideIndex = 0;
     }
-  },
-
-  showSlide: function($slide) {
-      $slide.show().animate({ "margin-left": "+=250px", opacity: "1" }, 1500);
   }
 };
 
@@ -197,6 +183,18 @@ TestimonialSlide.prototype = {
   createAuthorFotoNode: function() {
     var $authorFoto = $('<img />', { 'class': 'author_foto', 'src': this.data.fotoSrc});
     return $authorFoto;
+  },
+
+  animateHide: function() {
+    var self = this;
+
+    this.$slide.animate({ "margin-left": "+=250px", opacity: "0" }, 750, function() {
+      self.hideSlide();
+    });
+  },
+
+  animateShow: function() {
+    this.$slide.show().animate({ "margin-left": "+=250px", opacity: "1" }, 1500);
   },
 
   hideSlide: function() {
