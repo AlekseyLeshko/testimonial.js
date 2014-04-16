@@ -49,9 +49,9 @@ Testimonial.prototype = {
     for (var i = 0; i < this.$slides.length; i++) {
       var $slide = this.$slides[i];
       if (i !== 0) {
-        this.hideSlide($slide);
+        $slide.hideSlide();
       }
-      this.$slidesWrapper.append($slide);
+      this.$slidesWrapper.append($slide.getNode());
     }
   },
 
@@ -66,16 +66,9 @@ Testimonial.prototype = {
   createSlides: function() {
     for (var i = 0; i < this.dataArr.length; i++) {
       var data = this.dataArr[i];
-      var $slide = this.createSlide(data);
+      var $slide = new TestimonialSlide(data);
       this.$slides.push($slide);
     }
-  },
-
-  createSlide: function(data) {
-    var $slide = $('<div />', { 'class': 'testimonial_slide' });
-    $slide.append(this.createQuoteNode(data));
-    $slide.append(this.createAuthorFotoNode(data));
-    return $slide;
   },
 
   indexing: function() {
@@ -85,57 +78,8 @@ Testimonial.prototype = {
     }
   },
 
-  hideSlide: function($slide) {
-    $slide.attr('style', 'display: none; opacity: 0; margin-left: -250px');
-  },
-
   showSlide: function($slide) {
       $slide.show().animate({ "margin-left": "+=250px", opacity: "1" }, 1500);
-  },
-
-  createAuthorFotoNode: function(slide) {
-    var $authorFoto = $('<img />', { 'class': 'author_foto', 'src': slide.fotoSrc});
-    return $authorFoto;
-  },
-
-  createQuoteNode: function(slide) {
-    var $quoteNode = $('<div />', { 'class': 'quote' });
-    var $quotationMark = $('<div />', { 'class': 'quotation_mark' });
-    $quoteNode.append($quotationMark);
-
-    var $text = $('<div />', { 'class': 'text'});
-    $text.text(slide.quote);
-    $quoteNode.append($text);
-
-    var $quotationMarkInverted = $('<div />', { 'class': 'quotation_mark_inverted' });
-    $quoteNode.append($quotationMarkInverted);
-
-    $quoteNode.append(this.createSignatureNode(slide));
-    return $quoteNode;
-  },
-
-  createSignatureNode: function(slide) {
-    var $signatureNode = $('<div />', { 'class': 'signature' });
-
-    var $authorNode = $('<div />', { 'class': 'author' });
-    $authorNode.text('- ');
-    $authorNode.append(this.createLinkNode(slide.authorHref, slide.fullName));
-
-
-    var $companyNode = $('<div />', { 'class': 'company' });
-    $companyNode.append(this.createLinkNode(slide.companyHref, slide.company));
-
-    $signatureNode.append($authorNode);
-    $signatureNode.append($companyNode);
-    return $signatureNode;
-  },
-
-  createLinkNode: function(href, text) {
-    var $linkNode = $('<a />', { target: '_blank',
-      href: href,
-      text: text
-    });
-    return $linkNode;
   }
 };
 
@@ -179,4 +123,87 @@ Parser.prototype = {
     }
     return href;
   },
+};
+
+
+TestimonialSlide = function(data) {
+  this.data = data;
+  this.$slide;
+
+  this.createSlide();
+};
+
+TestimonialSlide.prototype = {
+  createSlide: function() {
+    this.$slide = $('<div />', { 'class': 'testimonial_slide' });
+    this.$slide.append(this.createQuoteNode());
+    this.$slide.append(this.createAuthorFotoNode());
+  },
+
+  createQuoteNode: function() {
+    var $quoteNode = $('<div />', { 'class': 'quote' });
+
+    $quoteNode.append(this.createQuotationMark());
+    $quoteNode.append(this.createTextNode());
+    $quoteNode.append(this.createQuotationMarkInverted());
+    $quoteNode.append(this.createSignatureNode());
+    return $quoteNode;
+  },
+
+  createTextNode: function() {
+    var $text = $('<div />', { 'class': 'text'});
+    $text.text(this.data.quote);
+    return $text;
+  },
+
+  createQuotationMark: function() {
+    $quotationMark = $('<div />', { 'class': 'quotation_mark' });
+    return $quotationMark;
+  },
+
+  createQuotationMarkInverted: function() {
+    var $quotationMarkInverted = $('<div />', { 'class': 'quotation_mark_inverted' });
+    return $quotationMarkInverted;
+  },
+
+  createSignatureNode: function() {
+    var $signatureNode = $('<div />', { 'class': 'signature' });
+    $signatureNode.append(this.createAuthorNode());
+    $signatureNode.append(this.createCompanyNode());
+    return $signatureNode;
+  },
+
+  createAuthorNode: function() {
+    var $authorNode = $('<div />', { 'class': 'author' });
+    $authorNode.text('- ');
+    $authorNode.append(this.createLinkNode(this.data.authorHref, this.data.fullName));
+    return $authorNode;
+  },
+
+  createCompanyNode: function() {
+    var $companyNode = $('<div />', { 'class': 'company' });
+    $companyNode.append(this.createLinkNode(this.data.companyHref, this.data.company));
+    return $companyNode;
+  },
+
+  createLinkNode: function(href, text) {
+    var $linkNode = $('<a />', { target: '_blank',
+      href: href,
+      text: text
+    });
+    return $linkNode;
+  },
+
+  createAuthorFotoNode: function() {
+    var $authorFoto = $('<img />', { 'class': 'author_foto', 'src': this.data.fotoSrc});
+    return $authorFoto;
+  },
+
+  hideSlide: function() {
+    this.$slide.attr('style', 'display: none; opacity: 0; margin-left: -250px');
+  },
+
+  getNode: function() {
+    return this.$slide;
+  }
 };
