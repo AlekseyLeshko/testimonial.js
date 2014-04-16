@@ -142,7 +142,7 @@ TestimonialSlide.prototype = {
   },
 
   createQuotationMark: function() {
-    $quotationMark = $('<div />', { 'class': 'quotation_mark' });
+    var $quotationMark = $('<div />', { 'class': 'quotation_mark' });
     return $quotationMark;
   },
 
