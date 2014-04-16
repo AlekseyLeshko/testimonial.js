@@ -114,14 +114,13 @@ Parser.prototype = {
 
 TestimonialSlide = function(data) {
   this.data = data;
-  this.$slide;
+  this.$slide = $('<div />', { 'class': 'testimonial_slide' });
 
   this.createSlide();
 };
 
 TestimonialSlide.prototype = {
   createSlide: function() {
-    this.$slide = $('<div />', { 'class': 'testimonial_slide' });
     this.$slide.append(this.createQuoteNode());
     this.$slide.append(this.createAuthorFotoNode());
   },
