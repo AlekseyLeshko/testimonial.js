@@ -8,11 +8,12 @@
 Testimonial = function($container) {
   this.settings = {};
   this.slides = [];
+  this.dataArr = [];
   this.currentSlideIndex = 0;
   this.$container = $container;
 
   this.parseDomTree();
-  this.createPluginDomTree();
+  this.createSlides();
 };
 
 Testimonial.prototype = {
@@ -36,51 +37,15 @@ Testimonial.prototype = {
     this.showSlide($nextSlide);
   },
 
-  indexing: function() {
-    this.currentSlideIndex++;
-    if (this.currentSlideIndex === this.slides.length) {
-      this.currentSlideIndex = 0;
-    }
-  },
-
   parseDomTree: function() {
-    var $slideNodes = this.$container.children();
-    $slideNodes.remove();
+    var $nodeArr = this.$container.children();
+    $nodeArr.remove();
 
-    this.parseSlideNodes($slideNodes);
+    var parser = new Parser($nodeArr);
+    this.dataArr = parser.parse();
   },
 
-  parseSlideNodes: function($slideNodes) {
-    for (var i = 0; i < $slideNodes.length; i++) {
-      var $slideNode = $($slideNodes[i]);
-
-      var slide = this.parseAuthorNode($slideNode.children('.author'));
-      slide.quote = $slideNode.children('.quote').text().trim();
-      this.slides.push(slide);
-    }
-  },
-
-  parseAuthorNode: function($container) {
-    var $fullNameNode = $container.children('.full_name');
-    var $companyNode = $container.children('.company');
-    var slide = { fullName: $fullNameNode.text().trim(),
-      authorHref: this.getAttrHrefOrDefault($fullNameNode.children('a')),
-      company: $companyNode.text().trim(),
-      companyHref: this.getAttrHrefOrDefault($companyNode.children('a')),
-      fotoSrc: $container.children('.foto').attr('src')
-    };
-    return slide;
-  },
-
-  getAttrHrefOrDefault: function($node) {
-    var href = $node.attr('href');
-    if (href === undefined) {
-      href = '#';
-    }
-    return href;
-  },
-
-  createPluginDomTree: function() {
+  createSlides: function() {
     var $mainContainer = $('<div />', { 'class': 'main_container' });
     for (var i = 0; i < this.slides.length; i++) {
       var slide = this.slides[i];
@@ -95,6 +60,13 @@ Testimonial.prototype = {
       $mainContainer.append($slideNode);
     }
     this.$container.append($mainContainer);
+  },
+
+  indexing: function() {
+    this.currentSlideIndex++;
+    if (this.currentSlideIndex === this.slides.length) {
+      this.currentSlideIndex = 0;
+    }
   },
 
   hideSlide: function($slide) {
@@ -149,4 +121,46 @@ Testimonial.prototype = {
     });
     return $linkNode;
   }
+};
+
+Parser = function($nodeArr) {
+  this.$nodeArr = $nodeArr;
+  this.dataArr = [];
+};
+
+Parser.prototype = {
+  parse: function() {
+    for (var i = 0; i < this.$nodeArr.length; i++) {
+      var $node = $(this.$nodeArr[i]);
+      this.parseNode($node);
+    }
+
+    return this.dataArr;
+  },
+
+  parseNode: function($node) {
+    var data = this.parseAuthorNode($node.children('.author'));
+    data.quote = $node.children('.quote').text().trim();
+    this.dataArr.push(data);
+  },
+
+  parseAuthorNode: function($authorNode) {
+    var $fullNameNode = $authorNode.children('.full_name');
+    var $companyNode = $authorNode.children('.company');
+    var slide = { fullName: $fullNameNode.text().trim(),
+      authorHref: this.getAttrHrefOrDefault($fullNameNode.children('a')),
+      company: $companyNode.text().trim(),
+      companyHref: this.getAttrHrefOrDefault($companyNode.children('a')),
+      fotoSrc: $authorNode.children('.foto').attr('src')
+    };
+    return slide;
+  },
+
+  getAttrHrefOrDefault: function($node) {
+    var href = $node.attr('href');
+    if (href === undefined) {
+      href = '#';
+    }
+    return href;
+  },
 };
