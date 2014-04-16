@@ -64,20 +64,18 @@ Testimonial.prototype = {
   },
 
   createSlides: function() {
-    var $mainContainer = $('<div />', { 'class': 'main_container' });
-    for (var i = 0; i < this.slides.length; i++) {
-      var slide = this.slides[i];
-
-      var $slideNode = $('<div />', { 'class': 'testimonial_slide' });
-      $slideNode.append(this.createQuoteNode(slide));
-      $slideNode.append(this.createAuthorFotoNode(slide));
-
-      if (i !== 0) {
-        this.hideSlide($slideNode);
-      }
-      $mainContainer.append($slideNode);
+    for (var i = 0; i < this.dataArr.length; i++) {
+      var data = this.dataArr[i];
+      var $slide = this.createSlide(data);
+      this.$slides.push($slide);
     }
-    this.$container.append($mainContainer);
+  },
+
+  createSlide: function(data) {
+    var $slide = $('<div />', { 'class': 'testimonial_slide' });
+    $slide.append(this.createQuoteNode(data));
+    $slide.append(this.createAuthorFotoNode(data));
+    return $slide;
   },
 
   indexing: function() {
