@@ -262,9 +262,10 @@ TestimonialSlide.prototype = {
   },
 
   hideSlide: function() {
-    this.$slide.attr('style', 'display: none; \
-      opacity: 0; \
-      margin-left: -' + this.options.distance + 'px');
+    /*jshint multistr: true */
+    var styleVal = 'display: none; opacity: 0; \
+      margin-left: -' + this.options.distance + 'px';
+    this.$slide.attr('style', styleVal);
   },
 
   height: function() {
