@@ -5,23 +5,30 @@
  * Copyright 2014, MIT License
  */
 
-Testimonial = function($container) {
-  this.settings = {};
+Testimonial = function($container, options) {
+  this.pluginOptions = {};
   this.$slides = [];
   this.dataArr = [];
   this.currentSlideIndex = 0;
   this.$container = $container;
   this.$slidesWrapper = $('<div />', { 'class': 'main_container' });
 
+
+  this.createOptions(options);
   this.parseDomTree();
   this.createSlides();
   this.slideRendering();
   this.createInfrastructure();
+
+  if (this.pluginOptions.autostart) {
+    this.start();
+  }
 };
 
 Testimonial.prototype = {
   start: function() {
-    this.timerId = setInterval(function() { testimonial.next(); }, 4000);
+    this.timerId = setInterval(function() { testimonial.next(); },
+      this.pluginOptions.timeout);
   },
 
   stop: function() {
@@ -43,6 +50,19 @@ Testimonial.prototype = {
     this.resizePluginContainer();
 
     this.start();
+  },
+
+  createOptions: function(options) {
+    var defaultOptions = this.getDefaultOptions();
+    this.pluginOptions = $.extend(defaultOptions, options);
+  },
+
+  getDefaultOptions: function() {
+    var defaultOptions = {
+      timeout: 7000,
+      autostart: true
+    };
+    return defaultOptions;
   },
 
   slideRendering: function() {
