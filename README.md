@@ -52,3 +52,6 @@ var testimonial = new Testimonial($container, options);
 
 ## Author
 - __Aleksey Leshko__, _[github](https://github.com/AlekseyLeshko), [linkedin](http://ru.linkedin.com/pub/aleksey-leshko/71/780/b69)_
+
+## License
+Copyright (c) 2014 Aleksey Leshko Licensed under the The MIT License (MIT)
