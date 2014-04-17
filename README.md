@@ -43,3 +43,6 @@ var $container = $('.testimonial_slider');
 var options = { ... };
 var testimonial = new Testimonial($container, options);
 ```
+## Config Options
+- __timeout__, type: Number, default: 700
+- __auto__, type: Boolean, default: true
