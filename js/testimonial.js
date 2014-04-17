@@ -15,8 +15,8 @@ Testimonial = function($container) {
 
   this.parseDomTree();
   this.createSlides();
-  this.createInfrastructure();
   this.slideRendering();
+  this.createInfrastructure();
 };
 
 Testimonial.prototype = {
@@ -33,6 +33,7 @@ Testimonial.prototype = {
 
     currentSlide.animateHide();
     nextSlide.animateShow();
+    this.resize();
   },
 
   slideRendering: function() {
@@ -64,12 +65,20 @@ Testimonial.prototype = {
   createInfrastructure: function() {
     this.$container.append(this.$slidesWrapper);
     this.createButtonNext();
+    this.resize();
   },
 
   createButtonNext: function() {
-    var $button = $('<div />', { 'class': 'next_slide' });
-    $button.click(function() { testimonial.next(); });
-    this.$container.append($button);
+    this.$buttonNext = $('<div />', { 'class': 'next_slide' });
+    this.$buttonNext.click(function() { testimonial.next(); });
+    this.$container.append(this.$buttonNext);
+  },
+
+  resize: function() {
+    var indents = 20;
+    var slideHeight = this.$slides[this.currentSlideIndex].height();
+
+    this.$container.height(slideHeight + indents);
   },
 
   indexing: function() {
@@ -209,6 +218,10 @@ TestimonialSlide.prototype = {
 
   hideSlide: function() {
     this.$slide.attr('style', 'display: none; opacity: 0; margin-left: -250px');
+  },
+
+  height: function() {
+    return this.$slide.height();
   },
 
   getNode: function() {
