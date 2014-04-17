@@ -42,7 +42,6 @@ a:hover {
   background-image: url("../img/arrow_right.png");
   background-repeat: no-repeat;
   background-position: center center;
-  zoom: 1;
 }
 
 .testimonial_slider .next_slide:hover {
