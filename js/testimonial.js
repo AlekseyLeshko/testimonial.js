@@ -26,6 +26,7 @@ Testimonial.prototype = {
 
   stop: function() {
     clearInterval(this.timerId);
+    this.timerId = undefined;
   },
 
   next: function() {
