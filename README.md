@@ -46,3 +46,6 @@ var testimonial = new Testimonial($container, options);
 ## Config Options
 - __timeout__, type: Number, default: 700
 - __auto__, type: Boolean, default: true
+
+## Author
+- __Aleksey Leshko__, _[github](https://github.com/AlekseyLeshko), [linkedin](http://ru.linkedin.com/pub/aleksey-leshko/71/780/b69)_
