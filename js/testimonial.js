@@ -69,9 +69,9 @@ Testimonial.prototype = {
   },
 
   createButtonNext: function() {
-    this.$buttonNext = $('<div />', { 'class': 'next_slide' });
-    this.$buttonNext.click(function() { testimonial.next(); });
-    this.$container.append(this.$buttonNext);
+    var $buttonNext = $('<div />', { 'class': 'next_slide' });
+    $buttonNext.click(function() { testimonial.next(); });
+    this.$container.append($buttonNext);
   },
 
   resizePluginContainer: function() {
