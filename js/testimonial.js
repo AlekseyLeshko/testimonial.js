@@ -165,10 +165,18 @@ TestimonialSlide = function(data) {
   this.data = data;
   this.$slide = $('<div />', { 'class': 'testimonial_slide' });
 
+  this.createOptions();
   this.createSlide();
 };
 
 TestimonialSlide.prototype = {
+  createOptions: function() {
+    this.options = {
+      duration: 750,
+      distance: 250
+    };
+  },
+
   createSlide: function() {
     this.$slide.append(this.createQuoteNode());
     this.$slide.append(this.createAuthorFotoNode());
@@ -236,17 +244,23 @@ TestimonialSlide.prototype = {
   animateHide: function() {
     var self = this;
 
-    this.$slide.animate({ "margin-left": "+=250px", opacity: "0" }, 750, function() {
-      self.hideSlide();
-    });
+    this.$slide.animate({ "margin-left": "+=" + this.options.distance + "px", opacity: "0" },
+      this.options.duration,
+      function() {
+        self.hideSlide();
+      }
+    );
   },
 
   animateShow: function() {
-    this.$slide.show().animate({ "margin-left": "+=250px", opacity: "1" }, 1500);
+    this.$slide.show().animate({ "margin-left": "+=" + this.options.distance + "px", opacity: "1" },
+      this.options.duration * 2);
   },
 
   hideSlide: function() {
-    this.$slide.attr('style', 'display: none; opacity: 0; margin-left: -250px');
+    this.$slide.attr('style', 'display: none; \
+      opacity: 0; \
+      margin-left: -' + this.options.distance + 'px');
   },
 
   height: function() {
