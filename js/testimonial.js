@@ -33,7 +33,7 @@ Testimonial.prototype = {
 
     currentSlide.animateHide();
     nextSlide.animateShow();
-    this.resize();
+    this.resizePluginContainer();
   },
 
   slideRendering: function() {
@@ -65,7 +65,7 @@ Testimonial.prototype = {
   createInfrastructure: function() {
     this.$container.append(this.$slidesWrapper);
     this.createButtonNext();
-    this.resize();
+    this.resizePluginContainer();
   },
 
   createButtonNext: function() {
@@ -74,7 +74,7 @@ Testimonial.prototype = {
     this.$container.append(this.$buttonNext);
   },
 
-  resize: function() {
+  resizePluginContainer: function() {
     var indents = 20;
     var slideHeight = this.$slides[this.currentSlideIndex].height();
 
