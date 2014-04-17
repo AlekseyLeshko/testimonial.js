@@ -21,6 +21,7 @@ Testimonial = function($container) {
 
 Testimonial.prototype = {
   start: function() {
+    this.timerId = setInterval(function() { testimonial.next(); }, 7000);
   },
 
   stop: function() {
