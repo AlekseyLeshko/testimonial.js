@@ -21,7 +21,7 @@ Testimonial = function($container) {
 
 Testimonial.prototype = {
   start: function() {
-    this.timerId = setInterval(function() { testimonial.next(); }, 7000);
+    this.timerId = setInterval(function() { testimonial.next(); }, 4000);
   },
 
   stop: function() {
@@ -30,6 +30,10 @@ Testimonial.prototype = {
   },
 
   next: function() {
+    if (this.timerId !== undefined) {
+      this.stop();
+    }
+
     var currentSlide = this.$slides[this.currentSlideIndex];
     this.indexing();
     var nextSlide = this.$slides[this.currentSlideIndex];
@@ -37,6 +41,8 @@ Testimonial.prototype = {
     currentSlide.animateHide();
     nextSlide.animateShow();
     this.resizePluginContainer();
+
+    this.start();
   },
 
   slideRendering: function() {
