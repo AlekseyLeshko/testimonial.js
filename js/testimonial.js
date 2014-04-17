@@ -6,26 +6,30 @@
  */
 
 Testimonial = function($container, options) {
+  this.$container = $container;
   this.pluginOptions = {};
+
   this.$slides = [];
   this.dataArr = [];
   this.currentSlideIndex = 0;
-  this.$container = $container;
-  this.$slidesWrapper = $('<div />', { 'class': 'main_container' });
 
-
-  this.createOptions(options);
-  this.parseDomTree();
-  this.createSlides();
-  this.slideRendering();
-  this.createInfrastructure();
-
-  if (this.pluginOptions.autostart) {
-    this.start();
-  }
+  this.initPlugin(options);
 };
 
 Testimonial.prototype = {
+  initPlugin: function(options) {
+    this.createOptions(options);
+    this.parseDomTree();
+    this.createSlides();
+    this.createInfrastructure();
+    this.slideRendering();
+    this.resizePluginContainer();
+
+    if (this.pluginOptions.autostart) {
+      this.start();
+    }
+  },
+
   start: function() {
     this.timerId = setInterval(function() { testimonial.next(); },
       this.pluginOptions.timeout);
@@ -92,9 +96,9 @@ Testimonial.prototype = {
   },
 
   createInfrastructure: function() {
+    this.$slidesWrapper = $('<div />', { 'class': 'main_container' });
     this.$container.append(this.$slidesWrapper);
     this.createButtonNext();
-    this.resizePluginContainer();
   },
 
   createButtonNext: function() {
