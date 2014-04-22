@@ -31,7 +31,9 @@ Testimonial.prototype = {
   },
 
   start: function() {
-    this.timerId = setInterval(function() { testimonial.next(); },
+    this.timerId = setInterval(function() {
+        testimonial.next();
+      },
       this.pluginOptions.timeout);
   },
 
@@ -96,14 +98,20 @@ Testimonial.prototype = {
   },
 
   createInfrastructure: function() {
-    this.$slidesWrapper = $('<div />', { 'class': 'main_container' });
+    this.$slidesWrapper = $('<div />', {
+      'class': 'main_container'
+    });
     this.$container.append(this.$slidesWrapper);
     this.createButtonNext();
   },
 
   createButtonNext: function() {
-    var $buttonNext = $('<div />', { 'class': 'next_slide' });
-    $buttonNext.click(function() { testimonial.next(); });
+    var $buttonNext = $('<div />', {
+      'class': 'next_slide'
+    });
+    $buttonNext.click(function() {
+      testimonial.next();
+    });
     this.$container.append($buttonNext);
   },
 
@@ -146,7 +154,8 @@ Parser.prototype = {
   parseAuthorNode: function($authorNode) {
     var $fullNameNode = $authorNode.children('.full_name');
     var $companyNode = $authorNode.children('.company');
-    var slide = { fullName: $fullNameNode.text().trim(),
+    var slide = {
+      fullName: $fullNameNode.text().trim(),
       authorHref: this.getAttrHrefOrDefault($fullNameNode.children('a')),
       company: $companyNode.text().trim(),
       companyHref: this.getAttrHrefOrDefault($companyNode.children('a')),
@@ -167,7 +176,9 @@ Parser.prototype = {
 
 TestimonialSlide = function(data) {
   this.data = data;
-  this.$slide = $('<div />', { 'class': 'testimonial_slide' });
+  this.$slide = $('<div />', {
+    'class': 'testimonial_slide'
+  });
 
   this.createOptions();
   this.createSlide();
@@ -187,7 +198,9 @@ TestimonialSlide.prototype = {
   },
 
   createQuoteNode: function() {
-    var $quoteNode = $('<div />', { 'class': 'quote' });
+    var $quoteNode = $('<div />', {
+      'class': 'quote'
+    });
 
     $quoteNode.append(this.createQuotationMark());
     $quoteNode.append(this.createTextNode());
@@ -197,43 +210,56 @@ TestimonialSlide.prototype = {
   },
 
   createTextNode: function() {
-    var $text = $('<div />', { 'class': 'text'});
+    var $text = $('<div />', {
+      'class': 'text'
+    });
     $text.text(this.data.quote);
     return $text;
   },
 
   createQuotationMark: function() {
-    var $quotationMark = $('<div />', { 'class': 'quotation_mark' });
+    var $quotationMark = $('<div />', {
+      'class': 'quotation_mark'
+    });
     return $quotationMark;
   },
 
   createQuotationMarkInverted: function() {
-    var $quotationMarkInverted = $('<div />', { 'class': 'quotation_mark_inverted' });
+    var $quotationMarkInverted = $('<div />', {
+      'class': 'quotation_mark_inverted'
+    });
     return $quotationMarkInverted;
   },
 
   createSignatureNode: function() {
-    var $signatureNode = $('<div />', { 'class': 'signature' });
+    var $signatureNode = $('<div />', {
+      'class': 'signature'
+    });
     $signatureNode.append(this.createAuthorNode());
     $signatureNode.append(this.createCompanyNode());
     return $signatureNode;
   },
 
   createAuthorNode: function() {
-    var $authorNode = $('<div />', { 'class': 'author' });
+    var $authorNode = $('<div />', {
+      'class': 'author'
+    });
     $authorNode.text('- ');
     $authorNode.append(this.createLinkNode(this.data.authorHref, this.data.fullName));
     return $authorNode;
   },
 
   createCompanyNode: function() {
-    var $companyNode = $('<div />', { 'class': 'company' });
+    var $companyNode = $('<div />', {
+      'class': 'company'
+    });
     $companyNode.append(this.createLinkNode(this.data.companyHref, this.data.company));
     return $companyNode;
   },
 
   createLinkNode: function(href, text) {
-    var $linkNode = $('<a />', { target: '_blank',
+    var $linkNode = $('<a />', {
+      target: '_blank',
       href: href,
       text: text
     });
@@ -241,14 +267,20 @@ TestimonialSlide.prototype = {
   },
 
   createAuthorFotoNode: function() {
-    var $authorFoto = $('<img />', { 'class': 'author_foto', 'src': this.data.fotoSrc});
+    var $authorFoto = $('<img />', {
+      'class': 'author_foto',
+      'src': this.data.fotoSrc
+    });
     return $authorFoto;
   },
 
   animateHide: function() {
     var self = this;
 
-    this.$slide.animate({ "margin-left": "+=" + this.options.distance + "px", opacity: "0" },
+    this.$slide.animate({
+        "margin-left": "+=" + this.options.distance + "px",
+        opacity: "0"
+      },
       this.options.duration,
       function() {
         self.hideSlide();
@@ -257,7 +289,10 @@ TestimonialSlide.prototype = {
   },
 
   animateShow: function() {
-    this.$slide.show().animate({ "margin-left": "+=" + this.options.distance + "px", opacity: "1" },
+    this.$slide.show().animate({
+        "margin-left": "+=" + this.options.distance + "px",
+        opacity: "1"
+      },
       this.options.duration * 2);
   },
 
