@@ -81,7 +81,7 @@ Go to [link](http://localhost:8001/test/index.html)
 * [jQuery](http://jquery.com/), version >= [1.4.0](http://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js)
 
 # Author
-__Aleksey Leshko__, _[github](https://github.com/AlekseyLeshko), [linkedin](http://ru.linkedin.com/pub/aleksey-leshko/71/780/b69)_
+__Aleksey Leshko__, _[github](https://github.com/AlekseyLeshko), [linkedin](http://ru.linkedin.com/pub/aleksey-leshko/71/780/b69), [![endorse](https://api.coderwall.com/alekseyleshko/endorsecount.png)](https://coderwall.com/alekseyleshko)_
 
 # License
 Copyright (c) 2014 Aleksey Leshko Licensed under the The MIT License (MIT)
