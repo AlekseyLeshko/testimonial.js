@@ -8,20 +8,20 @@ Create div element with 'testimonial_slider' class name attr. Fill div slides.
 <div class="testimonial_slider">
   <div class="slide">
     <div class="quote">
-      Text
+      The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
     </div>
     <div class="author">
       <div class="full_name">
-        <a href="http://example.com/" target="_blank">
-          Кафка Франц
+        <a href="https://github.com/AlekseyLeshko">
+          Aleksey Leshko
         </a>
       </div>
       <div class="company">
-        <a href="http://example.com/" target="_blank">
+        <a href="https://github.com/AlekseyLeshko">
           Company
         </a>
       </div>
-      <img class="foto" src="img/author_logo.png">
+      <img class="foto" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
     </div>
   </div>
   <div class="slide">
