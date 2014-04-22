@@ -1,10 +1,8 @@
-testimonial.js
-==============
+# Testimonial.js
 [![Code Climate](https://codeclimate.com/github/AlekseyLeshko/testimonial.js.png)](https://codeclimate.com/github/AlekseyLeshko/testimonial.js)
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/AlekseyLeshko/testimonial.js/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
-## Usage
-
+# Usage
 Create div element with 'testimonial_slider' class name attr. Fill div slides.
 ```html
 <div class="testimonial_slider">
@@ -43,7 +41,7 @@ var $container = $('.testimonial_slider');
 var options = { ... };
 var testimonial = new Testimonial($container, options);
 ```
-## Config Options
+# Config Options
 - __timeout__, type: Number, default: 700
 - __auto__, type: Boolean, default: true
 
@@ -62,11 +60,11 @@ $ servedir ./ 8001
 ```
 Go to [link](http://localhost:8001/test/index.html)
 
-## Dependence
+# Dependence
 * [jQuery](http://jquery.com/), version >= 1.6.4
 
-## Author
+# Author
 __Aleksey Leshko__, _[github](https://github.com/AlekseyLeshko), [linkedin](http://ru.linkedin.com/pub/aleksey-leshko/71/780/b69)_
 
-## License
+# License
 Copyright (c) 2014 Aleksey Leshko Licensed under the The MIT License (MIT)
