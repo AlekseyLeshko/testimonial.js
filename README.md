@@ -61,7 +61,7 @@ $ servedir ./ 8001
 Go to [link](http://localhost:8001/test/index.html)
 
 # Dependence
-* [jQuery](http://jquery.com/), version >= 1.4.0
+* [jQuery](http://jquery.com/), version >= [1.4.0](http://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js)
 
 # Author
 __Aleksey Leshko__, _[github](https://github.com/AlekseyLeshko), [linkedin](http://ru.linkedin.com/pub/aleksey-leshko/71/780/b69)_
