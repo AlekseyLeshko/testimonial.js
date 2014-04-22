@@ -47,6 +47,21 @@ var testimonial = new Testimonial($container, options);
 - __timeout__, type: Number, default: 700
 - __auto__, type: Boolean, default: true
 
+# Testing
+### To run tests (in browser):
+Use [servedir](https://github.com/remy/servedir)
+
+[Install servedir](https://github.com/remy/servedir#installation)
+```shell
+$ npm install servedir -g
+```
+And run
+```
+$ cd ./testimonial.js
+$ servedir ./ 8001
+```
+Go to [link](http://localhost:8001/test/index.html)
+
 ## Dependence
 * [jQuery](http://jquery.com/), version >= 1.6.4
 
