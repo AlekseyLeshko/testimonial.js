@@ -16,10 +16,3 @@ test('Testimonial constructor', function() {
   ok(testimonial.$slides.length == 3, 'Count slides ok');
   ok(testimonial.currentSlideIndex == 0, 'Current index ok');
 });
-
-test('Test example', function() {
-  var $container = $('#qunit-fixture .testimonial_slider').first();
-  console.log($container.html());
-
-  equal(1, 1, '1 == 1')
-});
