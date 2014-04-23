@@ -1,16 +1,25 @@
 {
   "name": "testimonial.js",
-  "version": "0.01",
+  "version": "0.0.1",
+  "description": "Testimonial.js description",
   "author": {
     "name": "Aleksey Leshko",
     "url": "https://github.com/AlekseyLeshko"
   },
+  "main": "./js/testimonial.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/AlekseyLeshko/testimonial.js"
   },
+  "scripts": {
+    "test": "grunt test && node test/node-index.js"
+  },
+  "dependencies": {},
   "devDependencies": {
-    "grunt": "~0.4.0",
+    "qunit": "~0.5.15",
+    "grunt": "~0.4.1",
+    "grunt-contrib-qunit": "~0.2.1",
+    "qunitjs": "~1.11.0"
   },
   "license": "MIT",
   "engines": {
