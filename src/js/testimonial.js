@@ -1,10 +1,3 @@
-/**
- * testimonial.js
- *
- * Aleksey Leshko
- * Copyright 2014, MIT License
- */
-
 Testimonial = function($container, options) {
   this.$container = $container;
   this.pluginOptions = {};
