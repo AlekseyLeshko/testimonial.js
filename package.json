@@ -6,6 +6,7 @@
     "name": "Aleksey Leshko",
     "url": "https://github.com/AlekseyLeshko"
   },
+  "homepage": "https://github.com/AlekseyLeshko/testimonial.js",
   "main": "./js/testimonial.js",
   "repository": {
     "type": "git",
@@ -19,9 +20,13 @@
     "grunt": "~0.4.2",
     "grunt-contrib-qunit": "~0.4.0",
     "qunitjs": "~1.14.0",
-    "grunt-contrib-concat": "~0.4.0"
+    "grunt-contrib-concat": "~0.4.0",
+    "grunt-contrib-uglify": "~0.4.0"
   },
-  "license": "MIT",
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/AlekseyLeshko/testimonial.js/blob/master/LICENSE"
+  },
   "engines": {
     "node": ">=0.8"
   }
