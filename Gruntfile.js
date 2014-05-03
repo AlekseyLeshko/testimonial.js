@@ -2,6 +2,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-clean');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -13,8 +14,8 @@ module.exports = function (grunt) {
             ' * Copyright <%= grunt.template.today("yyyy") %>\n' +
             ' * Licensed under <%= pkg.license.type %> (<%= pkg.license.url %>)\n' +
             ' */\n',
-    qunit: {
-      all: ['test/index.html']
+    clean: {
+      dist: ['dist']
     },
     concat: {
       options: {
@@ -36,9 +37,12 @@ module.exports = function (grunt) {
         }
       }
     },
+    qunit: {
+      all: ['test/index.html']
+    },
   });
 
   grunt.registerTask('test', ['qunit']);
-  grunt.registerTask('default', ['test']);
-  grunt.registerTask('build', ['concat', 'uglify']);
+  grunt.registerTask('build', ['clean', 'concat', 'uglify']);
+  grunt.registerTask('default', ['test', 'build']);
 };
