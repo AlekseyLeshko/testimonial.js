@@ -3,6 +3,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -37,12 +38,34 @@ module.exports = function (grunt) {
         }
       }
     },
+    cssmin: {
+      combine: {
+        files: {
+          'dist/css/<%= pluginFileName %>.css': ['src/css/*.css']
+        }
+      },
+      add_banner: {
+        options: {
+          banner: '<%= banner %>'
+        },
+        files: {
+          'dist/css/<%= pluginFileName %>.css': ['dist/css/<%= pluginFileName %>.css']
+        }
+      },
+      minify: {
+        expand: true,
+        cwd: 'dist/css/',
+        src: ['*.css', '!*.min.css'],
+        dest: 'dist/css/',
+        ext: '.min.css'
+      }
+    },
     qunit: {
       all: ['test/index.html']
     },
   });
 
   grunt.registerTask('test', ['qunit']);
-  grunt.registerTask('build', ['clean', 'concat', 'uglify']);
+  grunt.registerTask('build', ['clean', 'concat', 'uglify', 'cssmin']);
   grunt.registerTask('default', ['test', 'build']);
 };
