@@ -4,6 +4,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-imagemin');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -60,12 +61,22 @@ module.exports = function (grunt) {
         ext: '.min.css'
       }
     },
+    imagemin: {
+      dynamic: {
+        files: [{
+          expand: true,
+          cwd: 'src/img/',
+          src: ['*.png'],
+          dest: 'dist/img/'
+        }]
+      }
+    },
     qunit: {
       all: ['test/index.html']
     },
   });
 
   grunt.registerTask('test', ['qunit']);
-  grunt.registerTask('build', ['clean', 'concat', 'uglify', 'cssmin']);
+  grunt.registerTask('build', ['clean', 'concat', 'uglify', 'cssmin', 'imagemin']);
   grunt.registerTask('default', ['test', 'build']);
 };
