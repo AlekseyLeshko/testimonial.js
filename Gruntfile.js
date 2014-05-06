@@ -77,6 +77,6 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', ['qunit']);
-  grunt.registerTask('build', ['clean', 'concat', 'uglify', 'cssmin', 'imagemin']);
-  grunt.registerTask('default', ['test', 'build']);
+  grunt.registerTask('build', ['test', 'clean', 'concat', 'uglify', 'cssmin', 'imagemin']);
+  grunt.registerTask('default', ['build']);
 };
