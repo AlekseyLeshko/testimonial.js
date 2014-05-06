@@ -13,8 +13,7 @@
     "url": "https://github.com/AlekseyLeshko/testimonial.js"
   },
   "scripts": {
-    "test": "grunt test",
-    "ci": "grunt && grunt coveralls"
+    "ci": "grunt ci"
   },
   "dependencies": {},
   "devDependencies": {

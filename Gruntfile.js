@@ -106,7 +106,9 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('test', ['qunit', 'coveralls']);
+  grunt.registerTask('test', ['qunit']);
   grunt.registerTask('build', ['test', 'clean', 'concat', 'uglify', 'cssmin', 'imagemin']);
   grunt.registerTask('default', ['build']);
+  grunt.registerTask('ci', ['build', 'coveralls']);
+
 };
