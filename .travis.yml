@@ -4,4 +4,4 @@ node_js:
 before_script:
   - npm install -g grunt-cli
 script:
-  - npm run-script ci_build
+  - npm run-script ci
