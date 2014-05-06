@@ -88,7 +88,7 @@ module.exports = function (grunt) {
       ]
     },
     coveralls: {
-      options: {
+      grunt_coverage: {
         force: true,
         src: 'coverage-results/lcov/lcov.info'
       }
