@@ -5,6 +5,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
+  grunt.loadNpmTasks('grunt-contrib-connect');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -74,6 +75,15 @@ module.exports = function (grunt) {
     qunit: {
       all: ['test/index.html']
     },
+    connect: {
+      server: {
+        options: {
+          port: 9001,
+          base: '.'
+        },
+        keepalive: true
+      },
+    }
   });
 
   grunt.registerTask('test', ['qunit']);
