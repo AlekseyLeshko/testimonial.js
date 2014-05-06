@@ -19,7 +19,7 @@ module.exports = function (grunt) {
             ' * Licensed under <%= pkg.license.type %> (<%= pkg.license.url %>)\n' +
             ' */\n',
     clean: {
-      dist: ['dist', 'coverage-results']
+      dist: ['dist']
     },
     concat: {
       options: {
