@@ -1,12 +1,5 @@
 module.exports = function (grunt) {
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.loadNpmTasks('grunt-contrib-imagemin');
-  grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-coveralls');
-  grunt.loadNpmTasks('grunt-qunit-istanbul');
+  require('load-grunt-tasks')(grunt);
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -104,11 +97,13 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('test', ['qunit', 'coveralls']);
+  grunt.registerTask('test', ['qunit']);
+  grunt.registerTask('coverage', ['coveralls']);
   grunt.registerTask('dist-js', ['concat', 'uglify']);
   grunt.registerTask('dist-img', ['imagemin']);
   grunt.registerTask('dist-css', ['cssmin']);
   grunt.registerTask('dist', ['dist-js', 'dist-css', 'dist-img']);
   grunt.registerTask('build', ['test', 'clean', 'dist']);
+  grunt.registerTask('ci', ['test', 'coverage', 'clean', 'dist']);
   grunt.registerTask('default', ['build']);
 };
