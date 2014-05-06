@@ -104,9 +104,11 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('test', ['qunit']);
-  grunt.registerTask('build', ['test', 'clean', 'concat', 'uglify', 'cssmin', 'imagemin']);
+  grunt.registerTask('test', ['qunit', 'coveralls']);
+  grunt.registerTask('dist-js', ['concat', 'uglify']);
+  grunt.registerTask('dist-img', ['imagemin']);
+  grunt.registerTask('dist-css', ['cssmin']);
+  grunt.registerTask('dist', ['dist-js', 'dist-css', 'dist-img']);
+  grunt.registerTask('build', ['test', 'clean', 'dist']);
   grunt.registerTask('default', ['build']);
-  grunt.registerTask('ci', ['build', 'coveralls']);
-
 };
