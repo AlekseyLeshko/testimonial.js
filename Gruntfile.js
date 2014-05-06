@@ -1,11 +1,12 @@
 module.exports = function (grunt) {
-  grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-coveralls');
+  grunt.loadNpmTasks('grunt-qunit-istanbul');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -18,7 +19,7 @@ module.exports = function (grunt) {
             ' * Licensed under <%= pkg.license.type %> (<%= pkg.license.url %>)\n' +
             ' */\n',
     clean: {
-      dist: ['dist']
+      dist: ['dist', 'coverage-results']
     },
     concat: {
       options: {
@@ -73,7 +74,26 @@ module.exports = function (grunt) {
       }
     },
     qunit: {
-      all: ['test/index.html']
+      options: {
+        coverage: {
+          src: [ 'src/js/*.js' ],
+          instrumentedFiles: 'temp/',
+          htmlReport: 'coverage-results/html/',
+          lcovReport: 'coverage-results/lcov',
+          linesThresholdPct: 70
+        }
+      },
+      qunit: [
+        'test/index.html'
+      ]
+    },
+    coveralls: {
+      options: {
+        force: true
+      },
+      all: {
+        src: 'coverage-results/lcov/lcov.info'
+      }
     },
     connect: {
       server: {
@@ -86,7 +106,7 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('test', ['qunit']);
+  grunt.registerTask('test', ['qunit', 'coveralls']);
   grunt.registerTask('build', ['test', 'clean', 'concat', 'uglify', 'cssmin', 'imagemin']);
   grunt.registerTask('default', ['build']);
 };
