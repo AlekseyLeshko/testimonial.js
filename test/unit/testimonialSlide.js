@@ -63,10 +63,12 @@ test('Create options', function() {
 
 test('Get DOM node', function() {
   var testId = 'testId';
-  var domNode = $('<div />', { id: testId });
+  var domNode = $('<div />', {
+    id: testId
+  });
   TestimonialSlide.prototype.$domNode = domNode;
   var $expectedDomNode = TestimonialSlide.prototype.getDomNode();
-  ok($expectedDomNode.attr('id') === testId , '');
+  ok($expectedDomNode.attr('id') === testId, '');
 });
 
 test('Create empty dom node', function() {
@@ -80,7 +82,9 @@ test('Create empty dom node', function() {
 
 test('Height dom node', function() {
   var height = 2014;
-  var $domNode = $('<div />', { height: height });
+  var $domNode = $('<div />', {
+    height: height
+  });
   TestimonialSlide.prototype.$domNode = $domNode;
   ok(TestimonialSlide.prototype.height() === height, '');
 });
@@ -96,14 +100,14 @@ test('Hide slide', function() {
   ok($domNode.css('margin-left') === distanceVal, '');
 });
 
-asyncTest('Animate show', function () {
+asyncTest('Animate show', function() {
   TestimonialSlide.prototype.createOptions();
   var duration = (TestimonialSlide.prototype.options.duration * 2) + 50;
   TestimonialSlide.prototype.createStandardDomNode();
   TestimonialSlide.prototype.hideSlide();
 
   TestimonialSlide.prototype.animateShow();
-  setTimeout(function () {
+  setTimeout(function() {
     var $domNode = TestimonialSlide.prototype.$domNode;
     ok($domNode.css('display') === '', 'Slide is show');
     ok(parseInt($domNode.css('opacity')) === 1, 'Slide opacity is not 0');
@@ -113,14 +117,14 @@ asyncTest('Animate show', function () {
   }, duration);
 });
 
-asyncTest('Animate show', function () {
+asyncTest('Animate show', function() {
   TestimonialSlide.prototype.createOptions();
   var duration = TestimonialSlide.prototype.options.duration + 50;
   var distanceVal = '-' + TestimonialSlide.prototype.options.distance + 'px';
   TestimonialSlide.prototype.createStandardDomNode();
 
   TestimonialSlide.prototype.animateHide();
-  setTimeout(function () {
+  setTimeout(function() {
     var $domNode = TestimonialSlide.prototype.$domNode;
 
     ok($domNode.css('display') === 'none', 'Slidedisplay is none');
@@ -166,7 +170,6 @@ test('Create author node', function() {
   var $node = TestimonialSlide.prototype.createAuthorNode();
   ok($node.prop('nodeName') === 'DIV', 'Author dom node is div');
   ok($node.attr('class') === 'author', 'Css class dom node is correct');
-  console.log($node.text());
   ok($node.text() === '- ' + dataForSlide.fullName, 'Text in node is correct');
 
   var $link = $node.children().first();
