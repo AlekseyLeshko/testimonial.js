@@ -112,3 +112,20 @@ asyncTest('Animate show', function () {
     start();
   }, duration);
 });
+
+asyncTest('Animate show', function () {
+  TestimonialSlide.prototype.createOptions();
+  var duration = TestimonialSlide.prototype.options.duration + 50;
+  var distanceVal = '-' + TestimonialSlide.prototype.options.distance + 'px';
+  TestimonialSlide.prototype.createStandardDomNode();
+
+  TestimonialSlide.prototype.animateHide();
+  setTimeout(function () {
+    var $domNode = TestimonialSlide.prototype.$domNode;
+
+    ok($domNode.css('display') === 'none', 'Slidedisplay is none');
+    ok($domNode.css('opacity') === '0', 'Slide opacity is 0');
+    ok($domNode.css('margin-left') === distanceVal, 'Slide margin-left is ' + distanceVal);
+    start();
+  }, duration);
+});
