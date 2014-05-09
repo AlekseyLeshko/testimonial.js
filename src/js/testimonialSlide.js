@@ -1,8 +1,5 @@
 TestimonialSlide = function(data) {
   this.data = this.createData(data);
-  this.$domNode = $('<div />', {
-    'class': 'testimonial_slide'
-  });
 
   this.createOptions();
   this.createSlide();
@@ -25,13 +22,21 @@ TestimonialSlide.prototype = {
   createOptions: function() {
     this.options = {
       duration: 750,
-      distance: 250
+      distance: 250,
+      cssClass: 'testimonial_slide'
     };
   },
 
   createSlide: function() {
+    this.createStandardDomNode();
     this.$domNode.append(this.createQuoteNode());
     this.$domNode.append(this.createAuthorFotoNode());
+  },
+
+  createStandardDomNode: function() {
+    this.$domNode = $('<div />', {
+      'class': this.options.cssClass
+    });
   },
 
   createQuoteNode: function() {
