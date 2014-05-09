@@ -139,10 +139,12 @@ TestimonialSlide.prototype = {
   },
 
   hideSlide: function() {
-    /*jshint multistr: true */
-    var styleVal = 'display: none; opacity: 0; \
-      margin-left: -' + this.options.distance + 'px';
-    this.$domNode.attr('style', styleVal);
+    var css = {
+      display: 'none',
+      opacity: 0,
+      'margin-left': '-' + this.options.distance + 'px'
+    };
+    this.$domNode.css(css);
   },
 
   height: function() {
