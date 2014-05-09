@@ -13,3 +13,8 @@ test('Create slide with correct data', function() {
   ok(slide.data === dataForSlide, 'Slide has correct data');
   ok(slide.$slide !== undefined, 'Slide has DOM node');
 });
+
+test('Slide css class', function() {
+  var slide = new TestimonialSlide(dataForSlide);
+  ok(slide.$slide.attr('class') === 'testimonial_slide', 'New slide has correct css class');
+});
