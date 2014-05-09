@@ -190,3 +190,9 @@ test('Create signature node', function() {
   ok($children.first().attr('class') === 'author', 'Css class first child node is correct');
   ok($children.last().attr('class') === 'company', 'Css class last child node is correct');
 });
+
+test('Create quotation mark inverted', function() {
+  var $node = TestimonialSlide.prototype.createQuotationMarkInverted();
+  ok($node.prop('nodeName') === 'DIV', 'Quotation mark inverted dom node is div');
+  ok($node.attr('class') === 'quotation_mark_inverted', 'Css class dom node is correct');
+});
