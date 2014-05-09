@@ -161,3 +161,19 @@ test('Create company node', function() {
   ok($link.text() === dataForSlide.company, 'Link text is correct');
 });
 
+test('Create author node', function() {
+  TestimonialSlide.prototype.data = dataForSlide;
+  var $node = TestimonialSlide.prototype.createAuthorNode();
+  ok($node.prop('nodeName') === 'DIV', 'Author dom node is div');
+  ok($node.attr('class') === 'author', 'Css class dom node is correct');
+  console.log($node.text());
+  ok($node.text() === '- ' + dataForSlide.fullName, 'Text in node is correct');
+
+  var $link = $node.children().first();
+  ok($link.prop('nodeName') === 'A', 'Present link in author node');
+  ok($link.attr('target') === '_blank', 'Link target is blank');
+  ok($link.attr('href') === dataForSlide.authorHref, 'Link href is correct');
+  ok($link.text() === dataForSlide.fullName, 'Link text is correct');
+});
+
+
