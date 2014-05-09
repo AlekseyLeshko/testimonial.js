@@ -202,3 +202,10 @@ test('Create quotation mark', function() {
   ok($node.prop('nodeName') === 'DIV', 'Quotation mark dom node is div');
   ok($node.attr('class') === 'quotation_mark', 'Css class dom node is correct');
 });
+
+test('Create text node', function() {
+  TestimonialSlide.prototype.data = dataForSlide;
+  var $node = TestimonialSlide.prototype.createTextNode();
+  ok($node.prop('nodeName') === 'DIV', 'Signature dom node is div');
+  ok($node.attr('class') === 'text', 'Css class dom node is correct');
+});
