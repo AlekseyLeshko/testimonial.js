@@ -55,7 +55,7 @@ function compareSlideData(x, y) {
 // });
 
 test('Create options', function() {
-  var options = TestimonialSlide.prototype.createoptions();
-  ok(options.duration === 750, '');
-  ok(options.distance === 250, '');
+  TestimonialSlide.prototype.createOptions();
+  ok(TestimonialSlide.prototype.options.duration === 750, '');
+  ok(TestimonialSlide.prototype.options.distance === 250, '');
 });
