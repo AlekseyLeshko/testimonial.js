@@ -54,8 +54,16 @@ function compareSlideData(x, y) {
 //   compareSlideData(slideData, dataForSlide);
 // });
 
-test('Create options', function() {
-  TestimonialSlide.prototype.createOptions();
-  ok(TestimonialSlide.prototype.options.duration === 750, '');
-  ok(TestimonialSlide.prototype.options.distance === 250, '');
+// test('Create options', function() {
+//   TestimonialSlide.prototype.createOptions();
+//   ok(TestimonialSlide.prototype.options.duration === 750, '');
+//   ok(TestimonialSlide.prototype.options.distance === 250, '');
+// });
+
+test('Get DOM node', function() {
+  var testId = 'testId';
+  var domNode = $('<div />', { id: testId });
+  TestimonialSlide.prototype.$slide = domNode;
+  var $expectedDomNode = TestimonialSlide.prototype.getNode();
+  ok($expectedDomNode.attr('id') === testId , '');
 });
