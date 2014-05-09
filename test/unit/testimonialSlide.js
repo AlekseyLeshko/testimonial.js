@@ -78,3 +78,9 @@ function compareSlideData(x, y) {
 //   ok(cssClass === TestimonialSlide.prototype.options.cssClass, '');
 // });
 
+test('Height dom node', function() {
+  var height = 2014;
+  var $domNode = $('<div />', { height: height });
+  TestimonialSlide.prototype.$domNode = $domNode;
+  ok(TestimonialSlide.prototype.height() === height, '');
+});
