@@ -132,7 +132,7 @@ asyncTest('Animate show', function () {
 
 test('Create dom node with author foto', function() {
   TestimonialSlide.prototype.data = dataForSlide;
-  var $img = TestimonialSlide.prototype.createAuthorFotoNode();
+  var $img = TestimonialSlide.prototype.createImgAuthorFoto();
   ok($img.prop('nodeName') === 'IMG', 'Dom node is img');
   ok($img.attr('class') === 'author_foto', 'Css class dom node is correct');
   ok($img.attr('src') === dataForSlide.fotoSrc, 'Src dom node is correct');

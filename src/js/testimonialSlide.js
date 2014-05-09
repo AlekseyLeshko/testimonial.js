@@ -30,7 +30,7 @@ TestimonialSlide.prototype = {
   createSlide: function() {
     this.createStandardDomNode();
     this.$domNode.append(this.createQuoteNode());
-    this.$domNode.append(this.createAuthorFotoNode());
+    this.$domNode.append(this.createImgAuthorFoto());
   },
 
   createStandardDomNode: function() {
@@ -108,7 +108,7 @@ TestimonialSlide.prototype = {
     return $linkNode;
   },
 
-  createAuthorFotoNode: function() {
+  createImgAuthorFoto: function() {
     var $authorFoto = $('<img />', {
       'class': 'author_foto',
       'src': this.data.fotoSrc
