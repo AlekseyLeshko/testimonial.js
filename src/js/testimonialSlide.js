@@ -1,5 +1,5 @@
 TestimonialSlide = function(data) {
-  this.data = data;
+  this.data = this.createData(data);
   this.$slide = $('<div />', {
     'class': 'testimonial_slide'
   });
@@ -9,6 +9,19 @@ TestimonialSlide = function(data) {
 };
 
 TestimonialSlide.prototype = {
+  createData: function(data) {
+    var emptydata = {
+      authorHref: '',
+      company: '',
+      companyHref: '',
+      fotoSrc: '',
+      fullName: '',
+      quote: ''
+    };
+    var resultData = $.extend(emptydata, data);
+    return resultData;
+  },
+
   createOptions: function() {
     this.options = {
       duration: 750,

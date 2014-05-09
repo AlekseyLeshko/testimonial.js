@@ -8,13 +8,48 @@ var dataForSlide = {
   quote: 'quote'
 };
 
-test('Create slide with correct data', function() {
-  var slide = new TestimonialSlide(dataForSlide);
-  ok(slide.data === dataForSlide, 'Slide has correct data');
-  ok(slide.$slide !== undefined, 'Slide has DOM node');
+var emptydata = {
+  authorHref: '',
+  company: '',
+  companyHref: '',
+  fotoSrc: '',
+  fullName: '',
+  quote: ''
+};
+
+function compareSlideData(x, y) {
+  ok(x.authorHref === y.authorHref, '');
+  ok(x.company === y.company, '');
+  ok(x.companyHref === y.companyHref, '');
+  ok(x.fotoSrc === y.fotoSrc, '');
+  ok(x.fullName === y.fullName, '');
+  ok(x.quote === y.quote, '');
+}
+
+// test('Create slide with correct data', function() {
+//   var slide = new TestimonialSlide(dataForSlide);
+//   compareSlideData(slide.data, dataForSlide);
+//   ok(slide.$slide !== undefined, 'Slide has DOM node');
+// });
+
+// test('Create slide with empty data', function() {
+//   var slide = new TestimonialSlide();
+//   ok(slide.data !== undefined, 'Slide has empty data');
+//   ok(slide.$slide !== undefined, 'Slide has DOM node');
+// });
+
+// test('Slide css class', function() {
+//   var slide = new TestimonialSlide(dataForSlide);
+//   ok(slide.$slide.attr('class') === 'testimonial_slide', 'New slide has correct css class');
+// });
+
+test('Create slide data of empty data', function() {
+  var slideData = TestimonialSlide.prototype.createData();
+  ok(slideData !== undefined, 'Slide data not empty');
+  compareSlideData(slideData, emptydata);
 });
 
-test('Slide css class', function() {
-  var slide = new TestimonialSlide(dataForSlide);
-  ok(slide.$slide.attr('class') === 'testimonial_slide', 'New slide has correct css class');
+test('Create slide data of correct data', function() {
+  var slideData = TestimonialSlide.prototype.createData(dataForSlide);
+  compareSlideData(slideData, dataForSlide);
 });
