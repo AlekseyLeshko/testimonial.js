@@ -176,4 +176,9 @@ test('Create author node', function() {
   ok($link.text() === dataForSlide.fullName, 'Link text is correct');
 });
 
-
+test('Create signature node', function() {
+  TestimonialSlide.prototype.data = dataForSlide;
+  var $node = TestimonialSlide.prototype.createSignatureNode();
+  ok($node.prop('nodeName') === 'DIV', 'Signature dom node is div');
+  ok($node.attr('class') === 'signature', 'Css class dom node is correct');
+});
