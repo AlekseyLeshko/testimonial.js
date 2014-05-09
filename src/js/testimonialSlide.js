@@ -1,6 +1,6 @@
 TestimonialSlide = function(data) {
   this.data = this.createData(data);
-  this.$slide = $('<div />', {
+  this.$domElement = $('<div />', {
     'class': 'testimonial_slide'
   });
 
@@ -30,8 +30,8 @@ TestimonialSlide.prototype = {
   },
 
   createSlide: function() {
-    this.$slide.append(this.createQuoteNode());
-    this.$slide.append(this.createAuthorFotoNode());
+    this.$domElement.append(this.createQuoteNode());
+    this.$domElement.append(this.createAuthorFotoNode());
   },
 
   createQuoteNode: function() {
@@ -114,7 +114,7 @@ TestimonialSlide.prototype = {
   animateHide: function() {
     var self = this;
 
-    this.$slide.animate({
+    this.$domElement.animate({
         "margin-left": "+=" + this.options.distance + "px",
         opacity: "0"
       },
@@ -126,7 +126,7 @@ TestimonialSlide.prototype = {
   },
 
   animateShow: function() {
-    this.$slide.show().animate({
+    this.$domElement.show().animate({
         "margin-left": "+=" + this.options.distance + "px",
         opacity: "1"
       },
@@ -137,14 +137,14 @@ TestimonialSlide.prototype = {
     /*jshint multistr: true */
     var styleVal = 'display: none; opacity: 0; \
       margin-left: -' + this.options.distance + 'px';
-    this.$slide.attr('style', styleVal);
+    this.$domElement.attr('style', styleVal);
   },
 
   height: function() {
-    return this.$slide.height();
+    return this.$domElement.height();
   },
 
   getNode: function() {
-    return this.$slide;
+    return this.$domElement;
   }
 };
