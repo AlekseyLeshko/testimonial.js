@@ -1,3 +1,4 @@
+module('Testimonial tests');
 test('Testimonial constructor', function() {
   var $container = $('#qunit-fixture .testimonial_slider').first();
   var timeout = 7000;
