@@ -120,8 +120,8 @@ TestimonialSlide.prototype = {
     var self = this;
 
     this.$domNode.animate({
-        "margin-left": "+=" + this.options.distance + "px",
-        opacity: "0"
+        'margin-left': '+=' + this.options.distance + 'px',
+        opacity: '0'
       },
       this.options.duration,
       function() {
@@ -132,8 +132,8 @@ TestimonialSlide.prototype = {
 
   animateShow: function() {
     this.$domNode.show().animate({
-        "margin-left": "+=" + this.options.distance + "px",
-        opacity: "1"
+        'margin-left': '+=' + this.options.distance + 'px',
+        opacity: '1'
       },
       this.options.duration * 2);
   },
