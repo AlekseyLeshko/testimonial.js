@@ -137,3 +137,13 @@ test('Create dom node with author foto', function() {
   ok($img.attr('class') === 'author_foto', 'Css class dom node is correct');
   ok($img.attr('src') === dataForSlide.fotoSrc, 'Src dom node is correct');
 });
+
+test('Create link node', function() {
+  var href = 'http://test.com';
+  var text = 'test text';
+  var $link = TestimonialSlide.prototype.createLinkNode(href, text);
+  ok($link.prop('nodeName') === 'A', 'Dom node is link');
+  ok($link.attr('target') === '_blank', 'link target is blank');
+  ok($link.attr('href') === href, 'link href is correct');
+  ok($link.text() === text, 'link text is correct');
+});
