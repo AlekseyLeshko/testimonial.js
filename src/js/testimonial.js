@@ -70,7 +70,7 @@ Testimonial.prototype = {
       if (i !== 0) {
         $slide.hideSlide();
       }
-      this.$slidesWrapper.append($slide.getDomElement());
+      this.$slidesWrapper.append($slide.getDomNode());
     }
   },
 

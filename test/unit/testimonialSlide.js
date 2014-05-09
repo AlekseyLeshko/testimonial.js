@@ -63,7 +63,7 @@ function compareSlideData(x, y) {
 test('Get DOM node', function() {
   var testId = 'testId';
   var domNode = $('<div />', { id: testId });
-  TestimonialSlide.prototype.$slide = domNode;
-  var $expectedDomNode = TestimonialSlide.prototype.getNode();
+  TestimonialSlide.prototype.$domNode = domNode;
+  var $expectedDomNode = TestimonialSlide.prototype.getDomNode();
   ok($expectedDomNode.attr('id') === testId , '');
 });
