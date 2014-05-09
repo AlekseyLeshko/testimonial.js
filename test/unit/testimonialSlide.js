@@ -144,6 +144,20 @@ test('Create link node', function() {
   var $link = TestimonialSlide.prototype.createLinkNode(href, text);
   ok($link.prop('nodeName') === 'A', 'Dom node is link');
   ok($link.attr('target') === '_blank', 'link target is blank');
-  ok($link.attr('href') === href, 'link href is correct');
+  ok($link.attr('href') === href, 'Link href is correct');
   ok($link.text() === text, 'link text is correct');
 });
+
+test('Create company node', function() {
+  TestimonialSlide.prototype.data = dataForSlide;
+  var $node = TestimonialSlide.prototype.createCompanyNode();
+  ok($node.prop('nodeName') === 'DIV', 'Company dom node is div');
+  ok($node.attr('class') === 'company', 'Css class dom node is correct');
+
+  var $link = $node.children().first();
+  ok($link.prop('nodeName') === 'A', 'Present link in company node');
+  ok($link.attr('target') === '_blank', 'Link target is blank');
+  ok($link.attr('href') === dataForSlide.companyHref, 'Link href is correct');
+  ok($link.text() === dataForSlide.company, 'Link text is correct');
+});
+
