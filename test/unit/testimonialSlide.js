@@ -43,44 +43,55 @@ function compareSlideData(x, y) {
 //   ok(slide.$slide.attr('class') === 'testimonial_slide', 'New slide has correct css class');
 // });
 
-// test('Create slide data of empty data', function() {
-//   var slideData = TestimonialSlide.prototype.createData();
-//   ok(slideData !== undefined, 'Slide data not empty');
-//   compareSlideData(slideData, emptydata);
-// });
+test('Create slide data of empty data', function() {
+  var slideData = TestimonialSlide.prototype.createData();
+  ok(slideData !== undefined, 'Slide data not empty');
+  compareSlideData(slideData, emptydata);
+});
 
-// test('Create slide data of correct data', function() {
-//   var slideData = TestimonialSlide.prototype.createData(dataForSlide);
-//   compareSlideData(slideData, dataForSlide);
-// });
+test('Create slide data of correct data', function() {
+  var slideData = TestimonialSlide.prototype.createData(dataForSlide);
+  compareSlideData(slideData, dataForSlide);
+});
 
-// test('Create options', function() {
-//   TestimonialSlide.prototype.createOptions();
-//   ok(TestimonialSlide.prototype.options.duration === 750, '');
-//   ok(TestimonialSlide.prototype.options.distance === 250, '');
-//   ok(TestimonialSlide.prototype.options.cssClass === 'testimonial_slide', '');
-// });
+test('Create options', function() {
+  TestimonialSlide.prototype.createOptions();
+  ok(TestimonialSlide.prototype.options.duration === 750, '');
+  ok(TestimonialSlide.prototype.options.distance === 250, '');
+  ok(TestimonialSlide.prototype.options.cssClass === 'testimonial_slide', '');
+});
 
-// test('Get DOM node', function() {
-//   var testId = 'testId';
-//   var domNode = $('<div />', { id: testId });
-//   TestimonialSlide.prototype.$domNode = domNode;
-//   var $expectedDomNode = TestimonialSlide.prototype.getDomNode();
-//   ok($expectedDomNode.attr('id') === testId , '');
-// });
+test('Get DOM node', function() {
+  var testId = 'testId';
+  var domNode = $('<div />', { id: testId });
+  TestimonialSlide.prototype.$domNode = domNode;
+  var $expectedDomNode = TestimonialSlide.prototype.getDomNode();
+  ok($expectedDomNode.attr('id') === testId , '');
+});
 
-// test('Create empty dom node', function() {
-//   var expectedCssClass = 'testimonial_slide';
-//   TestimonialSlide.prototype.createOptions();
-//   TestimonialSlide.prototype.createStandardDomNode();
-//   var cssClass = TestimonialSlide.prototype.$domNode.attr('class');
-//   ok(cssClass === expectedCssClass, '');
-//   ok(cssClass === TestimonialSlide.prototype.options.cssClass, '');
-// });
+test('Create empty dom node', function() {
+  var expectedCssClass = 'testimonial_slide';
+  TestimonialSlide.prototype.createOptions();
+  TestimonialSlide.prototype.createStandardDomNode();
+  var cssClass = TestimonialSlide.prototype.$domNode.attr('class');
+  ok(cssClass === expectedCssClass, '');
+  ok(cssClass === TestimonialSlide.prototype.options.cssClass, '');
+});
 
 test('Height dom node', function() {
   var height = 2014;
   var $domNode = $('<div />', { height: height });
   TestimonialSlide.prototype.$domNode = $domNode;
   ok(TestimonialSlide.prototype.height() === height, '');
+});
+
+test('Hide slide', function() {
+  TestimonialSlide.prototype.createOptions();
+  TestimonialSlide.prototype.createStandardDomNode();
+  TestimonialSlide.prototype.hideSlide();
+  var $domNode = TestimonialSlide.prototype.$domNode;
+  var distanceVal = '-' + TestimonialSlide.prototype.options.distance + 'px';
+  ok($domNode.css('display') === 'none', '');
+  ok($domNode.css('opacity') === '0', '');
+  ok($domNode.css('margin-left') === distanceVal, '');
 });
