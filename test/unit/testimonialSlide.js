@@ -43,13 +43,19 @@ function compareSlideData(x, y) {
 //   ok(slide.$slide.attr('class') === 'testimonial_slide', 'New slide has correct css class');
 // });
 
-test('Create slide data of empty data', function() {
-  var slideData = TestimonialSlide.prototype.createData();
-  ok(slideData !== undefined, 'Slide data not empty');
-  compareSlideData(slideData, emptydata);
-});
+// test('Create slide data of empty data', function() {
+//   var slideData = TestimonialSlide.prototype.createData();
+//   ok(slideData !== undefined, 'Slide data not empty');
+//   compareSlideData(slideData, emptydata);
+// });
 
-test('Create slide data of correct data', function() {
-  var slideData = TestimonialSlide.prototype.createData(dataForSlide);
-  compareSlideData(slideData, dataForSlide);
+// test('Create slide data of correct data', function() {
+//   var slideData = TestimonialSlide.prototype.createData(dataForSlide);
+//   compareSlideData(slideData, dataForSlide);
+// });
+
+test('Create options', function() {
+  var options = TestimonialSlide.prototype.createoptions();
+  ok(options.duration === 750, '');
+  ok(options.distance === 250, '');
 });
