@@ -196,3 +196,9 @@ test('Create quotation mark inverted', function() {
   ok($node.prop('nodeName') === 'DIV', 'Quotation mark inverted dom node is div');
   ok($node.attr('class') === 'quotation_mark_inverted', 'Css class dom node is correct');
 });
+
+test('Create quotation mark', function() {
+  var $node = TestimonialSlide.prototype.createQuotationMark();
+  ok($node.prop('nodeName') === 'DIV', 'Quotation mark dom node is div');
+  ok($node.attr('class') === 'quotation_mark', 'Css class dom node is correct');
+});
