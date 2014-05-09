@@ -155,7 +155,7 @@ test('Create link node', function() {
 test('Create company node', function() {
   TestimonialSlide.prototype.data = dataForSlide;
   var $node = TestimonialSlide.prototype.createCompanyNode();
-  ok($node.prop('nodeName') === 'DIV', 'Company dom node is div');
+  ok($node.prop('nodeName') === 'DIV', 'Company node is div');
   ok($node.attr('class') === 'company', 'Css class dom node is correct');
 
   var $link = $node.children().first();
@@ -168,7 +168,7 @@ test('Create company node', function() {
 test('Create author node', function() {
   TestimonialSlide.prototype.data = dataForSlide;
   var $node = TestimonialSlide.prototype.createAuthorNode();
-  ok($node.prop('nodeName') === 'DIV', 'Author dom node is div');
+  ok($node.prop('nodeName') === 'DIV', 'Author node is div');
   ok($node.attr('class') === 'author', 'Css class dom node is correct');
   ok($node.text() === '- ' + dataForSlide.fullName, 'Text in node is correct');
 
@@ -182,7 +182,7 @@ test('Create author node', function() {
 test('Create signature node', function() {
   TestimonialSlide.prototype.data = dataForSlide;
   var $node = TestimonialSlide.prototype.createSignatureNode();
-  ok($node.prop('nodeName') === 'DIV', 'Signature dom node is div');
+  ok($node.prop('nodeName') === 'DIV', 'Signature node is div');
   ok($node.attr('class') === 'signature', 'Css class dom node is correct');
 
   var $children = $node.children();
@@ -193,19 +193,33 @@ test('Create signature node', function() {
 
 test('Create quotation mark inverted', function() {
   var $node = TestimonialSlide.prototype.createQuotationMarkInverted();
-  ok($node.prop('nodeName') === 'DIV', 'Quotation mark inverted dom node is div');
+  ok($node.prop('nodeName') === 'DIV', 'Quotation mark inverted node is div');
   ok($node.attr('class') === 'quotation_mark_inverted', 'Css class dom node is correct');
 });
 
 test('Create quotation mark', function() {
   var $node = TestimonialSlide.prototype.createQuotationMark();
-  ok($node.prop('nodeName') === 'DIV', 'Quotation mark dom node is div');
+  ok($node.prop('nodeName') === 'DIV', 'Quotation mark node is div');
   ok($node.attr('class') === 'quotation_mark', 'Css class dom node is correct');
 });
 
 test('Create text node', function() {
   TestimonialSlide.prototype.data = dataForSlide;
   var $node = TestimonialSlide.prototype.createTextNode();
-  ok($node.prop('nodeName') === 'DIV', 'Signature dom node is div');
+  ok($node.prop('nodeName') === 'DIV', 'Text node is div');
   ok($node.attr('class') === 'text', 'Css class dom node is correct');
+});
+
+test('Create quote node', function() {
+  TestimonialSlide.prototype.data = dataForSlide;
+  var $node = TestimonialSlide.prototype.createQuoteNode();
+  ok($node.prop('nodeName') === 'DIV', 'Quote node is div');
+  ok($node.attr('class') === 'quote', 'Css class dom node is correct');
+
+  var $children = $node.children();
+  ok($children.length === 4, '4 nodes in signature node');
+  ok($children.first().attr('class') === 'quotation_mark', 'Css class 1st child node is correct');
+  ok($($children[1]).attr('class') === 'text', 'Css class 2nd child node is correct');
+  ok($($children[2]).attr('class') === 'quotation_mark_inverted', 'Css class 3rd child node is correct');
+  ok($children.last().attr('class') === 'signature', 'Css class 4th child node is correct');
 });
