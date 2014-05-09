@@ -26,22 +26,22 @@ function compareSlideData(x, y) {
   ok(x.quote === y.quote, '');
 }
 
-// test('Create slide with correct data', function() {
-//   var slide = new TestimonialSlide(dataForSlide);
-//   compareSlideData(slide.data, dataForSlide);
-//   ok(slide.$slide !== undefined, 'Slide has DOM node');
-// });
+test('Create slide with correct data', function() {
+  var slide = new TestimonialSlide(dataForSlide);
+  compareSlideData(slide.data, dataForSlide);
+  ok(slide.$domNode !== undefined, 'Slide has DOM node');
+});
 
-// test('Create slide with empty data', function() {
-//   var slide = new TestimonialSlide();
-//   ok(slide.data !== undefined, 'Slide has empty data');
-//   ok(slide.$slide !== undefined, 'Slide has DOM node');
-// });
+test('Create slide with empty data', function() {
+  var slide = new TestimonialSlide();
+  ok(slide.data !== undefined, 'Slide has empty data');
+  ok(slide.$domNode !== undefined, 'Slide has DOM node');
+});
 
-// test('Slide css class', function() {
-//   var slide = new TestimonialSlide(dataForSlide);
-//   ok(slide.$slide.attr('class') === 'testimonial_slide', 'New slide has correct css class');
-// });
+test('Slide css class', function() {
+  var slide = new TestimonialSlide(dataForSlide);
+  ok(slide.$domNode.attr('class') === 'testimonial_slide', 'New slide has correct css class');
+});
 
 test('Create slide data of empty data', function() {
   var slideData = TestimonialSlide.prototype.createData();
