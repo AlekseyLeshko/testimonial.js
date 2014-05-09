@@ -184,4 +184,9 @@ test('Create signature node', function() {
   var $node = TestimonialSlide.prototype.createSignatureNode();
   ok($node.prop('nodeName') === 'DIV', 'Signature dom node is div');
   ok($node.attr('class') === 'signature', 'Css class dom node is correct');
+
+  var $children = $node.children();
+  ok($children.length === 2, '2 nodes in signature node');
+  ok($children.first().attr('class') === 'author', 'Css class first child node is correct');
+  ok($children.last().attr('class') === 'company', 'Css class last child node is correct');
 });
