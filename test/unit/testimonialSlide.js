@@ -217,9 +217,23 @@ test('Create quote node', function() {
   ok($node.attr('class') === 'quote', 'Css class dom node is correct');
 
   var $children = $node.children();
-  ok($children.length === 4, '4 nodes in signature node');
+  ok($children.length === 4, '4 nodes in quote node');
   ok($children.first().attr('class') === 'quotation_mark', 'Css class 1st child node is correct');
   ok($($children[1]).attr('class') === 'text', 'Css class 2nd child node is correct');
   ok($($children[2]).attr('class') === 'quotation_mark_inverted', 'Css class 3rd child node is correct');
   ok($children.last().attr('class') === 'signature', 'Css class 4th child node is correct');
+});
+
+test('Create slide', function() {
+  TestimonialSlide.prototype.data = dataForSlide;
+  TestimonialSlide.prototype.createOptions();
+  TestimonialSlide.prototype.createSlide();
+  var $node = TestimonialSlide.prototype.$domNode;
+  ok($node.prop('nodeName') === 'DIV', 'Slide node is div');
+  ok($node.attr('class') === TestimonialSlide.prototype.options.cssClass, 'Css class dom node is correct');
+
+  var $children = $node.children();
+  ok($children.length === 2, '2 nodes in slide node');
+  ok($children.first().attr('class') === 'quote', 'Css class first child node is correct');
+  ok($children.last().attr('class') === 'author_foto', 'Css class last child node is correct');
 });
