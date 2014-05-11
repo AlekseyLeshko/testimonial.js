@@ -7,3 +7,10 @@ test('Get attr href', function() {
   var href = Parser.prototype.getAttrHrefOrDefault($node);
   ok(href === url, 'Received href is correct');
 });
+
+test('Get default href', function() {
+  var defaultHref = '#';
+  var $node = $('<a />');
+  var href = Parser.prototype.getAttrHrefOrDefault($node);
+  ok(href === defaultHref, 'Received href is correct');
+});
