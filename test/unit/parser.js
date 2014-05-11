@@ -24,3 +24,21 @@ test('Parse author node', function() {
   ok(slideObj.companyHref === 'https://github.com', 'Company url is correct');
   ok(slideObj.fotoSrc === '../resources/img/author_logo.png', 'Foto src is correct');
 });
+
+test('Parse node', function() {
+  var quote = 'Истинный путь идет по канату, который натянут не высоко, а над самой землей. ' +
+    'Он предназначен, кажется, больше для того, чтобы о него спотыкаться, ' +
+    'чем для того, чтобы идти по нему.';
+  var $node = $('.slide').first();
+  Parser.prototype.dataArr = [];
+  Parser.prototype.parseNode($node);
+  ok(Parser.prototype.dataArr.length === 1, 'Ыlide parsed correctly');
+
+  var slideObj = Parser.prototype.dataArr[0];
+  ok(slideObj.fullName === 'Кафка Франц', 'Fullname is correct');
+  ok(slideObj.authorHref === 'https://github.com/AlekseyLeshko', 'Author url is correct');
+  ok(slideObj.company === 'Company', 'Company is correct');
+  ok(slideObj.companyHref === 'https://github.com', 'Company url is correct');
+  ok(slideObj.fotoSrc === '../resources/img/author_logo.png', 'Foto src is correct');
+  ok(slideObj.quote === quote, 'Quote is correct');
+});
