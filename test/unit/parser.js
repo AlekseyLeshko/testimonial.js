@@ -28,11 +28,19 @@ test('Parse node', function() {
   var $node = $('.slide').first();
   Parser.prototype.dataArr = [];
   Parser.prototype.parseNode($node);
-  ok(Parser.prototype.dataArr.length === 1, 'Ыlide parsed correctly');
+  ok(Parser.prototype.dataArr.length === 1, 'Slide parsed correctly');
 
   var slideObj = Parser.prototype.dataArr[0];
   compareSlideObj(slideObj, expectedSlideObj);
   ok(slideObj.quote === quote, 'Quote is correct');
+});
+
+test('Parser constructor', function() {
+  var $nodeArr = $('.slide');
+  var parser = new Parser($nodeArr);
+
+  ok(parser.dataArr.length === 0);
+  ok(parser.$nodeArr === $nodeArr);
 });
 
 var expectedSlideObj = {
