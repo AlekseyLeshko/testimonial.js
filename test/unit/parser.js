@@ -43,6 +43,15 @@ test('Parser constructor', function() {
   ok(parser.$nodeArr === $nodeArr);
 });
 
+test('Parse node array', function() {
+  var $nodeArr = $('.slide');
+  var parser = new Parser($nodeArr);
+
+  ok(parser.dataArr.length === 0);
+  parser.parse();
+  ok(parser.dataArr.length === 3);
+});
+
 var expectedSlideObj = {
   fullName: 'Кафка Франц',
   authorHref: 'https://github.com/AlekseyLeshko',
