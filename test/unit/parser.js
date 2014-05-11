@@ -18,11 +18,7 @@ test('Get default href', function() {
 test('Parse author node', function() {
   var $node = $('.author').first();
   var slideObj = Parser.prototype.parseAuthorNode($node);
-  ok(slideObj.fullName === 'Кафка Франц', 'Fullname is correct');
-  ok(slideObj.authorHref === 'https://github.com/AlekseyLeshko', 'Author url is correct');
-  ok(slideObj.company === 'Company', 'Company is correct');
-  ok(slideObj.companyHref === 'https://github.com', 'Company url is correct');
-  ok(slideObj.fotoSrc === '../resources/img/author_logo.png', 'Foto src is correct');
+  compareSlideObj(slideObj, expectedSlideObj);
 });
 
 test('Parse node', function() {
@@ -35,10 +31,22 @@ test('Parse node', function() {
   ok(Parser.prototype.dataArr.length === 1, 'Ыlide parsed correctly');
 
   var slideObj = Parser.prototype.dataArr[0];
-  ok(slideObj.fullName === 'Кафка Франц', 'Fullname is correct');
-  ok(slideObj.authorHref === 'https://github.com/AlekseyLeshko', 'Author url is correct');
-  ok(slideObj.company === 'Company', 'Company is correct');
-  ok(slideObj.companyHref === 'https://github.com', 'Company url is correct');
-  ok(slideObj.fotoSrc === '../resources/img/author_logo.png', 'Foto src is correct');
+  compareSlideObj(slideObj, expectedSlideObj);
   ok(slideObj.quote === quote, 'Quote is correct');
 });
+
+var expectedSlideObj = {
+  fullName: 'Кафка Франц',
+  authorHref: 'https://github.com/AlekseyLeshko',
+  company: 'Company',
+  companyHref: 'https://github.com',
+  fotoSrc: '../resources/img/author_logo.png'
+};
+
+function compareSlideObj(x, y) {
+  ok(x.fullName === y.fullName, 'Fullname is correct');
+  ok(x.authorHref === y.authorHref, 'Author url is correct');
+  ok(x.company === y.company, 'Company is correct');
+  ok(x.companyHref === y.companyHref, 'Company url is correct');
+  ok(x.fotoSrc === y.fotoSrc, 'Foto src is correct');
+};
