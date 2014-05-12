@@ -17,3 +17,15 @@ test('Testimonial constructor', function() {
   ok(testimonial.$slides.length == 3, 'Count slides ok');
   ok(testimonial.currentSlideIndex == 0, 'Current index ok');
 });
+
+var defaultOptions = {
+  timeout: 7000,
+  autostart: true
+};
+
+test('Get default options', function() {
+  var pluginOptions = Testimonial.prototype.getDefaultOptions();
+
+  ok(pluginOptions.timeout === defaultOptions.timeout);
+  ok(pluginOptions.autostart === defaultOptions.autostart);
+});
