@@ -63,7 +63,7 @@ test('Create options with incomplete parameters', function() {
 
 test('Normal indexing', function() {
   Testimonial.prototype.currentSlideIndex = 0;
-  Testimonial.prototype.$slides = [];
+  Testimonial.prototype.$slides = [1, 2];
 
   Testimonial.prototype.indexing()
 
