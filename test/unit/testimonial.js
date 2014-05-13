@@ -49,3 +49,14 @@ test('Create options with all parameters', function() {
   ok(pluginOptions.timeout === options.timeout);
   ok(pluginOptions.autostart === options.autostart);
 });
+
+test('Create options with incomplete parameters', function() {
+  var options = {
+    autostart: false
+  };
+  Testimonial.prototype.createOptions(options);
+  var pluginOptions = Testimonial.prototype.pluginOptions;
+
+  ok(pluginOptions.timeout === defaultOptions.timeout);
+  ok(pluginOptions.autostart === options.autostart);
+});
