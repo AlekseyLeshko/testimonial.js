@@ -70,3 +70,13 @@ test('Normal indexing', function() {
   var index = Testimonial.prototype.currentSlideIndex;
   ok(index === 1);
 });
+
+test('Cyclical indexing', function() {
+  Testimonial.prototype.currentSlideIndex = 1;
+  Testimonial.prototype.$slides = [1, 2];
+
+  Testimonial.prototype.indexing()
+
+  var index = Testimonial.prototype.currentSlideIndex;
+  ok(index === 0);
+});
