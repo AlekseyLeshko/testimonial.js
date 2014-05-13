@@ -100,9 +100,11 @@ test('Hide slide', function() {
   ok($domNode.css('margin-left') === distanceVal, '');
 });
 
+var delay = 500;
+
 asyncTest('Animate show', function() {
   TestimonialSlide.prototype.createOptions();
-  var duration = (TestimonialSlide.prototype.options.duration * 2) + 50;
+  var duration = (TestimonialSlide.prototype.options.duration * 2) + delay;
   TestimonialSlide.prototype.createStandardDomNode();
   TestimonialSlide.prototype.hideSlide();
 
@@ -117,9 +119,9 @@ asyncTest('Animate show', function() {
   }, duration);
 });
 
-asyncTest('Animate show', function() {
+asyncTest('Animate hide', function() {
   TestimonialSlide.prototype.createOptions();
-  var duration = TestimonialSlide.prototype.options.duration + 50;
+  var duration = TestimonialSlide.prototype.options.duration + delay;
   var distanceVal = '-' + TestimonialSlide.prototype.options.distance + 'px';
   TestimonialSlide.prototype.createStandardDomNode();
 
