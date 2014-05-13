@@ -116,6 +116,11 @@ Testimonial.prototype = {
   },
 
   indexing: function() {
+    if (this.$slides.length === 0) {
+      this.currentSlideIndex = 0;
+      return;
+    }
+
     this.currentSlideIndex++;
     if (this.currentSlideIndex === this.$slides.length) {
       this.currentSlideIndex = 0;

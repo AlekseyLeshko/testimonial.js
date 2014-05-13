@@ -80,3 +80,13 @@ test('Cyclical indexing', function() {
   var index = Testimonial.prototype.currentSlideIndex;
   ok(index === 0);
 });
+
+test('Indexation empty array', function() {
+  Testimonial.prototype.currentSlideIndex = 0;
+  Testimonial.prototype.$slides = [];
+
+  Testimonial.prototype.indexing()
+
+  var index = Testimonial.prototype.currentSlideIndex;
+  ok(index === 0);
+});
