@@ -29,3 +29,11 @@ test('Get default options', function() {
   ok(pluginOptions.timeout === defaultOptions.timeout);
   ok(pluginOptions.autostart === defaultOptions.autostart);
 });
+
+test('Create options with an empty parameter', function() {
+  Testimonial.prototype.createOptions();
+  var pluginOptions = Testimonial.prototype.pluginOptions;
+
+  ok(pluginOptions.timeout === defaultOptions.timeout);
+  ok(pluginOptions.autostart === defaultOptions.autostart);
+});
