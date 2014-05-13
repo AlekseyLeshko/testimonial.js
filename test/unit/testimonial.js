@@ -60,3 +60,13 @@ test('Create options with incomplete parameters', function() {
   ok(pluginOptions.timeout === defaultOptions.timeout);
   ok(pluginOptions.autostart === options.autostart);
 });
+
+test('Normal indexing', function() {
+  Testimonial.prototype.currentSlideIndex = 0;
+  Testimonial.prototype.$slides = [];
+
+  Testimonial.prototype.indexing()
+
+  var index = Testimonial.prototype.currentSlideIndex;
+  ok(index === 1);
+});
