@@ -90,3 +90,17 @@ test('Indexation empty array', function() {
   var index = Testimonial.prototype.currentSlideIndex;
   ok(index === 0);
 });
+
+test('Resize plugin container', function() {
+  Testimonial.prototype.currentSlideIndex = 0;
+  Testimonial.prototype.$container = $('<div />');
+  var height = 400;
+  var indents = 20;
+  var testSlide = $('<div />', {
+    height: height
+  });
+  Testimonial.prototype.$slides = [testSlide];
+  Testimonial.prototype.resizePluginContainer();
+
+  ok(Testimonial.prototype.$container.height() === height + indents);
+});
