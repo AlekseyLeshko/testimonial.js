@@ -148,3 +148,29 @@ test('Parse dom tree', function() {
   Testimonial.prototype.parseDomTree();
   ok(Testimonial.prototype.dataArr.length === 3);
 });
+
+test('Slide rendering', function() {
+  var $container = $('#qunit-fixture .testimonial_slider').first();
+  Testimonial.prototype.$container = $container;
+  Testimonial.prototype.$slides = [];
+  Testimonial.prototype.parseDomTree();
+  Testimonial.prototype.createSlides();
+  Testimonial.prototype.createInfrastructure();
+  Testimonial.prototype.slideRendering();
+
+  var distanceVal = '-250px';
+  var $slideArr = Testimonial.prototype.$slidesWrapper.children();
+  ok($slideArr.first().attr('class') === 'testimonial_slide');
+
+  ok($slideArr.first().css('display') === 'block', 'Slide is show');
+  ok(parseInt($slideArr.first().css('opacity')) === 1, 'Slide opacity is not 0');
+  ok($slideArr.first().css('margin-left') === '0px', 'Slide margin-left is 0');
+
+  ok($slideArr.last().css('display') === 'none', 'Slidedisplay is none');
+  ok($slideArr.last().css('opacity') === '0', 'Slide opacity is 0');
+  ok($slideArr.last().css('margin-left') === distanceVal, 'Slide margin-left is ' + distanceVal);
+
+  ok($($slideArr[1]).css('display') === 'none', 'Slidedisplay is none');
+  ok($($slideArr[1]).css('opacity') === '0', 'Slide opacity is 0');
+  ok($($slideArr[1]).css('margin-left') === distanceVal, 'Slide margin-left is ' + distanceVal);
+});
