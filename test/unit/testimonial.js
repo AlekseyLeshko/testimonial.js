@@ -104,3 +104,11 @@ test('Resize plugin container', function() {
 
   ok(Testimonial.prototype.$container.height() === height + indents);
 });
+
+test('Create button next', function() {
+  Testimonial.prototype.$container = $('<div />');
+  Testimonial.prototype.createButtonNext();
+
+  var $button = Testimonial.prototype.$container.children().first();
+  ok($button.attr('class') === 'next_slide', 'Button has correct css class');
+});
