@@ -121,3 +121,22 @@ test('Create infrastructure', function() {
   ok($children.first().attr('class') === 'main_container', 'Container has correct css class');
   ok($children.last().attr('class') === 'next_slide', 'Button next has correct css class');
 });
+
+test('Create slides', function() {
+  var slideObj = {
+    fullName: 'Кафка Франц',
+    authorHref: 'https://github.com/AlekseyLeshko',
+    company: 'Company',
+    companyHref: 'https://github.com',
+    fotoSrc: '../resources/img/author_logo.png'
+  };
+
+  var dataArr = [];
+  dataArr.push(slideObj);
+  Testimonial.prototype.dataArr = dataArr;
+  Testimonial.prototype.$slides = [];
+
+  Testimonial.prototype.createSlides();
+  ok(Testimonial.prototype.$slides.length === 1);
+  ok(Testimonial.prototype.$slides[0] instanceof TestimonialSlide);
+});
