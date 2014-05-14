@@ -56,11 +56,11 @@ test('Stop', function() {
   ok(testimonial.timerId === undefined);
 });
 
-asyncTest('Next', function() {
+asyncTest('Next with timerId', function() {
   var options = {
-    timeout: 3000
+    timeout: 1000
   };
-  var delay = 500;
+  var delay = 100;
   var duration = options.timeout + delay;
 
   var $container = $('#qunit-fixture .testimonial_slider').first();
@@ -77,7 +77,7 @@ asyncTest('Next', function() {
   }, duration);
 });
 
-asyncTest('Next', function() {
+asyncTest('Next without timerId', function() {
   var options = {
     autostart: false
   };
