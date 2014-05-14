@@ -77,6 +77,27 @@ asyncTest('Next', function() {
   }, duration);
 });
 
+asyncTest('Next', function() {
+  var options = {
+    autostart: false
+  };
+  var duration = 10;
+
+  var $container = $('#qunit-fixture .testimonial_slider').first();
+  var testimonial = new Testimonial($container, options);
+
+  ok(testimonial.timerId === undefined);
+  ok(testimonial.currentSlideIndex === 0);
+  testimonial.next();
+  setTimeout(function() {
+    ok(testimonial.timerId !== undefined);
+    ok(testimonial.currentSlideIndex === 1);
+
+    testimonial.stop();
+    start();
+  }, duration);
+});
+
 test('Get default options', function() {
   var pluginOptions = Testimonial.prototype.getDefaultOptions();
 
