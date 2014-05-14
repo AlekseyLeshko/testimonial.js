@@ -140,3 +140,11 @@ test('Create slides', function() {
   ok(Testimonial.prototype.$slides.length === 1);
   ok(Testimonial.prototype.$slides[0] instanceof TestimonialSlide);
 });
+
+test('Parse dom tree', function() {
+  var $container = $('#qunit-fixture .testimonial_slider').first();
+  Testimonial.prototype.$container = $container;
+
+  Testimonial.prototype.parseDomTree();
+  ok(Testimonial.prototype.dataArr.length === 3);
+});
