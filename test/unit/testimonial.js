@@ -112,3 +112,12 @@ test('Create button next', function() {
   var $button = Testimonial.prototype.$container.children().first();
   ok($button.attr('class') === 'next_slide', 'Button has correct css class');
 });
+
+test('Create infrastructure', function() {
+  Testimonial.prototype.$container = $('<div />');
+  Testimonial.prototype.createInfrastructure();
+
+  var $children = Testimonial.prototype.$container.children()
+  ok($children.first().attr('class') === 'main_container', 'Container has correct css class');
+  ok($children.last().attr('class') === 'next_slide', 'Button next has correct css class');
+});
