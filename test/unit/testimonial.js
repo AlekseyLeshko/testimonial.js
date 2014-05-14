@@ -7,6 +7,7 @@ var defaultOptions = {
 test('Testimonial constructor', function() {
   var $container = $('#qunit-fixture .testimonial_slider').first();
   var testimonial = new Testimonial($container);
+  testimonial.stop();
 
   ok(testimonial.$container === $container, 'Plugin container ok');
   ok(testimonial.pluginOptions.timeout == defaultOptions.timeout, 'Plugin default timeout option ok');
@@ -14,6 +15,14 @@ test('Testimonial constructor', function() {
   ok(testimonial.$slides.length == 3, 'Count slides ok');
   ok(testimonial.dataArr.length == 3);
   ok(testimonial.currentSlideIndex == 0, 'Current index ok');
+});
+
+test('Autostart', function() {
+  var $container = $('#qunit-fixture .testimonial_slider').first();
+  var testimonial = new Testimonial($container);
+
+  ok(testimonial.timerId !== undefined, 'Autostart works');
+  testimonial.stop();
 });
 
 test('Get default options', function() {
