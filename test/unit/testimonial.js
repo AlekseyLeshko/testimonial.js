@@ -47,6 +47,15 @@ asyncTest('Start', function() {
   }, duration);
 });
 
+test('Stop', function() {
+  var $container = $('#qunit-fixture .testimonial_slider').first();
+  var testimonial = new Testimonial($container);
+
+  ok(testimonial.timerId !== undefined);
+  testimonial.stop();
+  ok(testimonial.timerId === undefined);
+});
+
 test('Get default options', function() {
   var pluginOptions = Testimonial.prototype.getDefaultOptions();
 
