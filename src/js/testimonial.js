@@ -24,8 +24,9 @@ Testimonial.prototype = {
   },
 
   start: function() {
+    var self = this;
     this.timerId = setInterval(function() {
-        testimonial.next();
+        self.next();
       },
       this.pluginOptions.timeout);
   },

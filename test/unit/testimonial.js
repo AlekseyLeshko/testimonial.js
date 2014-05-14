@@ -25,6 +25,28 @@ test('Autostart', function() {
   testimonial.stop();
 });
 
+asyncTest('Start', function() {
+  var options = {
+    timeout: 100,
+    autostart: false
+  };
+  var $container = $('#qunit-fixture .testimonial_slider').first();
+  var testimonial = new Testimonial($container, options);
+  var delay = options.timeout;
+  var duration = options.timeout + delay;
+
+  ok(testimonial.timerId === undefined);
+  ok(testimonial.currentSlideIndex === 0);
+  testimonial.start();
+  setTimeout(function() {
+    ok(testimonial.timerId !== undefined);
+    ok(testimonial.currentSlideIndex === 1);
+
+    testimonial.stop();
+    start();
+  }, duration);
+});
+
 test('Get default options', function() {
   var pluginOptions = Testimonial.prototype.getDefaultOptions();
 
