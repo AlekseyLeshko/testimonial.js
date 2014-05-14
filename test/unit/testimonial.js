@@ -56,6 +56,27 @@ test('Stop', function() {
   ok(testimonial.timerId === undefined);
 });
 
+asyncTest('Next', function() {
+  var options = {
+    timeout: 3000
+  };
+  var delay = 500;
+  var duration = options.timeout + delay;
+
+  var $container = $('#qunit-fixture .testimonial_slider').first();
+  var testimonial = new Testimonial($container, options);
+
+  ok(testimonial.timerId !== undefined);
+  ok(testimonial.currentSlideIndex === 0);
+  setTimeout(function() {
+    ok(testimonial.timerId !== undefined);
+    ok(testimonial.currentSlideIndex === 1);
+
+    testimonial.stop();
+    start();
+  }, duration);
+});
+
 test('Get default options', function() {
   var pluginOptions = Testimonial.prototype.getDefaultOptions();
 
