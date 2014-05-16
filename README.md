@@ -59,19 +59,17 @@ Go to links:
 - [Plugin layout](http://localhost:9001/examples/testimonial_layout.html)
 
 # Testing
-### To run tests (in browser):
-Use [servedir](https://github.com/remy/servedir)
+[Run web server]()
 
-[Install servedir](https://github.com/remy/servedir#installation)
-```shell
-$ npm install servedir -g
+Start testing
 ```
-And run
+$ grunt test
 ```
-$ cd ./testimonial.js
-$ servedir ./ 8001
-```
-Go to [link](http://localhost:8001/test/index.html)
+And view testing result in terminal or browser
+
+Go to links:
+- [Testing result](http://localhost:9001/test/index.html)
+- [Code coverage](http://localhost:9001/coverage-results/html/index.html)
 
 # Dependence
 * [jQuery](http://jquery.com/), version >= [1.4.0](http://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js)
