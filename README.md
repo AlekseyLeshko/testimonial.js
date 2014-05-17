@@ -7,6 +7,12 @@
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/AlekseyLeshko/testimonial.js/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 [![Analytics](https://ga-beacon.appspot.com/UA-50845319-1/testimonial.js/readme)](https://github.com/igrigorik/ga-beacon)
 
+# Run project
+Install [grunt](http://gruntjs.com/)
+```
+$ npm install -g grunt-cli
+```
+
 # Usage
 Create div element with 'testimonial_slider' class name attr. Fill div slides.
 ```html
