@@ -102,7 +102,14 @@ See the testing results can be in terminal or browser.
 * [jQuery](http://jquery.com/), version >= [1.4.0](http://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js)
 
 ## Author
-__Aleksey Leshko__, _[github](https://github.com/AlekseyLeshko), [linkedin](http://ru.linkedin.com/pub/aleksey-leshko/71/780/b69), [![endorse](https://api.coderwall.com/alekseyleshko/endorsecount.png)](https://coderwall.com/alekseyleshko)_
+__Aleksey Leshko__
+- <iframe src="http://githubbadge.appspot.com/alekseyleshko?s=1" style="border: 0;height: 142px;width: 200px;overflow: hidden;" frameBorder="0"></iframe>
+
+- <a href="http://ru.linkedin.com/in/alekseyleshko"><img src="http://s.c.lnkd.licdn.com/scds/common/u/img/webpromo/btn_myprofile_160x33.png" width="160" height="33" border="0" alt="View Aleksey Leshko's profile on LinkedIn"></a>
+
+- [![endorse](https://api.coderwall.com/alekseyleshko/endorsecount.png)](https://coderwall.com/alekseyleshko)
+
+[![endorse](https://api.coderwall.com/alekseyleshko/endorsecount.png)](https://coderwall.com/alekseyleshko)
 
 ## License
 Copyright (c) 2014 Aleksey Leshko Licensed under the The MIT License (MIT)
