@@ -81,10 +81,8 @@ grunt connect::keepalive
 ```
 
 ## Examples
-#### View the examples (in browser):
-[Run web server]()
-
-Go to links:
+View the examples in browser:
+[Run web server](#run-web-server) and go to links:
 - [Plugin example](http://localhost:9001/examples/index.html)
 - [Plugin layout](http://localhost:9001/examples/testimonial_layout.html)
 
