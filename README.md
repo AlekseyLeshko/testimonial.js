@@ -7,13 +7,7 @@
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/AlekseyLeshko/testimonial.js/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 [![Analytics](https://ga-beacon.appspot.com/UA-50845319-1/testimonial.js/readme)](https://github.com/igrigorik/ga-beacon)
 
-# Run project
-Install [grunt](http://gruntjs.com/)
-```
-$ npm install -g grunt-cli
-```
-
-# Usage
+## Usage
 Create div element with 'testimonial_slider' class name attr. Fill div slides.
 ```html
 <div class="testimonial_slider">
@@ -52,23 +46,53 @@ var $container = $('.testimonial_slider');
 var options = { ... };
 var testimonial = new Testimonial($container, options);
 ```
-# Config Options
+## Config Options
 - __timeout__, type: Number, default: 700
 - __auto__, type: Boolean, default: true
 
-# Examples
-### View the examples (in browser):
+## Building Testimonial.js
+Testimonial.js uses the [Grunt](http://gruntjs.com/) build system.
+
+To build Testimonial.js, you must have [node.js](http://nodejs.org/) installed and then run the following commands:
+#### Clone the [Testimonial.js git repo](https://github.com/AlekseyLeshko/testimonial.js)
+```sh
+git clone git@github.com:AlekseyLeshko/testimonial.js.git
+cd testinomial.js
+```
+
+#### Install the Grunt CLI
+```sh
+npm install -g grunt-cli
+```
+
+#### Install the node module dependencies
+```sh
+npm install
+```
+
+#### Build project:
+```sh
+grunt build
+```
+
+#### Run web server:
+```sh
+grunt connect::keepalive
+```
+
+## Examples
+#### View the examples (in browser):
 [Run web server]()
 
 Go to links:
 - [Plugin example](http://localhost:9001/examples/index.html)
 - [Plugin layout](http://localhost:9001/examples/testimonial_layout.html)
 
-# Testing
+## Testing
 [Run web server]()
 
 Start testing
-```
+```sh
 $ grunt test
 ```
 And view testing result in terminal or browser
@@ -77,11 +101,11 @@ Go to links:
 - [Testing result](http://localhost:9001/test/index.html)
 - [Code coverage](http://localhost:9001/coverage-results/html/index.html)
 
-# Dependence
+## Dependence
 * [jQuery](http://jquery.com/), version >= [1.4.0](http://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js)
 
-# Author
+## Author
 __Aleksey Leshko__, _[github](https://github.com/AlekseyLeshko), [linkedin](http://ru.linkedin.com/pub/aleksey-leshko/71/780/b69), [![endorse](https://api.coderwall.com/alekseyleshko/endorsecount.png)](https://coderwall.com/alekseyleshko)_
 
-# License
+## License
 Copyright (c) 2014 Aleksey Leshko Licensed under the The MIT License (MIT)
