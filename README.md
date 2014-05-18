@@ -87,15 +87,14 @@ View the examples in browser:
 - [Plugin layout](http://localhost:9001/examples/testimonial_layout.html)
 
 ## Testing
-[Run web server]()
-
-Start testing
-```sh
+Start testing:
+```
 $ grunt test
 ```
-And view testing result in terminal or browser
+See the testing results can be in terminal or browser.
 
-Go to links:
+### Testing results in browser
+[Run web server](#run-web-server) and go to links:
 - [Testing result](http://localhost:9001/test/index.html)
 - [Code coverage](http://localhost:9001/coverage-results/html/index.html)
 
