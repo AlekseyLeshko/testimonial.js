@@ -27,7 +27,7 @@
     "grunt-contrib-connect": "~0.8.0",
     "grunt-coveralls": "~0.3.0",
     "grunt-qunit-istanbul": "~0.4.5",
-    "load-grunt-tasks": "~0.5.0"
+    "load-grunt-tasks": "~0.6.0"
   },
   "license": {
     "type": "MIT",
