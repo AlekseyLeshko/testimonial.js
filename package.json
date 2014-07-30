@@ -18,7 +18,9 @@
   "dependencies": {},
   "devDependencies": {
     "gulp": "^3.8.6",
-    "qunitjs": "~1.14.0"
+    "gulp-rimraf": "^0.1.0",
+    "qunitjs": "~1.14.0",
+    "rimraf": "^2.2.8"
   },
   "license": {
     "type": "MIT",
