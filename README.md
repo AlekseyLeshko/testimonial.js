@@ -51,18 +51,13 @@ var testimonial = new Testimonial($container, options);
 - __auto__, type: Boolean, default: true
 
 ## Building Testimonial.js
-Testimonial.js uses the [Grunt](http://gruntjs.com/) build system.
+Testimonial.js uses the [XXX]() build system.
 
 To build Testimonial.js, you must have [node.js](http://nodejs.org/) installed and then run the following commands:
 #### Clone the [Testimonial.js git repo](https://github.com/AlekseyLeshko/testimonial.js)
 ```sh
 git clone git@github.com:AlekseyLeshko/testimonial.js.git
 cd testinomial.js
-```
-
-#### Install the Grunt CLI
-```sh
-npm install -g grunt-cli
 ```
 
 #### Install the node module dependencies
@@ -72,12 +67,10 @@ npm install
 
 #### Build project:
 ```sh
-grunt build
 ```
 
 #### Run web server:
 ```sh
-grunt connect::keepalive
 ```
 
 ## Examples
@@ -89,7 +82,6 @@ View the examples in browser:
 ## Testing
 Start testing:
 ```
-$ grunt test
 ```
 See the testing results can be in terminal or browser.
 
