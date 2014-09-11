@@ -6,9 +6,6 @@ build:
 
 test:
 
-install_karma_cli:
-	npm install -g karma-cli
-
 clean:
 	rm -rf www
 
