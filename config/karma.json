@@ -1,0 +1,41 @@
+{
+  "basePath": "",
+  "browsers": [
+    "Chrome",
+    "PhantomJS",
+    "Firefox",
+    "FirefoxAurora",
+    "FirefoxNightly"
+  ],
+  "frameworks": ["qunit", "jasmine"],
+  "files": [
+    "bower_components/jquery/dist/jquery.min.js",
+    "lib/*.js", {
+      "pattern": "test/fixtures/*.html",
+      "watched": true,
+      "served": true,
+      "included": false
+    },
+    "src/js/**/*.js",
+    "test/unit/**/*.js"
+  ],
+  "autoWatch": true,
+  "usePolling": true,
+  "plugins": [
+    "karma-chrome-launcher",
+    "karma-phantomjs-launcher",
+    "karma-firefox-launcher",
+    "karma-qunit",
+    "karma-jasmine",
+    "karma-coverage"
+  ],
+  "reporters": ["progress", "coverage"],
+  "preprocessors": {
+    "app/**/*.js": ["coverage"],
+    "**/*.html": []
+  },
+  "coverageReporter": {
+    "type": "html",
+    "dir": "coverage/"
+  }
+}
