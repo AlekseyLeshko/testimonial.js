@@ -106,12 +106,14 @@ asyncTest('Animate show', function() {
   TestimonialSlide.prototype.createOptions();
   var duration = (TestimonialSlide.prototype.options.duration * 2) + delay;
   TestimonialSlide.prototype.createStandardDomNode();
+  console.log(TestimonialSlide.prototype.$domNode.css('display'));
   TestimonialSlide.prototype.hideSlide();
-
+  console.log(TestimonialSlide.prototype.$domNode.css('display'));
   TestimonialSlide.prototype.animateShow();
   setTimeout(function() {
     var $domNode = TestimonialSlide.prototype.$domNode;
-    ok($domNode.css('display') === '', 'Slide is show');
+    console.log($domNode.css('display'));
+    ok($domNode.css('display') === 'block', 'Slide is show');
     ok(parseInt($domNode.css('opacity')) === 1, 'Slide opacity is not 0');
     ok($domNode.css('margin-left') === '0px', 'Slide margin-left is 0');
 
