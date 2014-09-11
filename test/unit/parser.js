@@ -1,5 +1,33 @@
-module('Tests for the parser plugin');
+QUnit.module('Tests for the parser plugin', {
+  setup: function() {
+    // var path = '';
+    // if (typeof window.__karma__ !== 'undefined') {
+    //   path += 'base/'
+    // }
+    var fixtures  = jasmine.getFixtures();
+    fixtures.fixturesPath = 'base/test/fixtures/';
+    fixtures.load('main.html');
+    // jasmine.getFixtures().fixturesPath = path + 'test/fixtures';
+    // var f = jasmine.getFixtures();
+    // f.fixturesPath = 'base/test/fixtures';
+    // f.load('main.html');
+  },
+  teardown: function() {
+    var f = jasmine.getFixtures();
+    f.cleanUp();
+    f.clearCache();
+  }
+});
+
 test('Get attr href', function() {
+  var $arr = $('.slide');
+  console.log($arr);
+  // given relative path test/fixtures/ to karma
+  // fixtures.fixturesPath = 'base/test/fixtures/';
+  // fixtures.load('main.html');
+  // var f = loadFixtures('main.html');
+  // console.log(fixtures);
+
   var url = 'https://github.com/AlekseyLeshko/testimonial.js';
   var $node = $('<a />', {
     href: url
