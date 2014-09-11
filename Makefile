@@ -4,10 +4,7 @@ all: clean node_modules build test
 build:
 	gulp build
 
-test: karma
-
-karma:
-	karma start test/karma.conf.js --single-run --browsers PhantomJS
+test:
 
 install_karma_cli:
 	npm install -g karma-cli
