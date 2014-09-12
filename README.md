@@ -4,38 +4,9 @@
 [![Code Climate](https://codeclimate.com/github/AlekseyLeshko/testimonial.js.png)](https://codeclimate.com/github/AlekseyLeshko/testimonial.js)
 [![Dependency Status](https://david-dm.org/AlekseyLeshko/testimonial.js.svg?theme=shields.io)](https://david-dm.org/AlekseyLeshko/testimonial.js)
 [![devDependency Status](https://david-dm.org/AlekseyLeshko/testimonial.js/dev-status.svg?theme=shields.io)](https://david-dm.org/AlekseyLeshko/testimonial.js#info=devDependencies)
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/AlekseyLeshko/testimonial.js/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 > This plugin that will help show all testimonial letters about your business!
 
 ## Usage
-Create div element with 'testimonial_slider' class name attr. Fill div slides.
-```html
-<div class="testimonial_slider">
-  <div class="slide">
-    <div class="quote">
-      The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
-    </div>
-    <div class="author">
-      <div class="full_name">
-        <a href="https://github.com/AlekseyLeshko">
-          Aleksey Leshko
-        </a>
-      </div>
-      <div class="company">
-        <a href="https://github.com/AlekseyLeshko">
-          Company
-        </a>
-      </div>
-      <img class="foto" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
-    </div>
-  </div>
-  <div class="slide">
-    ...
-  </div>
-</div>
-```
-
-After create an object plugin
 ```js
 var $container = $('.testimonial_slider');
 var testimonial = new Testimonial($container);
@@ -46,66 +17,19 @@ var $container = $('.testimonial_slider');
 var options = { ... };
 var testimonial = new Testimonial($container, options);
 ```
+[Example](https://github.com/AlekseyLeshko/testimonial.js/blob/master/examples/index.html)
+
 ## Config Options
 - __timeout__, type: Number, default: 700
 - __auto__, type: Boolean, default: true
 
-## Building Testimonial.js
-Testimonial.js uses the [Grunt](http://gruntjs.com/) build system.
-
-To build Testimonial.js, you must have [node.js](http://nodejs.org/) installed and then run the following commands:
-#### Clone the [Testimonial.js git repo](https://github.com/AlekseyLeshko/testimonial.js)
-```sh
-git clone git@github.com:AlekseyLeshko/testimonial.js.git
-cd testinomial.js
+## Build project
 ```
-
-#### Install the Grunt CLI
-```sh
-npm install -g grunt-cli
-```
-
-#### Install the node module dependencies
-```sh
-npm install
-```
-
-#### Build project:
-```sh
-grunt build
-```
-
-#### Run web server:
-```sh
-grunt connect::keepalive
+make
 ```
 
 ## Examples
-View the examples in browser:
-[Run web server](#run-web-server) and go to links:
-- [Plugin example](http://localhost:9001/examples/index.html)
-- [Plugin layout](http://localhost:9001/examples/testimonial_layout.html)
-
-## Testing
-Start testing:
-```
-$ grunt test
-```
-See the testing results can be in terminal or browser.
-
-### Testing results in browser
-[Run web server](#run-web-server) and go to links:
-- [Testing result](http://localhost:9001/test/index.html)
-- [Code coverage](http://localhost:9001/coverage-results/html/index.html)
-
-## Dependence
-* [jQuery](http://jquery.com/), version >= [1.4.0](http://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js)
-
-## Author
-__Aleksey Leshko__
-- <a href="http://ru.linkedin.com/in/alekseyleshko"><img src="http://s.c.lnkd.licdn.com/scds/common/u/img/webpromo/btn_myprofile_160x33.png" width="160" height="33" border="0" alt="View Aleksey Leshko's profile on LinkedIn"></a>
-
-- [![endorse](https://api.coderwall.com/alekseyleshko/endorsecount.png)](https://coderwall.com/alekseyleshko)
+[Examples](https://github.com/AlekseyLeshko/testimonial.js/tree/master/examples)
 
 ## License
 Copyright (c) 2014 Aleksey Leshko Licensed under the The MIT License (MIT)

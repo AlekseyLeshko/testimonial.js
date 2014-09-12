@@ -1,0 +1,53 @@
+{
+  "basePath": "",
+  "browsers": [
+    "Chrome",
+    "PhantomJS",
+    "Firefox",
+    "FirefoxAurora",
+    "FirefoxNightly"
+  ],
+  "frameworks": ["jasmine"],
+  "files": [{
+      "pattern": "node_modules/jquery/dist/jquery.min.js",
+      "watched": false,
+      "served": true,
+      "included": true
+    }, {
+      "pattern": "lib/*.js",
+      "watched": false,
+      "served": true,
+      "included": true
+    }, {
+      "pattern": "test/fixtures/*.html",
+      "watched": true,
+      "served": true,
+      "included": false
+    }, {
+      "pattern": "examples/img/**/*.png",
+      "watched": false,
+      "served": true,
+      "included": false
+    },
+    "src/js/**/*.js",
+    "test/testHelper.js",
+    "test/unit/**/*.js"
+  ],
+  "autoWatch": true,
+  "usePolling": true,
+  "plugins": [
+    "karma-chrome-launcher",
+    "karma-phantomjs-launcher",
+    "karma-firefox-launcher",
+    "karma-jasmine",
+    "karma-coverage"
+  ],
+  "reporters": ["progress", "coverage"],
+  "preprocessors": {
+    "src/js/**/*.js": ["coverage"]
+  },
+  "coverageReporter": {
+    "type": "html",
+    "dir": "coverage/"
+  }
+}

@@ -4,14 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <title>Example plugin Testimonial.js</title>
-  <link rel="stylesheet" href="../dist/css/testimonial.css">
+  <link rel="stylesheet" href="../dist/css/testimonial.min.css">
   <script src="../dist/js/testimonial.min.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js"></script>
+  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
   <script>
     var testimonial;
     $(window).load(function() {
       var $container = $('.testimonial_slider');
-      var testimonial = new Testimonial($container);
+      testimonial = new Testimonial($container);
     });
   </script>
 </head>
@@ -52,7 +52,7 @@
               Company
             </a>
           </div>
-          <img class="foto" src="../resources/img/author_logo.png">
+          <img class="foto" src="./img/author_logo.png">
         </div>
       </div>
       <div class="slide">
@@ -70,7 +70,7 @@
               Company
             </a>
           </div>
-          <img class="foto" src="../resources/img/author_logo.png">
+          <img class="foto" src="./img/author_logo.png">
         </div>
       </div>
     </div>
