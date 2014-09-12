@@ -7,16 +7,30 @@
     "FirefoxAurora",
     "FirefoxNightly"
   ],
-  "frameworks": ["qunit", "jasmine"],
-  "files": [
-    "bower_components/jquery/dist/jquery.min.js",
-    "lib/*.js", {
+  "frameworks": ["jasmine"],
+  "files": [{
+      "pattern": "node_modules/jquery/dist/jquery.min.js",
+      "watched": false,
+      "served": true,
+      "included": true
+    }, {
+      "pattern": "lib/*.js",
+      "watched": false,
+      "served": true,
+      "included": true
+    }, {
       "pattern": "test/fixtures/*.html",
       "watched": true,
       "served": true,
       "included": false
+    }, {
+      "pattern": "examples/img/**/*.png",
+      "watched": false,
+      "served": true,
+      "included": false
     },
     "src/js/**/*.js",
+    "test/testHelper.js",
     "test/unit/**/*.js"
   ],
   "autoWatch": true,
@@ -25,14 +39,12 @@
     "karma-chrome-launcher",
     "karma-phantomjs-launcher",
     "karma-firefox-launcher",
-    "karma-qunit",
     "karma-jasmine",
     "karma-coverage"
   ],
   "reporters": ["progress", "coverage"],
   "preprocessors": {
-    "app/**/*.js": ["coverage"],
-    "**/*.html": []
+    "src/js/**/*.js": ["coverage"]
   },
   "coverageReporter": {
     "type": "html",
