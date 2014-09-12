@@ -1,11 +1,12 @@
 #npm
-node_modules
+node_modules/
 
 #bower
-bower_components
+bower_components/
 
 #Testing
-coverage-results
+coverage-results/
 
 #App
-dist
+dist/
+coverage/
