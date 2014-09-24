@@ -14,7 +14,7 @@
       "served": true,
       "included": true
     }, {
-      "pattern": "lib/*.js",
+      "pattern": "node_modules/jasmine-jquery/lib/jasmine-jquery.js",
       "watched": false,
       "served": true,
       "included": true
