@@ -19,6 +19,26 @@
   "bugs": {
     "url": "https://github.com/AlekseyLeshko/testimonial.js/issues"
   },
+  "keywords": [
+    "testimonial",
+    "revocation",
+    "estimation",
+    "opinion",
+    "judgement",
+    "review",
+    "thought",
+    "recall",
+    "comment",
+    "mention",
+    "pronouncement",
+    "view",
+    "mind",
+    "consideration",
+    "belief",
+    "jquery",
+    "plugin",
+    "slider",
+  ],
   "engines": {
     "node": ">=0.8"
   },
