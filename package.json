@@ -1,7 +1,7 @@
 {
   "name": "Testimonial.js",
   "version": "0.0.0",
-  "description": "Testimonial.js description",
+  "description": "Plugin that will help show all testimonial letters about your business!",
   "main": "./js/testimonial.js",
   "homepage": "http://alekseyleshko.github.io/testimonial.js/",
   "author": {
