@@ -1,6 +1,6 @@
 /**
   * testimonial - Plugin that will help show all testimonial letters about your business!
-  * @version v0.1.1
+  * @version v0.1.3
   * @link http://alekseyleshko.github.io/testimonial.js/
   * @license MIT (https://github.com/AlekseyLeshko/testimonial.js/blob/master/LICENSE)
 */

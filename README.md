@@ -32,6 +32,7 @@ make
 [Examples](https://github.com/AlekseyLeshko/testimonial.js/tree/master/examples)
 
 ## Release History
+v0.1.3 Update info about plugin
 v0.1.2 Update info about plugin
 v0.1.1 Add dist folder
 v0.1.0 Initial release
