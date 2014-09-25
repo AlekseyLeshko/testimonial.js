@@ -5,8 +5,4 @@ node_modules/
 bower_components/
 
 #Testing
-coverage-results/
-
-#App
-dist/
 coverage/
