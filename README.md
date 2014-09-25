@@ -32,7 +32,8 @@ make
 [Examples](https://github.com/AlekseyLeshko/testimonial.js/tree/master/examples)
 
 ## Release History
-0.1.0 Initial release
+v0.1.1 Add dist folder
+v0.1.0 Initial release
 
 ## License
 Copyright (c) 2014 Aleksey Leshko Licensed under the The MIT License (MIT)

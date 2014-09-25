@@ -1,6 +1,6 @@
 {
   "name": "Testimonial.js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Plugin that will help show all testimonial letters about your business!",
   "main": "./js/testimonial.js",
   "homepage": "http://alekseyleshko.github.io/testimonial.js/",
@@ -77,10 +77,7 @@
   "preferGlobal": false,
   "private": false,
   "analyze": true,
-  "license": {
-    "type": "MIT",
-    "url": "https://github.com/AlekseyLeshko/testimonial.js/blob/master/LICENSE"
-  },
+  "license": "MIT (https://github.com/AlekseyLeshko/testimonial.js/blob/master/LICENSE)",
   "directories": {
     "example": "examples",
     "test": "test"
