@@ -6,6 +6,17 @@
 [![devDependency Status](https://david-dm.org/AlekseyLeshko/testimonial.js/dev-status.svg?theme=shields.io)](https://david-dm.org/AlekseyLeshko/testimonial.js#info=devDependencies)
 > This plugin that will help show all testimonial letters about your business!
 
+## Install 
+#### with [bower](http://bower.io/)
+```
+bower install testimonial --save-dev
+```
+
+#### with [npm](https://www.npmjs.org/)
+```
+npm i -D testimonial
+```
+
 ## Usage
 ```js
 var $container = $('.testimonial_slider');
