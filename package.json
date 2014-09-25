@@ -4,14 +4,10 @@
   "description": "Plugin that will help show all testimonial letters about your business!",
   "main": "./js/testimonial.js",
   "homepage": "http://alekseyleshko.github.io/testimonial.js/",
-  "author": {
-    "name": "Aleksey Leshko",
-    "url": "https://github.com/AlekseyLeshko"
-  },
-  "contributors": [{
-    "name": "Aleksey Leshko",
-    "email": "alekseyleshko@gmail.com"
-  }],
+  "author": "Aleksey Leshko (https://github.com/AlekseyLeshko)",
+  "contributors": [
+    "Aleksey Leshko <alekseyleshko@gmail.com>"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/AlekseyLeshko/testimonial.js"
@@ -78,5 +74,9 @@
   "preferGlobal": false,
   "private": false,
   "analyze": true,
-  "license": "MIT"
+  "license": "MIT",
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  }
 }
