@@ -1,0 +1,52 @@
+{
+  "name": "testimonial",
+  "version": "0.1.4",
+  "homepage": "http://alekseyleshko.github.io/testimonial.js/",
+  "authors": [
+    "alekseyleshko <alekseyleshko@gmail.com>"
+  ],
+  "description": "Plugin that will help show all testimonial letters about your business!",
+  "license": "MIT (https://github.com/AlekseyLeshko/testimonial.js/blob/master/LICENSE)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AlekseyLeshko/testimonial.js"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "coverage"
+    "config",
+    "gulp",
+    "src",
+    ".gitignore",
+    ".travis.yml",
+    "Makefile",
+    "gulpfile.js"
+  ],
+  "keywords": [
+    "testimonial",
+    "revocation",
+    "estimation",
+    "opinion",
+    "judgement",
+    "review",
+    "thought",
+    "recall",
+    "comment",
+    "mention",
+    "pronouncement",
+    "view",
+    "mind",
+    "consideration",
+    "belief",
+    "jquery",
+    "plugin",
+    "slider"
+  ],
+  "dependencies": {
+    "jquery": ">=1.6.0"
+  }
+}
