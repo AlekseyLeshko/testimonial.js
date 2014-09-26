@@ -68,6 +68,7 @@
     "my-ip": "^1.1.1",
     "require-dir": "^0.1.0",
     "run-sequence": "^0.3.6",
+    "semver": "^4.0.0",
     "shelljs": "^0.3.0"
   },
   "scripts": {
