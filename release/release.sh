@@ -41,10 +41,14 @@ log "Project version: $VERSION"
 
 log "Create commit: Update version"
 git add package.json bower.json
-git commit -m 'Update version'
+git commit -m "Update version"
 
 log "Build project"
 make
+
+log "Create commit: Update dist"
+git add dist
+git commit -m "Update dist"
 
 log "Checkout git branch: master"
 git checkout master
@@ -53,18 +57,22 @@ log "Pull --rebase"
 git pull --rebase
 
 log "Merge branch:develop"
-git merge --no-ff develop -m 'Release v$VERSION'
+git merge --no-ff develop -m "Release v$VERSION"
 
 log "Push data"
 git push
 
 log "Tag v$VERSION created"
 git tag v$VERSION
+git ci -m "Publish $PROJECT v$VERSION"
 
 log "Push tag"
+git push --tags
 
 if [[ $IS_PUBLISH_VERSION == true ]] ; then
   log "Start publish $PROJECT_NAME v$VERSION"
+
+  npm publish
 
   log "${green}$PROJECT_NAME v$VERSION is a published"
 fi
