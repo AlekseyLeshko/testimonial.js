@@ -1,6 +1,6 @@
 {
   "name": "testimonial",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Plugin that will help show all testimonial letters about your business!",
   "main": "./js/testimonial.js",
   "homepage": "http://alekseyleshko.github.io/testimonial.js/",
@@ -68,6 +68,7 @@
     "my-ip": "^1.1.1",
     "require-dir": "^0.1.0",
     "run-sequence": "^0.3.6",
+    "semver": "^4.0.0",
     "shelljs": "^0.3.0"
   },
   "scripts": {
