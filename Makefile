@@ -1,3 +1,6 @@
+.DEFAULT_TARGET: all
+.PHONY: all
+
 # Binaries we use
 all: clean node_modules build test
 
