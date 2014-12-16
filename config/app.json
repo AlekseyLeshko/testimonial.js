@@ -1,7 +1,6 @@
 {
   "dev": {
     "ip": "localhost",
-    "port": "9090",
-    "browser": "google-chrome"
+    "port": "9090"
   }
 }
