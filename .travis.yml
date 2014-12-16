@@ -1,5 +1,20 @@
-language: node_js
+language:
+  - node_js
+
 node_js:
-  - "0.10"
+  - "0.10.33"
+
+branches:
+  only:
+    - master
+    - develop
+
 before_script:
-script:
+  - make
+
+addons:
+  code_climate:
+    repo_token: 743f4fcc50922009c25367b0de2d745d77535c26a2c78e28880ded640f9b0a2f
+
+after_script:
+  - codeclimate < coverage/PhantomJS\ 1.9.8\ \(Linux\)/lcov.info
