@@ -1,4 +1,6 @@
-Testimonial = function($container, options) {
+'use strict';
+
+var Testimonial = function($container, options) {
   this.$container = $container;
   this.pluginOptions = {};
 
@@ -78,7 +80,7 @@ Testimonial.prototype = {
   parseDomTree: function() {
     var $nodeArr = this.$container.children();
     $nodeArr.remove();
-
+    /* global Parser: false */
     var parser = new Parser($nodeArr);
     this.dataArr = parser.parse();
   },
@@ -86,6 +88,7 @@ Testimonial.prototype = {
   createSlides: function() {
     for (var i = 0; i < this.dataArr.length; i++) {
       var data = this.dataArr[i];
+      /* global TestimonialSlide: false */
       var $slide = new TestimonialSlide(data);
       this.$slides.push($slide);
     }
@@ -103,8 +106,9 @@ Testimonial.prototype = {
     var $buttonNext = $('<div />', {
       'class': 'next_slide'
     });
+    var self = this;
     $buttonNext.click(function() {
-      testimonial.next();
+      self.next();
     });
     this.$container.append($buttonNext);
   },

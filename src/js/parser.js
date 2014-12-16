@@ -1,4 +1,6 @@
-Parser = function($nodeArr) {
+'use strict';
+
+var Parser = function($nodeArr) {
   this.$nodeArr = $nodeArr;
   this.dataArr = [];
 };
