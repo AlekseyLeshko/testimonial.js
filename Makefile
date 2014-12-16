@@ -11,6 +11,7 @@ install_global_module: install_say_me
 	@$(call install_npm_module,bower,-g)
 	@$(call install_npm_module,karma-cli,-g)
 	@$(call install_npm_module,npm-check-updates,-g)
+	@$(call install_npm_module,codeclimate-test-reporter,-g)
 
 install_say_me:
 	npm install -g say-me
