@@ -9,7 +9,8 @@ Parser.prototype = {
   parse: function() {
     for (var i = 0; i < this.$nodeArr.length; i++) {
       var $node = $(this.$nodeArr[i]);
-      this.parseNode($node);
+      var data = this.parseNode($node);
+      this.dataArr.push(data);
     }
 
     return this.dataArr;
@@ -18,7 +19,7 @@ Parser.prototype = {
   parseNode: function($node) {
     var data = this.parseAuthorNode($node.children('.author'));
     data.quote = $node.children('.quote').text().trim();
-    this.dataArr.push(data);
+    return data;
   },
 
   parseAuthorNode: function($authorNode) {
