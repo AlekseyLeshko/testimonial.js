@@ -41,7 +41,7 @@ describe('Parser', function() {
     expect(href).toEqual(expected);
   });
 
-  describe("with fixtures", function() {
+  describe('with fixtures', function() {
     var fileName = 'main.html';
 
     beforeEach(function() {
