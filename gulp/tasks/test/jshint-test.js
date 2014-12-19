@@ -18,7 +18,8 @@ gulp.task('jshint-test', function() {
       TestimonialSlide: false,
       jasmine: false,
       loadFixtures: false,
-      Parser: false
+      Parser: false,
+      Testimonial: false
     }
   };
   return gulp.src(paths)
