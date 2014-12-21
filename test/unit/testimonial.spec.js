@@ -186,4 +186,18 @@ describe('Testimonial', function() {
 
     expect(Testimonial.prototype.timerId).toBeUndefined();
   });
+
+  it('should create new Testimonial', function() {
+    spyOn(Testimonial.prototype, 'initPlugin');
+    var $container = $('<div />');
+    var options = {};
+
+    var testimonial = new Testimonial($container, options);
+
+    expect(testimonial.$container).toEqual($container);
+    expect(testimonial.initPlugin).toHaveBeenCalled();
+    expect(testimonial.pluginOptions).toEqual({});
+    expect(testimonial.$slides.length).toEqual(0);
+    expect(testimonial.currentSlideIndex).toEqual(0);
+  });
 });
