@@ -18,3 +18,4 @@ addons:
 
 after_script:
   - codeclimate < coverage/PhantomJS\ 1.9.8\ \(Linux\)/lcov.info
+  - cat ./coverage/PhantomJS\ 1.9.8\ \(Linux\)/lcov.info | ./node_modules/coveralls/bin/coveralls.js
