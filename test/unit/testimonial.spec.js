@@ -200,4 +200,26 @@ describe('Testimonial', function() {
     expect(testimonial.$slides.length).toEqual(0);
     expect(testimonial.currentSlideIndex).toEqual(0);
   });
+
+  it('should slideRendering', function() {
+    // Testimonial.prototype.$slidesWrapper = $('<div />');
+    var slide1 = new TestimonialSlide();
+    var slide2 = new TestimonialSlide();
+    Testimonial.prototype.$slides = [
+      slide1,
+      slide2,
+    ];
+    var node = $('<div />');
+    spyOn(slide2, 'hideSlide');
+    spyOn(slide1, 'getDomNode').and.returnValue($('<div />'));
+    spyOn(slide2, 'getDomNode').and.returnValue($('<div />'));
+
+    Testimonial.prototype.slideRendering();
+
+    expect(slide2.hideSlide).toHaveBeenCalled();
+    expect(slide1.getDomNode).toHaveBeenCalled();
+    expect(slide2.getDomNode).toHaveBeenCalled();
+    console.log(Testimonial.prototype.$slidesWrapper);
+    expect(Testimonial.prototype.$slidesWrapper.find('div').length).toEqual(2);
+  });
 });
