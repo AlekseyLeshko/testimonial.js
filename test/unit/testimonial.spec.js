@@ -219,7 +219,6 @@ describe('Testimonial', function() {
     expect(slide2.hideSlide).toHaveBeenCalled();
     expect(slide1.getDomNode).toHaveBeenCalled();
     expect(slide2.getDomNode).toHaveBeenCalled();
-    console.log(Testimonial.prototype.$slidesWrapper);
     expect(Testimonial.prototype.$slidesWrapper.find('div').length).toEqual(2);
   });
 });
