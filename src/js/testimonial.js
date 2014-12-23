@@ -140,7 +140,8 @@ Testimonial.prototype = {
     if (!isShow) {
       slide.hideSlide();
     }
-    this.$slidesWrapper.append(slide.getDomNode());
+    var $node = slide.getDomNode();
+    this.$slidesWrapper.append($node);
   },
 
   add: function(slideObj) {

@@ -323,4 +323,33 @@ describe('Testimonial', function() {
     expect(Testimonial.prototype.$slides.length).toEqual(1);
     expect(Testimonial.prototype.slideRendering.calls.argsFor(0)[1]).toEqual(false);
   });
+
+  it('should rendering slide', function() {
+    var $slidesWrapper = $('<div />');
+    Testimonial.prototype.$slidesWrapper = $slidesWrapper;
+
+    var slide = new TestimonialSlide();
+    var $node = $('<div />');
+    spyOn(slide, 'getDomNode').and.returnValue($node);
+
+    Testimonial.prototype.slideRendering(slide, false);
+
+    expect(slide.getDomNode).toHaveBeenCalled();
+    expect(Testimonial.prototype.$slidesWrapper.children().length).toEqual(1);
+  });
+
+  it('should rendering slide with hide slide', function() {
+    var $slidesWrapper = $('<div />');
+    Testimonial.prototype.$slidesWrapper = $slidesWrapper;
+
+    var slide = new TestimonialSlide();
+    var $node = $('<div />');
+    spyOn(slide, 'getDomNode').and.returnValue($node);
+    spyOn(slide, 'hideSlide');
+
+    Testimonial.prototype.slideRendering(slide, true);
+
+    expect(slide.getDomNode).toHaveBeenCalled();
+    expect(Testimonial.prototype.$slidesWrapper.children().length).toEqual(1);
+  });
 });
