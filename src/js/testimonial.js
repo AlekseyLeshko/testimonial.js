@@ -136,5 +136,13 @@ Testimonial.prototype = {
     if (this.currentSlideIndex === this.$slides.length) {
       this.currentSlideIndex = 0;
     }
+  },
+
+  add: function(slideObj) {
+    /* global TestimonialSlide: false */
+    var $slide = new TestimonialSlide(slideObj);
+
+    this.$slides.push($slide);
+    this.slideRendering();
   }
 };

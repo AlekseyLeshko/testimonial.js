@@ -311,4 +311,18 @@ describe('Testimonial', function() {
     expect(slide1.animateHide).toHaveBeenCalled();
     expect(slide2.animateShow).toHaveBeenCalled();
   });
+
+  it('should add slide', function() {
+    var cSpy = spyOn(window, 'TestimonialSlide');
+
+    Testimonial.prototype.$slides = [];
+    var slide = {
+      test: 'test'
+    };
+
+    Testimonial.prototype.add(slide);
+
+    expect(cSpy).toHaveBeenCalledWith(slide);
+    expect(Testimonial.prototype.$slides.length).toEqual(1);
+  });
 });
