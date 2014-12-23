@@ -311,16 +311,16 @@ describe('Testimonial', function() {
   });
 
   it('should add slide', function() {
-    var cSpy = spyOn(window, 'TestimonialSlide');
-
     Testimonial.prototype.$slides = [];
-    var slide = {
-      test: 'test'
-    };
+    var slide = {};
+
+    var cSpy = spyOn(window, 'TestimonialSlide');
+    spyOn(Testimonial.prototype, 'slideRendering');
 
     Testimonial.prototype.add(slide);
 
     expect(cSpy).toHaveBeenCalledWith(slide);
     expect(Testimonial.prototype.$slides.length).toEqual(1);
+    expect(Testimonial.prototype.slideRendering.calls.argsFor(0)[1]).toEqual(false);
   });
 });
