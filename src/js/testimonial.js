@@ -117,6 +117,9 @@ Testimonial.prototype = {
   },
 
   resizePluginContainer: function() {
+    if (this.$slides.length <= 0) {
+      return;
+    }
     var indents = 20;
     var slideHeight = this.$slides[this.currentSlideIndex].height();
 

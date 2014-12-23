@@ -57,6 +57,21 @@ describe('Testimonial', function() {
     expect(Testimonial.prototype.$container.height()).toEqual(expected);
   });
 
+  it('should resizePluginContainer with empty slide list', function() {
+    var expected = 0;
+    var height = 100;
+    var obj = $('<div />', {
+      height: height
+    });
+    Testimonial.prototype.$container = $('<div />');
+    Testimonial.prototype.$slides = [];
+    Testimonial.prototype.currentSlideIndex = 0;
+
+    Testimonial.prototype.resizePluginContainer();
+
+    expect(Testimonial.prototype.$container.height()).toEqual(expected);
+  });
+
   it('should createButtonNext', function() {
     spyOn(Testimonial.prototype, 'next');
     Testimonial.prototype.$container = $('<div />');
