@@ -227,24 +227,22 @@ describe('Testimonial', function() {
     expect(testimonial.currentSlideIndex).toEqual(0);
   });
 
-  it('should slideRendering', function() {
+  it('should rendering slide list', function() {
     var slide1 = new TestimonialSlide();
     var slide2 = new TestimonialSlide();
     Testimonial.prototype.$slides = [
       slide1,
       slide2,
     ];
-    var node = $('<div />');
-    spyOn(slide2, 'hideSlide');
-    spyOn(slide1, 'getDomNode').and.returnValue($('<div />'));
-    spyOn(slide2, 'getDomNode').and.returnValue($('<div />'));
+    spyOn(Testimonial.prototype, 'slideRendering');
+    Testimonial.prototype.currentSlideIndex = 0;
 
-    Testimonial.prototype.slideRendering();
+    Testimonial.prototype.slideListRendering();
 
-    expect(slide2.hideSlide).toHaveBeenCalled();
-    expect(slide1.getDomNode).toHaveBeenCalled();
-    expect(slide2.getDomNode).toHaveBeenCalled();
-    expect(Testimonial.prototype.$slidesWrapper.find('div').length).toEqual(2);
+    expect(Testimonial.prototype.slideRendering).toHaveBeenCalled();
+    expect(Testimonial.prototype.slideRendering.calls.count()).toEqual(2);
+    expect(Testimonial.prototype.slideRendering.calls.argsFor(0)).toEqual([slide1, true]);
+    expect(Testimonial.prototype.slideRendering.calls.argsFor(1)).toEqual([slide2, false]);
   });
 
   it('should createOptions', function() {
