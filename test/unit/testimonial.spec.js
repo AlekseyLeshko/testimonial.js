@@ -93,20 +93,31 @@ describe('Testimonial', function() {
   });
 
   it('should parseDomTree', function() {
+    Testimonial.prototype.dataArr = [];
     var arr = [1, 2, 3];
     spyOn(Parser.prototype, 'parse').and.returnValue(arr);
     var fileName = 'main.html';
     jasmine.getFixtures().fixturesPath = 'base/test/fixtures';
     loadFixtures(fileName);
 
-    var $container = $('testimonial_slider');
-    var length = $container.children().length;
+    var $container = $('.testimonial_slider');
     Testimonial.prototype.$container = $container;
     Testimonial.prototype.parseDomTree();
 
     expect(Testimonial.prototype.$container.children().length).toEqual(0);
     expect(Testimonial.prototype.dataArr).toEqual(arr);
     expect(Parser.prototype.parse).toHaveBeenCalled();
+  });
+
+  it('should parse empty div', function() {
+    Testimonial.prototype.dataArr = [];
+
+    var $container = $('<div />');
+    Testimonial.prototype.$container = $container;
+    Testimonial.prototype.parseDomTree();
+
+    expect(Testimonial.prototype.$container.children().length).toEqual(0);
+    expect(Testimonial.prototype.dataArr.length).toEqual(0);
   });
 
   it('should initPlugin', function() {

@@ -79,6 +79,9 @@ Testimonial.prototype = {
 
   parseDomTree: function() {
     var $nodeArr = this.$container.children();
+    if ($nodeArr.length <= 0) {
+      return;
+    }
     $nodeArr.remove();
     /* global Parser: false */
     var parser = new Parser($nodeArr);
