@@ -10,7 +10,10 @@
 </head>
 
 <body>
-  <textarea id="json_input" name="json_input" class="json_input" rows="20" cols="100" spellcheck="false" placeholder="Enter JSON to convert" wrap="off"></textarea>
+  <textarea id="json_input" name="json_input" class="json_input" rows="20" cols="100" spellcheck="false" placeholder="Enter JSON" wrap="off"></textarea>
+  <br/>
+  <input type="button" value="Add slide" onclick="addSlide();">
+
   <div class="main-container">
     <div class="testimonial_slider">
       <div class="slide">
@@ -70,7 +73,6 @@
     </div>
     <input type="button" value="start" onclick="testimonial.start();">
     <input type="button" value="stop" onclick="testimonial.stop();">
-    <input type="button" value="Add" onclick="addSlide();">
   </div>
   <script>
     var testimonial;
@@ -100,7 +102,13 @@
     }
 
     function addSlide() {
-      var data = $('textarea#json_input').val();
+      var $textarea = $('textarea#json_input');
+      var data = $textarea.val();
+      if (!data) {
+        $textarea.css('background-color', '#F00');
+        return;
+      }
+      $textarea.css('background-color', '');
       var slide = JSON.parse(data);
 
       testimonial.add(slide);
