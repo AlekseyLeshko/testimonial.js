@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="../dist/css/testimonial.min.css">
   <script src="../dist/js/testimonial.min.map.js"></script>
   <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="../node_modules/jsonlint/lib/jsonlint.js"></script>
 </head>
 
 <body>
@@ -104,15 +105,17 @@
     function addSlide() {
       var $textarea = $('textarea#json_input');
       var data = $textarea.val();
-      if (!data) {
-        $textarea.css('background-color', '#F00');
-        return;
-      }
-      $textarea.css('background-color', '');
-      var slide = JSON.parse(data);
+      try {
+        var slide = jsonlint.parse(data);
+        if (slide) {
+          $textarea.css('background-color', '');
 
-      testimonial.add(slide);
-      setJson(slide);
+          testimonial.add(slide);
+          setJson(slide);
+        }
+      } catch(e) {
+        $textarea.css('background-color', '#F00');
+      }
     }
   </script>
 </body>
