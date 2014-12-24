@@ -7,29 +7,10 @@
   <link rel="stylesheet" href="../dist/css/testimonial.min.css">
   <script src="../dist/js/testimonial.min.map.js"></script>
   <script src="../node_modules/jquery/dist/jquery.min.js"></script>
-  <script>
-    var testimonial;
-    $(window).load(function() {
-      var $container = $('.testimonial_slider');
-      testimonial = new Testimonial($container);
-    });
-
-    function addSlide() {
-      var slide = {
-        authorHref: 'https://github.com/AlekseyLeshko',
-        company: 'Company',
-        companyHref: 'https://github.com/AlekseyLeshko',
-        fotoSrc: 'http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146',
-        fullName: 'Aleksey Leshko',
-        quote: 'The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!'
-      };
-
-      testimonial.add(slide);
-    }
-  </script>
 </head>
 
 <body>
+  <textarea id="json_input" name="json_input" class="json_input" rows="20" cols="100" spellcheck="false" placeholder="Enter JSON to convert" wrap="off"></textarea>
   <div class="main-container">
     <div class="testimonial_slider">
       <div class="slide">
@@ -91,6 +72,41 @@
     <input type="button" value="stop" onclick="testimonial.stop();">
     <input type="button" value="Add" onclick="addSlide();">
   </div>
+  <script>
+    var testimonial;
+    $(window).load(function() {
+      var $container = $('.testimonial_slider');
+      testimonial = new Testimonial($container);
+
+      var slide = getDefaultSlide();
+      setJson(slide);
+    });
+
+    function getDefaultSlide() {
+      var slide = {
+        authorHref: 'https://github.com/AlekseyLeshko',
+        company: 'Company',
+        companyHref: 'https://github.com/AlekseyLeshko',
+        fotoSrc: 'http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146',
+        fullName: 'Aleksey Leshko',
+        quote: 'The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!'
+      };
+      return slide;
+    }
+
+    function setJson(slide) {
+      var data = JSON.stringify(slide, null, '  ');
+      $('textarea#json_input').val(data);
+    }
+
+    function addSlide() {
+      var data = $('textarea#json_input').val();
+      var slide = JSON.parse(data);
+
+      testimonial.add(slide);
+      setJson(slide);
+    }
+  </script>
 </body>
 
 </html>
