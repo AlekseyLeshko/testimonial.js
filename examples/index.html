@@ -7,16 +7,14 @@
   <link rel="stylesheet" href="../dist/css/testimonial.min.css">
   <script src="../dist/js/testimonial.min.map.js"></script>
   <script src="../node_modules/jquery/dist/jquery.min.js"></script>
-  <script>
-    var testimonial;
-    $(window).load(function() {
-      var $container = $('.testimonial_slider');
-      testimonial = new Testimonial($container);
-    });
-  </script>
+  <script src="../node_modules/jsonlint/lib/jsonlint.js"></script>
 </head>
 
 <body>
+  <textarea id="json_input" name="json_input" class="json_input" rows="20" cols="100" spellcheck="false" placeholder="Enter JSON" wrap="off"></textarea>
+  <br/>
+  <input id="add_slide_button" type="button" value="Add slide" onclick="addSlide();">
+
   <div class="main-container">
     <div class="testimonial_slider">
       <div class="slide">
@@ -77,6 +75,64 @@
     <input type="button" value="start" onclick="testimonial.start();">
     <input type="button" value="stop" onclick="testimonial.stop();">
   </div>
+  <script>
+    var testimonial;
+    $(window).load(function() {
+      var $container = $('.testimonial_slider');
+      testimonial = new Testimonial($container);
+
+      var slide = getDefaultSlide();
+      setJson(slide);
+      textarea();
+    });
+
+    function getDefaultSlide() {
+      var slide = {
+        authorHref: 'https://github.com/AlekseyLeshko',
+        company: 'Company',
+        companyHref: 'https://github.com/AlekseyLeshko',
+        fotoSrc: 'http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146',
+        fullName: 'Aleksey Leshko',
+        quote: 'The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!'
+      };
+      return slide;
+    }
+
+    function textarea() {
+      $('textarea#json_input').bind('input propertychange', checkTextarea);
+      checkTextarea();
+    }
+
+    var slide;
+    function checkTextarea() {
+      var $textarea = $('textarea#json_input');
+      var $addSlideButton = $('input#add_slide_button');
+
+      var data = $textarea.val();
+      try {
+        slide = jsonlint.parse(data);
+        if (slide) {
+          $textarea.css('background-color', '');
+          $addSlideButton.prop('disabled', false);
+        }
+      } catch(e) {
+        $textarea.css('background-color', '#F00');
+        $addSlideButton.prop('disabled', true);
+      }
+    }
+
+    function setJson(slide) {
+      var data = JSON.stringify(slide, null, '  ');
+      $('textarea#json_input').val(data);
+    }
+
+    function addSlide() {
+      if (slide) {
+        testimonial.add(slide);
+        setJson(slide);
+      }
+    }
+  </script>
 </body>
 
 </html>
