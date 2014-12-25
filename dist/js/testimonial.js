@@ -4,7 +4,9 @@
   * @link http://alekseyleshko.github.io/testimonial.js/
   * @license MIT (https://github.com/AlekseyLeshko/testimonial.js/blob/master/LICENSE)
 */
-Parser = function($nodeArr) {
+'use strict';
+
+var Parser = function($nodeArr) {
   this.$nodeArr = $nodeArr;
   this.dataArr = [];
 };
@@ -13,7 +15,8 @@ Parser.prototype = {
   parse: function() {
     for (var i = 0; i < this.$nodeArr.length; i++) {
       var $node = $(this.$nodeArr[i]);
-      this.parseNode($node);
+      var data = this.parseNode($node);
+      this.dataArr.push(data);
     }
 
     return this.dataArr;
@@ -22,7 +25,7 @@ Parser.prototype = {
   parseNode: function($node) {
     var data = this.parseAuthorNode($node.children('.author'));
     data.quote = $node.children('.quote').text().trim();
-    this.dataArr.push(data);
+    return data;
   },
 
   parseAuthorNode: function($authorNode) {
@@ -47,7 +50,9 @@ Parser.prototype = {
   },
 };
 
-Testimonial = function($container, options) {
+'use strict';
+
+var Testimonial = function($container, options) {
   this.$container = $container;
   this.pluginOptions = {};
 
@@ -64,7 +69,7 @@ Testimonial.prototype = {
     this.parseDomTree();
     this.createSlides();
     this.createInfrastructure();
-    this.slideRendering();
+    this.slideListRendering();
     this.resizePluginContainer();
 
     if (this.pluginOptions.autostart) {
@@ -114,20 +119,21 @@ Testimonial.prototype = {
     return defaultOptions;
   },
 
-  slideRendering: function() {
+  slideListRendering: function() {
     for (var i = 0; i < this.$slides.length; i++) {
-      var $slide = this.$slides[i];
-      if (i !== 0) {
-        $slide.hideSlide();
-      }
-      this.$slidesWrapper.append($slide.getDomNode());
+      var slide = this.$slides[i];
+      var isShow = i === this.currentSlideIndex;
+      this.slideRendering(slide, isShow);
     }
   },
 
   parseDomTree: function() {
     var $nodeArr = this.$container.children();
+    if ($nodeArr.length <= 0) {
+      return;
+    }
     $nodeArr.remove();
-
+    /* global Parser: false */
     var parser = new Parser($nodeArr);
     this.dataArr = parser.parse();
   },
@@ -135,6 +141,7 @@ Testimonial.prototype = {
   createSlides: function() {
     for (var i = 0; i < this.dataArr.length; i++) {
       var data = this.dataArr[i];
+      /* global TestimonialSlide: false */
       var $slide = new TestimonialSlide(data);
       this.$slides.push($slide);
     }
@@ -152,13 +159,17 @@ Testimonial.prototype = {
     var $buttonNext = $('<div />', {
       'class': 'next_slide'
     });
+    var self = this;
     $buttonNext.click(function() {
-      testimonial.next();
+      self.next();
     });
     this.$container.append($buttonNext);
   },
 
   resizePluginContainer: function() {
+    if (this.$slides.length <= 0) {
+      return;
+    }
     var indents = 20;
     var slideHeight = this.$slides[this.currentSlideIndex].height();
 
@@ -175,10 +186,28 @@ Testimonial.prototype = {
     if (this.currentSlideIndex === this.$slides.length) {
       this.currentSlideIndex = 0;
     }
+  },
+
+  slideRendering: function(slide, isShow) {
+    if (!isShow) {
+      slide.hideSlide();
+    }
+    var $node = slide.getDomNode();
+    this.$slidesWrapper.append($node);
+  },
+
+  add: function(slideObj) {
+    /* global TestimonialSlide: false */
+    var slide = new TestimonialSlide(slideObj);
+
+    this.$slides.push(slide);
+    this.slideRendering(slide, false);
   }
 };
 
-TestimonialSlide = function(data) {
+'use strict';
+
+var TestimonialSlide = function(data) {
   this.data = this.createData(data);
 
   this.createOptions();
