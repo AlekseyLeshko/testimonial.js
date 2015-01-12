@@ -37,7 +37,7 @@ var $container = $('.testimonial_slider');
 var options = {
     timeout: 7000,
     autostart: true,
-    slideCount: 2
+    slideCount: 3
 };
 var testimonial = new Testimonial($container, options);
 ```
@@ -47,7 +47,7 @@ var testimonial = new Testimonial($container, options);
 ## Config Options
 - __timeout__, type: Number, default: 700
 - __autostart__, type: Boolean, default: true
-- __slideCount__, type: number, default: 2
+- __slideCount__, type: number, default: 3
 
 ## Build project
 ```

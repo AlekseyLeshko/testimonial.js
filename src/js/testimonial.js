@@ -53,7 +53,7 @@ Testimonial.prototype = {
     var defaultOptions = {
       timeout: 7000,
       autostart: true,
-      slideCount: 2
+      slideCount: 3
     };
     return defaultOptions;
   },
