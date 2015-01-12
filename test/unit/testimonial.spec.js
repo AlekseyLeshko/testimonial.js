@@ -1,10 +1,6 @@
 'use strict';
 
 describe('Testimonial', function() {
-
-  beforeEach(function() {
-  });
-
   it('should indexing return 2', function() {
     Testimonial.prototype.$slides = [1, 2 , 3];
     Testimonial.prototype.currentSlideIndex = 1;
@@ -135,13 +131,10 @@ describe('Testimonial', function() {
     expect(Testimonial.prototype.dataArr.length).toEqual(0);
   });
 
-  it('should initPlugin', function() {
+  it('should initPlugin with autostart', function() {
     spyOn(Testimonial.prototype, 'createOptions');
-    spyOn(Testimonial.prototype, 'parseDomTree');
-    spyOn(Testimonial.prototype, 'createSlides');
-    spyOn(Testimonial.prototype, 'createInfrastructure');
-    spyOn(Testimonial.prototype, 'slideRendering');
-    spyOn(Testimonial.prototype, 'resizePluginContainer');
+    spyOn(Testimonial.prototype, 'initSlideList');
+
     spyOn(Testimonial.prototype, 'start');
     Testimonial.prototype.pluginOptions = {
       autostart: true
@@ -153,21 +146,17 @@ describe('Testimonial', function() {
     Testimonial.prototype.initPlugin(options);
 
     expect(Testimonial.prototype.createOptions).toHaveBeenCalledWith(options);
-    expect(Testimonial.prototype.parseDomTree).toHaveBeenCalled();
-    expect(Testimonial.prototype.createSlides).toHaveBeenCalled();
-    expect(Testimonial.prototype.createInfrastructure).toHaveBeenCalled();
-    expect(Testimonial.prototype.slideRendering).toHaveBeenCalled();
-    expect(Testimonial.prototype.resizePluginContainer).toHaveBeenCalled();
+    expect(Testimonial.prototype.initSlideList).toHaveBeenCalled();
     expect(Testimonial.prototype.start).toHaveBeenCalled();
+    expect(Testimonial.prototype.$slideList.length).toEqual(0);
+    expect(Testimonial.prototype.dataList.length).toEqual(0);
+    expect(Testimonial.prototype.currentSlideIndex).toEqual(0);
   });
 
-  it('should initPlugin', function() {
+  it('should initPlugin without autostart', function() {
     spyOn(Testimonial.prototype, 'createOptions');
-    spyOn(Testimonial.prototype, 'parseDomTree');
-    spyOn(Testimonial.prototype, 'createSlides');
-    spyOn(Testimonial.prototype, 'createInfrastructure');
-    spyOn(Testimonial.prototype, 'slideRendering');
-    spyOn(Testimonial.prototype, 'resizePluginContainer');
+    spyOn(Testimonial.prototype, 'initSlideList');
+
     Testimonial.prototype.pluginOptions = {
       autostart: false
     };
@@ -178,10 +167,25 @@ describe('Testimonial', function() {
     Testimonial.prototype.initPlugin(options);
 
     expect(Testimonial.prototype.createOptions).toHaveBeenCalledWith(options);
+    expect(Testimonial.prototype.initSlideList).toHaveBeenCalled();
+    expect(Testimonial.prototype.$slideList.length).toEqual(0);
+    expect(Testimonial.prototype.dataList.length).toEqual(0);
+    expect(Testimonial.prototype.currentSlideIndex).toEqual(0);
+  });
+
+  it('should initSlideList', function() {
+    spyOn(Testimonial.prototype, 'parseDomTree');
+    spyOn(Testimonial.prototype, 'createSlides');
+    spyOn(Testimonial.prototype, 'createInfrastructure');
+    spyOn(Testimonial.prototype, 'slideListRendering');
+    spyOn(Testimonial.prototype, 'resizePluginContainer');
+
+    Testimonial.prototype.initSlideList();
+
     expect(Testimonial.prototype.parseDomTree).toHaveBeenCalled();
     expect(Testimonial.prototype.createSlides).toHaveBeenCalled();
     expect(Testimonial.prototype.createInfrastructure).toHaveBeenCalled();
-    expect(Testimonial.prototype.slideRendering).toHaveBeenCalled();
+    expect(Testimonial.prototype.slideListRendering).toHaveBeenCalled();
     expect(Testimonial.prototype.resizePluginContainer).toHaveBeenCalled();
   });
 
@@ -216,15 +220,14 @@ describe('Testimonial', function() {
   it('should create new Testimonial', function() {
     spyOn(Testimonial.prototype, 'initPlugin');
     var $container = $('<div />');
-    var options = {};
+    var options = {
+      test: 'test'
+    };
 
     var testimonial = new Testimonial($container, options);
 
     expect(testimonial.$container).toEqual($container);
-    expect(testimonial.initPlugin).toHaveBeenCalled();
-    expect(testimonial.pluginOptions).toEqual({});
-    expect(testimonial.$slides.length).toEqual(0);
-    expect(testimonial.currentSlideIndex).toEqual(0);
+    expect(testimonial.initPlugin).toHaveBeenCalledWith(options);
   });
 
   it('should rendering slide list', function() {

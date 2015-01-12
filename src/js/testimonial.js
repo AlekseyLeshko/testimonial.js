@@ -2,27 +2,30 @@
 
 var Testimonial = function($container, options) {
   this.$container = $container;
-  this.pluginOptions = {};
-
-  this.$slides = [];
-  this.dataArr = [];
-  this.currentSlideIndex = 0;
 
   this.initPlugin(options);
 };
 
 Testimonial.prototype = {
   initPlugin: function(options) {
+    this.$slideList = [];
+    this.dataList = [];
+    this.currentSlideIndex = 0;
+
     this.createOptions(options);
+    this.initSlideList();
+
+    if (this.pluginOptions.autostart) {
+      this.start();
+    }
+  },
+
+  initSlideList: function() {
     this.parseDomTree();
     this.createSlides();
     this.createInfrastructure();
     this.slideListRendering();
     this.resizePluginContainer();
-
-    if (this.pluginOptions.autostart) {
-      this.start();
-    }
   },
 
   start: function() {
