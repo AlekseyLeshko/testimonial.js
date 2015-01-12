@@ -46,6 +46,14 @@ Testimonial.prototype = {
     this.removeSlide();
   },
 
+  loadSlide: function() {
+    if (!this.slideLoader) {
+      return;
+    }
+    var slide = this.slideLoader();
+    this.add(slide);
+  },
+
   removeSlide: function() {
     if (this.$slideList.length > this.pluginOptions.slideCount) {
       var index = 1;

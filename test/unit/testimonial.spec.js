@@ -414,4 +414,26 @@ describe('Testimonial', function() {
       expect(Testimonial.prototype.currentSlideIndex).toEqual(0);
     });
   });
+
+  it('should load slide return undefined', function() {
+    var slide = Testimonial.prototype.loadSlide();
+
+    expect(slide).toBeUndefined();
+  });
+
+  it('should load slide return slide', function() {
+    var expected = {
+      quote: 'quote'
+    };
+    Testimonial.prototype.slideLoader = function() {
+      return expected;
+    };
+    spyOn(Testimonial.prototype, 'add');
+    spyOn(Testimonial.prototype, 'slideLoader').and.returnValue(expected);
+
+    Testimonial.prototype.loadSlide();
+
+    expect(Testimonial.prototype.slideLoader).toHaveBeenCalled();
+    expect(Testimonial.prototype.add).toHaveBeenCalledWith(expected);
+  });
 });
