@@ -1,38 +1,60 @@
 'use strict';
 
-var Parser = function($nodeArr) {
-  this.$nodeArr = $nodeArr;
-  this.dataArr = [];
+var Parser = function($nodeList) {
+  this.$nodeList = $nodeList;
+  this.dataList = [];
 };
 
 Parser.prototype = {
   parse: function() {
-    for (var i = 0; i < this.$nodeArr.length; i++) {
-      var $node = $(this.$nodeArr[i]);
+    for (var i = 0; i < this.$nodeList.length; i++) {
+      var $node = $(this.$nodeList[i]);
       var data = this.parseNode($node);
-      this.dataArr.push(data);
+      this.dataList.push(data);
     }
 
-    return this.dataArr;
+    return this.dataList;
   },
 
   parseNode: function($node) {
-    var data = this.parseAuthorNode($node.children('.author'));
+    var data = {};
+
+    var $authorNode = $node.children('.author');
+    data.author = this.parseAuthorNode($authorNode);
+
+    var $companyNode = $node.children('.company');
+    data.company = this.parseCompanyNode($companyNode);
+
     data.quote = $node.children('.quote').text().trim();
     return data;
   },
 
-  parseAuthorNode: function($authorNode) {
-    var $fullNameNode = $authorNode.children('.full_name');
-    var $companyNode = $authorNode.children('.company');
-    var slide = {
-      fullName: $fullNameNode.text().trim(),
-      authorHref: this.getAttrHrefOrDefault($fullNameNode.children('a')),
-      company: $companyNode.text().trim(),
-      companyHref: this.getAttrHrefOrDefault($companyNode.children('a')),
-      fotoSrc: $authorNode.children('.foto').attr('src')
+  parseAuthorNode: function($node) {
+    var $nameNode = $node.children('a');
+    var name = $nameNode.text().trim();
+    var url = this.getAttrHrefOrDefault($nameNode);
+    var avatar = $node.children('.avatar').attr('src');
+
+    var author = {
+      name: name,
+      url: url,
+      avatar: avatar
     };
-    return slide;
+
+    return author;
+  },
+
+  parseCompanyNode: function($node) {
+    var $companyNode = $node.children('a');
+    var name = $companyNode.text().trim();
+    var url = this.getAttrHrefOrDefault($companyNode);
+
+    var company = {
+      name: name,
+      url: url
+    };
+
+    return company;
   },
 
   getAttrHrefOrDefault: function($node) {

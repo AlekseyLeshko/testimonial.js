@@ -8,12 +8,12 @@ describe('Parser', function() {
     parser = new Parser(arr);
   });
 
-  it('should create members: nodeArr and dataArr', function() {
-    expect(parser.$nodeArr.length).toEqual(arr.length);
-    expect(parser.dataArr.length).toEqual(0);
+  it('should create members: nodeList and dataList', function() {
+    expect(parser.$nodeList.length).toEqual(arr.length);
+    expect(parser.dataList.length).toEqual(0);
   });
 
-  it('should return data arr', function() {
+  it('should parse method return data list', function() {
     spyOn(parser, 'parseNode');
 
     var nodes = parser.parse();
@@ -22,7 +22,7 @@ describe('Parser', function() {
     expect(parser.parseNode.calls.count()).toEqual(arr.length);
   });
 
-  it('should return #', function() {
+  it('should getAttrHrefOrDefault method return #', function() {
     var node = $('<div />');
 
     var href = parser.getAttrHrefOrDefault(node);
@@ -30,7 +30,7 @@ describe('Parser', function() {
     expect(href).toEqual('#');
   });
 
-  it('should return current href', function() {
+  it('should getAttrHrefOrDefault method return current href', function() {
     var expected = 'href';
     var node = $('<div />', {
       href: expected
@@ -49,37 +49,41 @@ describe('Parser', function() {
       loadFixtures(fileName);
     });
 
-    it('should parse node', function() {
-      var $arr = $('.testimonial_slider.slide');
-      var $node = $arr.first();
-
+    it('should parseNode method return data with quote', function() {
       spyOn(parser, 'parseAuthorNode').and.returnValue({});
+      spyOn(parser, 'parseCompanyNode').and.returnValue({});
 
-      var expected = {
-        quote: ''
-      };
+      var $list = $('.testimonial_slider .slide');
+      var $node = $list.first();
 
       var data = parser.parseNode($node);
 
-      expect(data).toEqual(expected);
+      expect(data.author).not.toBeUndefined();
+      expect(data.company).not.toBeUndefined();
+      expect(data.quote).toBeTruthy();
       expect(parser.parseAuthorNode).toHaveBeenCalled();
+      expect(parser.parseCompanyNode).toHaveBeenCalled();
     });
 
     it('should parse author node', function() {
-      var $arr = $('.testimonial_slider.slide.author');
-      var $authorNode = $arr.first();
+      var $list = $('.testimonial_slider .slide .author');
+      var $node = $list.first();
 
-      var expected = {
-        fullName: '',
-        authorHref: '#',
-        company: '',
-        companyHref: '#',
-        fotoSrc: undefined
-      };
+      var author = parser.parseAuthorNode($node);
 
-      var data = parser.parseAuthorNode($authorNode);
+      expect(author.name).toBeTruthy();
+      expect(author.url).toBeTruthy();
+      expect(author.avatar).toBeTruthy();
+    });
 
-      expect(data).toEqual(expected);
+    it('should parse company node', function() {
+      var $list = $('.testimonial_slider .slide .company');
+      var $node = $list.first();
+
+      var company = parser.parseCompanyNode($node);
+
+      expect(company.name).toBeTruthy();
+      expect(company.url).toBeTruthy();
     });
   });
 });
