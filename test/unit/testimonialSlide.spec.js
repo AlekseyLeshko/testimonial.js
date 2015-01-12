@@ -17,11 +17,15 @@ describe('TestimonialSlide', function() {
   it('should create data', function() {
     var data = {};
     var expected = {
-      authorHref: '',
-      company: '',
-      companyHref: '',
-      fotoSrc: '',
-      fullName: '',
+      author: {
+        name: '',
+        url: '',
+        avatar: ''
+      },
+      company: {
+        name: '',
+        url: ''
+      },
       quote: ''
     };
     var res = TestimonialSlide.prototype.createData(data);

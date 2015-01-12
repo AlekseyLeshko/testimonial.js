@@ -10,11 +10,15 @@ var TestimonialSlide = function(data) {
 TestimonialSlide.prototype = {
   createData: function(data) {
     var emptydata = {
-      authorHref: '',
-      company: '',
-      companyHref: '',
-      fotoSrc: '',
-      fullName: '',
+      author: {
+        name: '',
+        url: '',
+        avatar: ''
+      },
+      company: {
+        name: '',
+        url: ''
+      },
       quote: ''
     };
     var resultData = $.extend(emptydata, data);
