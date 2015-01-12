@@ -161,6 +161,7 @@ Testimonial.prototype = {
     this.$slideList = [];
     this.dataList = [];
     this.currentSlideIndex = 0;
+    this.slideLoader = undefined;
 
     this.createOptions(options);
     this.initSlideList();
