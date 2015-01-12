@@ -401,7 +401,7 @@ describe('Testimonial', function() {
         slideCount: 2
       };
 
-      slide = new TestimonialSlide()
+      slide = new TestimonialSlide();
       slideList = [
         $('<div />'),
         slide,
