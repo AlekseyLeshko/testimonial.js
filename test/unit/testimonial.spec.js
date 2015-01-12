@@ -35,6 +35,7 @@ describe('Testimonial', function() {
 
     expect(options.timeout).toEqual(7000);
     expect(options.autostart).toBeTruthy();
+    expect(options.slideCount).toEqual(2);
   });
 
   it('should resizePluginContainer', function() {

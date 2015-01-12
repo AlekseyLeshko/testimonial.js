@@ -52,7 +52,8 @@ Testimonial.prototype = {
   getDefaultOptions: function() {
     var defaultOptions = {
       timeout: 7000,
-      autostart: true
+      autostart: true,
+      slideCount: 2
     };
     return defaultOptions;
   },
