@@ -315,6 +315,38 @@ describe('Testimonial', function() {
     expect(slide2.animateShow).toHaveBeenCalled();
   });
 
+  it('should next with loadSlide', function() {
+    Testimonial.prototype.timerId = 100;
+    Testimonial.prototype.pluginOptions = {
+      slideCount: 2
+    }
+    Testimonial.prototype.currentSlideIndex = 0;
+    var slide1 = new TestimonialSlide();
+    var slide2 = new TestimonialSlide();
+    Testimonial.prototype.$slideList = [
+      slide1,
+      slide2
+    ];
+    spyOn(slide1, 'animateHide');
+    spyOn(slide2, 'animateShow');
+
+    spyOn(Testimonial.prototype, 'stop');
+    spyOn(Testimonial.prototype, 'indexing').and.callThrough();
+    spyOn(Testimonial.prototype, 'resizePluginContainer');
+    spyOn(Testimonial.prototype, 'start');
+    spyOn(Testimonial.prototype, 'loadSlide');
+
+    Testimonial.prototype.next();
+
+    expect(Testimonial.prototype.stop).toHaveBeenCalled();
+    expect(Testimonial.prototype.indexing).toHaveBeenCalled();
+    expect(Testimonial.prototype.resizePluginContainer).toHaveBeenCalled();
+    expect(Testimonial.prototype.start).toHaveBeenCalled();
+    expect(Testimonial.prototype.loadSlide).toHaveBeenCalled();
+    expect(slide1.animateHide).toHaveBeenCalled();
+    expect(slide2.animateShow).toHaveBeenCalled();
+  });
+
   it('should add slide', function() {
     Testimonial.prototype.$slideList = [];
     var slide = {};

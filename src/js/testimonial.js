@@ -33,6 +33,10 @@ Testimonial.prototype = {
     nextSlide.animateShow();
     this.resizePluginContainer();
 
+    if (this.currentSlideIndex === this.pluginOptions.slideCount - 1) {
+      this.loadSlide();
+    }
+
     this.start();
   },
 
