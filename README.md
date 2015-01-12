@@ -15,14 +15,15 @@
 > This plugin that will help show all testimonial letters about your business!
 
 ## Install 
-#### with [bower](http://bower.io/)
-```
-bower install testimonial --save-dev
-```
 
 #### with [npm](https://www.npmjs.org/)
 ```
 npm i -D testimonial
+```
+
+#### with [bower](http://bower.io/)
+```
+bower install testimonial --save-dev
 ```
 
 ## Usage
@@ -33,29 +34,23 @@ var testimonial = new Testimonial($container);
 or with options
 ```js
 var $container = $('.testimonial_slider');
-var options = { ... };
+var options = {
+    timeout: 7000,
+    autostart: true
+};
 var testimonial = new Testimonial($container, options);
 ```
-[Example](https://github.com/AlekseyLeshko/testimonial.js/blob/master/examples/index.html)
+
+## [Examples](https://github.com/AlekseyLeshko/testimonial.js/tree/master/examples)
 
 ## Config Options
 - __timeout__, type: Number, default: 700
-- __auto__, type: Boolean, default: true
+- __autostart__, type: Boolean, default: true
 
 ## Build project
 ```
 make
 ```
-
-## Examples
-[Examples](https://github.com/AlekseyLeshko/testimonial.js/tree/master/examples)
-
-## Release History
-v0.1.4 Add plugin in bower
-v0.1.3 Update info about plugin
-v0.1.2 Update info about plugin
-v0.1.1 Add dist folder
-v0.1.0 Initial release
 
 ## License
 Copyright (c) 2014 Aleksey Leshko Licensed under the The MIT License (MIT)
