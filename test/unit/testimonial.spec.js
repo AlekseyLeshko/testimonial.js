@@ -356,4 +356,61 @@ describe('Testimonial', function() {
     expect(slide.getDomNode).toHaveBeenCalled();
     expect(Testimonial.prototype.$slideListWrapper.children().length).toEqual(1);
   });
+
+  describe('Remove slide', function() {
+    var slide;
+    var slideList;
+    var slideCount;
+
+    beforeEach(function() {
+      Testimonial.prototype.currentSlideIndex = 0;
+      Testimonial.prototype.pluginOptions = {
+        slideCount: 2
+      };
+
+      slide = new TestimonialSlide()
+      slideList = [
+        $('<div />'),
+        slide,
+        $('<div />')
+      ];
+      slideCount = slideList.length;
+      Testimonial.prototype.$slideList = slideList;
+    });
+
+    it('should not remove slide', function() {
+      Testimonial.prototype.pluginOptions.slideCount = 3;
+
+      Testimonial.prototype.removeSlide();
+
+      expect(Testimonial.prototype.$slideList.length).toEqual(slideCount);
+    });
+
+    it('should remove second slide', function() {
+      spyOn(slide.$domNode, 'remove');
+
+      Testimonial.prototype.removeSlide();
+
+      expect(slide.$domNode.remove).toHaveBeenCalled();
+      expect(Testimonial.prototype.$slideList.length).toEqual(slideCount - 1);
+    });
+
+    it('should remove first slide', function() {
+      Testimonial.prototype.currentSlideIndex = 1;
+
+      slideList = [
+        slide,
+        $('<div />'),
+        $('<div />')
+      ];
+      Testimonial.prototype.$slideList = slideList;
+      spyOn(slide.$domNode, 'remove');
+
+      Testimonial.prototype.removeSlide();
+
+      expect(slide.$domNode.remove).toHaveBeenCalled();
+      expect(Testimonial.prototype.$slideList.length).toEqual(slideCount - 1);
+      expect(Testimonial.prototype.currentSlideIndex).toEqual(0);
+    });
+  });
 });

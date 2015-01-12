@@ -42,6 +42,20 @@ Testimonial.prototype = {
 
     this.$slideList.push(slide);
     this.slideRendering(slide, false);
+
+    this.removeSlide();
+  },
+
+  removeSlide: function() {
+    if (this.$slideList.length > this.pluginOptions.slideCount) {
+      var index = 1;
+      if (this.currentSlideIndex !== 0) {
+        index = 0;
+        this.currentSlideIndex--;
+      }
+      this.$slideList[index].$domNode.remove();
+      this.$slideList.splice(index, 1);
+    }
   },
 
   createOptions: function(options) {
