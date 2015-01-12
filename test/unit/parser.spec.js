@@ -58,8 +58,8 @@ describe('Parser', function() {
 
       var data = parser.parseNode($node);
 
-      expect(data.author).not.toBeUndefined();
-      expect(data.company).not.toBeUndefined();
+      expect(data.author).toBeDefined();
+      expect(data.company).toBeDefined();
       expect(data.quote).toBeTruthy();
       expect(parser.parseAuthorNode).toHaveBeenCalled();
       expect(parser.parseCompanyNode).toHaveBeenCalled();
