@@ -153,6 +153,7 @@ describe('Testimonial', function() {
     expect(Testimonial.prototype.dataList.length).toEqual(0);
     expect(Testimonial.prototype.currentSlideIndex).toEqual(0);
     expect(Testimonial.prototype.slideLoader).toBeUndefined();
+    expect(Testimonial.prototype.updateDataUrl).toBeUndefined();
   });
 
   it('should initPlugin without autostart', function() {
