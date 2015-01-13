@@ -454,7 +454,7 @@ describe('Testimonial', function() {
     expect(slide).toBeUndefined();
   });
 
-  it('should load slide return slide', function() {
+  it('should load slide with slideLoader', function() {
     var expected = {
       quote: 'quote'
     };
@@ -468,5 +468,21 @@ describe('Testimonial', function() {
 
     expect(Testimonial.prototype.slideLoader).toHaveBeenCalled();
     expect(Testimonial.prototype.add).toHaveBeenCalledWith(expected);
+  });
+
+  it('should load slide with updateDataUrl', function() {
+    var data = {
+      test: 'test'
+    };
+    var updateDataUrl = 'json/slide.json';
+    Testimonial.prototype.updateDataUrl = updateDataUrl;
+    spyOn($, 'ajax');
+
+    Testimonial.prototype.loadSlide();
+
+    expect($.ajax).toHaveBeenCalled();
+    var ajaxArgs = $.ajax.calls.allArgs()[0][0];
+    expect(ajaxArgs.url).toEqual(updateDataUrl);
+    expect(ajaxArgs.success).not.toBeUndefined();
   });
 });

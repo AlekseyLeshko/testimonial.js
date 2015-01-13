@@ -51,11 +51,29 @@ Testimonial.prototype = {
   },
 
   loadSlide: function() {
-    if (!this.slideLoader) {
+    if (this.updateDataUrl) {
+      var self = this;
+      $.ajax({
+        url: this.updateDataUrl,
+        success: function(data) {
+          console.log('success');
+          console.log(data);
+          var slide = data;
+          self.add(slide);
+        },
+        error: function(data) {
+          console.log('error');
+          console.log(data);
+        }
+      });
       return;
     }
-    var slide = this.slideLoader();
-    this.add(slide);
+
+    if (this.slideLoader) {
+      var slide = this.slideLoader();
+      this.add(slide);
+      return;
+    }
   },
 
   removeSlide: function() {
