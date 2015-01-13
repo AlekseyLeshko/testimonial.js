@@ -471,8 +471,21 @@ describe('Testimonial', function() {
   });
 
   it('should load slide with updateDataUrl', function() {
-    var data = {
-      test: 'test'
+    var updateDataUrl = 'json/slide.json';
+    Testimonial.prototype.updateDataUrl = updateDataUrl;
+    spyOn($, 'ajax');
+
+    Testimonial.prototype.loadSlide();
+
+    expect($.ajax).toHaveBeenCalled();
+    var ajaxArgs = $.ajax.calls.allArgs()[0][0];
+    expect(ajaxArgs.url).toEqual(updateDataUrl);
+    expect(ajaxArgs.success).not.toBeUndefined();
+  });
+
+  it('should load slide with slideLoader and updateDataUrl', function() {
+    Testimonial.prototype.slideLoader = function() {
+      return {};
     };
     var updateDataUrl = 'json/slide.json';
     Testimonial.prototype.updateDataUrl = updateDataUrl;
