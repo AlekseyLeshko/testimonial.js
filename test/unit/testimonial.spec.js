@@ -319,7 +319,7 @@ describe('Testimonial', function() {
     Testimonial.prototype.timerId = 100;
     Testimonial.prototype.pluginOptions = {
       slideCount: 2
-    }
+    };
     Testimonial.prototype.currentSlideIndex = 0;
     var slide1 = new TestimonialSlide();
     var slide2 = new TestimonialSlide();
