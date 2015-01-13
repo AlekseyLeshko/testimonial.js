@@ -70,11 +70,14 @@
     <input type="button" value="stop" onclick="testimonial.stop();">
   </div>
   <script>
+    var updateDataUrl = 'json/slide.json';
+
     var testimonial;
     $(window).load(function() {
       var $container = $('.testimonial_slider');
       testimonial = new Testimonial($container);
       testimonial.slideLoader = slideLoader;
+      testimonial.updateDataUrl = updateDataUrl;
 
       var slide = getDefaultSlide();
       setJson(slide);
