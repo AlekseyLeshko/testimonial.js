@@ -283,7 +283,7 @@ describe('Testimonial', function() {
         slide1,
         slide2
       ];
-      Testimonial.prototype.$slideList = slideList
+      Testimonial.prototype.$slideList = slideList;
       spyOn(slide1, 'animateHide');
       spyOn(slide2, 'animateShow');
     });
