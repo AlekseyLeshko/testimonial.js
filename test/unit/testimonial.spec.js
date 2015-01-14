@@ -264,91 +264,74 @@ describe('Testimonial', function() {
     expect(Testimonial.prototype.getDefaultOptions).toHaveBeenCalled();
   });
 
-  it('should next', function(done) {
-    Testimonial.prototype.timerId = 100;
-    Testimonial.prototype.currentSlideIndex = 0;
-    var slide1 = new TestimonialSlide();
-    var slide2 = new TestimonialSlide();
-    Testimonial.prototype.$slideList = [
-      slide1,
-      slide2
-    ];
-    spyOn(slide1, 'animateHide');
-    spyOn(slide2, 'animateShow');
+  describe('Next method', function() {
+    var slide1;
+    var slide2;
 
-    spyOn(Testimonial.prototype, 'stop');
-    spyOn(Testimonial.prototype, 'indexing').and.callThrough();
-    spyOn(Testimonial.prototype, 'resizePluginContainer');
-    spyOn(Testimonial.prototype, 'start');
+    beforeEach(function() {
+      var slideCount = 2;
+      Testimonial.prototype.currentSlideIndex = 0;
+      Testimonial.prototype.pluginOptions = {
+        slideCount: slideCount
+      };
+    });
 
-    Testimonial.prototype.next();
+    beforeEach(function() {
+      slide1 = new TestimonialSlide();
+      slide2 = new TestimonialSlide();
+      var slideList = [
+        slide1,
+        slide2
+      ];
+      Testimonial.prototype.$slideList = slideList
+      spyOn(slide1, 'animateHide');
+      spyOn(slide2, 'animateShow');
+    });
 
-    expect(Testimonial.prototype.stop).toHaveBeenCalled();
-    expect(Testimonial.prototype.indexing).toHaveBeenCalled();
-    expect(Testimonial.prototype.resizePluginContainer).toHaveBeenCalled();
-    expect(Testimonial.prototype.start).toHaveBeenCalled();
-    setTimeout(function() {
+    beforeEach(function() {
+      spyOn(Testimonial.prototype, 'indexing').and.callThrough();
+      spyOn(Testimonial.prototype, 'resizePluginContainer');
+      spyOn(Testimonial.prototype, 'start');
+    });
+
+    afterEach(function() {
+      expect(Testimonial.prototype.indexing).toHaveBeenCalled();
+      expect(Testimonial.prototype.resizePluginContainer).toHaveBeenCalled();
+      expect(Testimonial.prototype.start).toHaveBeenCalled();
+    });
+
+    afterEach(function() {
       expect(slide1.animateHide).toHaveBeenCalled();
       expect(slide2.animateShow).toHaveBeenCalled();
-      done();
-    }, 100);
-  });
+    });
 
-  it('should next without stop', function() {
-    Testimonial.prototype.timerId = undefined;
-    Testimonial.prototype.currentSlideIndex = 0;
-    var slide1 = new TestimonialSlide();
-    var slide2 = new TestimonialSlide();
-    Testimonial.prototype.$slideList = [
-      slide1,
-      slide2
-    ];
-    spyOn(slide1, 'animateHide');
-    spyOn(slide2, 'animateShow');
+    describe('with call stop method', function() {
+      beforeEach(function() {
+        Testimonial.prototype.timerId = 100;
+        spyOn(Testimonial.prototype, 'stop');
+      });
 
-    spyOn(Testimonial.prototype, 'indexing').and.callThrough();
-    spyOn(Testimonial.prototype, 'resizePluginContainer');
-    spyOn(Testimonial.prototype, 'start');
+      afterEach(function() {
+        expect(Testimonial.prototype.stop).toHaveBeenCalled();
+      });
 
-    Testimonial.prototype.next();
+      it('should next', function() {
+        Testimonial.prototype.next();
+      });
 
-    expect(Testimonial.prototype.indexing).toHaveBeenCalled();
-    expect(Testimonial.prototype.resizePluginContainer).toHaveBeenCalled();
-    expect(Testimonial.prototype.start).toHaveBeenCalled();
-    expect(slide1.animateHide).toHaveBeenCalled();
-    expect(slide2.animateShow).toHaveBeenCalled();
-  });
+      it('should next with loadSlide', function() {
+        spyOn(Testimonial.prototype, 'loadSlide');
 
-  it('should next with loadSlide', function() {
-    Testimonial.prototype.timerId = 100;
-    Testimonial.prototype.pluginOptions = {
-      slideCount: 2
-    };
-    Testimonial.prototype.currentSlideIndex = 0;
-    var slide1 = new TestimonialSlide();
-    var slide2 = new TestimonialSlide();
-    Testimonial.prototype.$slideList = [
-      slide1,
-      slide2
-    ];
-    spyOn(slide1, 'animateHide');
-    spyOn(slide2, 'animateShow');
+        Testimonial.prototype.next();
 
-    spyOn(Testimonial.prototype, 'stop');
-    spyOn(Testimonial.prototype, 'indexing').and.callThrough();
-    spyOn(Testimonial.prototype, 'resizePluginContainer');
-    spyOn(Testimonial.prototype, 'start');
-    spyOn(Testimonial.prototype, 'loadSlide');
+        expect(Testimonial.prototype.loadSlide).toHaveBeenCalled();
+      });
+    });
 
-    Testimonial.prototype.next();
-
-    expect(Testimonial.prototype.stop).toHaveBeenCalled();
-    expect(Testimonial.prototype.indexing).toHaveBeenCalled();
-    expect(Testimonial.prototype.resizePluginContainer).toHaveBeenCalled();
-    expect(Testimonial.prototype.start).toHaveBeenCalled();
-    expect(Testimonial.prototype.loadSlide).toHaveBeenCalled();
-    expect(slide1.animateHide).toHaveBeenCalled();
-    expect(slide2.animateShow).toHaveBeenCalled();
+    it('should next without stop', function() {
+      Testimonial.prototype.timerId = undefined;
+      Testimonial.prototype.next();
+    });
   });
 
   it('should add slide', function() {
