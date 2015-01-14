@@ -56,14 +56,8 @@ Testimonial.prototype = {
       $.ajax({
         url: this.updateDataUrl,
         success: function(data) {
-          console.log('success');
-          console.log(data);
           var slide = data;
           self.add(slide);
-        },
-        error: function(data) {
-          console.log('error');
-          console.log(data);
         }
       });
       return;

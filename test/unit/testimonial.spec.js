@@ -469,6 +469,23 @@ describe('Testimonial', function() {
     expect(ajaxArgs.success).not.toBeUndefined();
   });
 
+  it('should ajax call add method', function() {
+    spyOn(Testimonial.prototype, 'add');
+    var updateDataUrl = './slide.json';
+    Testimonial.prototype.updateDataUrl = updateDataUrl;
+    var expected = {
+      test: 'test'
+    };
+    spyOn($, 'ajax').and.callFake(function (req) {
+      req.success(expected);
+    });
+
+    Testimonial.prototype.loadSlide();
+
+    expect($.ajax).toHaveBeenCalled();
+    expect(Testimonial.prototype.add).toHaveBeenCalledWith(expected);
+  });
+
   it('should load slide with slideLoader and updateDataUrl', function() {
     Testimonial.prototype.slideLoader = function() {
       return {};
