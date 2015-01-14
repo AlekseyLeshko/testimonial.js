@@ -264,7 +264,7 @@ describe('Testimonial', function() {
     expect(Testimonial.prototype.getDefaultOptions).toHaveBeenCalled();
   });
 
-  it('should next', function() {
+  it('should next', function(done) {
     Testimonial.prototype.timerId = 100;
     Testimonial.prototype.currentSlideIndex = 0;
     var slide1 = new TestimonialSlide();
@@ -287,8 +287,11 @@ describe('Testimonial', function() {
     expect(Testimonial.prototype.indexing).toHaveBeenCalled();
     expect(Testimonial.prototype.resizePluginContainer).toHaveBeenCalled();
     expect(Testimonial.prototype.start).toHaveBeenCalled();
-    expect(slide1.animateHide).toHaveBeenCalled();
-    expect(slide2.animateShow).toHaveBeenCalled();
+    setTimeout(function() {
+      expect(slide1.animateHide).toHaveBeenCalled();
+      expect(slide2.animateShow).toHaveBeenCalled();
+      done();
+    }, 100);
   });
 
   it('should next without stop', function() {
