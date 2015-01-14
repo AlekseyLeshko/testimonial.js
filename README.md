@@ -27,18 +27,44 @@ bower install testimonial --save-dev
 ```
 
 ## Usage
+#### Use plugin with default options
 ```js
 var $container = $('.testimonial_slider');
 var testimonial = new Testimonial($container);
 ```
-or with options
+
+#### Use plugin with custom options
 ```js
 var $container = $('.testimonial_slider');
 var options = {
     timeout: 7000,
-    autostart: true
+    autostart: true,
+    slideCount: 3
 };
 var testimonial = new Testimonial($container, options);
+```
+
+#### Loading slides via ajax
+###### Use updateDataUrl string 
+```js
+var updateUrl = 'http://example.com/slide/random';
+
+var $container = $('.testimonial_slider');
+var testimonial = new Testimonial($container);
+testimonial.updateDataUrl = updateUrl;
+```
+__Warning__: updateDataUrl has a higher priority than slideLoader
+
+###### Use slideLoader function 
+```js
+function slideLoader() {
+  var slide = getRandomSlide();
+  return slide;
+};
+
+var $container = $('.testimonial_slider');
+var testimonial = new Testimonial($container);
+testimonial.slideLoader = slideLoader;
 ```
 
 ## [Examples](https://github.com/AlekseyLeshko/testimonial.js/tree/master/examples)
@@ -46,6 +72,9 @@ var testimonial = new Testimonial($container, options);
 ## Config Options
 - __timeout__, type: Number, default: 700
 - __autostart__, type: Boolean, default: true
+- __slideCount__, type: Number, default: 3
+- __slideLoader__, type: Function, default: undefined
+- __updateDataUrl__, type: String, default: undefined
 
 ## Build project
 ```

@@ -70,10 +70,14 @@
     <input type="button" value="stop" onclick="testimonial.stop();">
   </div>
   <script>
+    var updateDataUrl = 'json/slide.json';
+
     var testimonial;
     $(window).load(function() {
       var $container = $('.testimonial_slider');
       testimonial = new Testimonial($container);
+      testimonial.slideLoader = slideLoader;
+      testimonial.updateDataUrl = updateDataUrl;
 
       var slide = getDefaultSlide();
       setJson(slide);
@@ -124,11 +128,23 @@
       $('textarea#json_input').val(data);
     }
 
+    var number = 0;
+    function getQuote() {
+      number++;
+      var quote = number + ': ' + Math.random().toString(36).substring(7);
+      return quote;
+    }
+
+    function slideLoader() {
+      var quote = getQuote();
+      slide.quote = quote;
+      setJson(slide);
+      return slide;
+    }
+
     function addSlide() {
-      if (slide) {
-        testimonial.add(slide);
-        setJson(slide);
-      }
+      var slide = slideLoader();
+      testimonial.add(slide);
     }
   </script>
 </body>

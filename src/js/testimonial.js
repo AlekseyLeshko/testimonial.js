@@ -33,6 +33,10 @@ Testimonial.prototype = {
     nextSlide.animateShow();
     this.resizePluginContainer();
 
+    if (this.currentSlideIndex === this.pluginOptions.slideCount - 1) {
+      this.loadSlide();
+    }
+
     this.start();
   },
 
@@ -42,6 +46,46 @@ Testimonial.prototype = {
 
     this.$slideList.push(slide);
     this.slideRendering(slide, false);
+
+    this.removeSlide();
+  },
+
+  loadSlide: function() {
+    if (this.updateDataUrl) {
+      var self = this;
+      $.ajax({
+        url: this.updateDataUrl,
+        success: function(data) {
+          console.log('success');
+          console.log(data);
+          var slide = data;
+          self.add(slide);
+        },
+        error: function(data) {
+          console.log('error');
+          console.log(data);
+        }
+      });
+      return;
+    }
+
+    if (this.slideLoader) {
+      var slide = this.slideLoader();
+      this.add(slide);
+      return;
+    }
+  },
+
+  removeSlide: function() {
+    if (this.$slideList.length > this.pluginOptions.slideCount) {
+      var index = 1;
+      if (this.currentSlideIndex !== 0) {
+        index = 0;
+        this.currentSlideIndex--;
+      }
+      this.$slideList[index].$domNode.remove();
+      this.$slideList.splice(index, 1);
+    }
   },
 
   createOptions: function(options) {
@@ -52,7 +96,8 @@ Testimonial.prototype = {
   getDefaultOptions: function() {
     var defaultOptions = {
       timeout: 7000,
-      autostart: true
+      autostart: true,
+      slideCount: 3
     };
     return defaultOptions;
   },
@@ -146,6 +191,8 @@ Testimonial.prototype = {
     this.$slideList = [];
     this.dataList = [];
     this.currentSlideIndex = 0;
+    this.slideLoader = undefined;
+    this.updateDataUrl = undefined;
 
     this.createOptions(options);
     this.initSlideList();

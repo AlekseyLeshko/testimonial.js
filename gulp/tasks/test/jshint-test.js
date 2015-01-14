@@ -11,6 +11,7 @@ gulp.task('jshint-test', function() {
     globals: {
       describe: false,
       beforeEach: false,
+      afterEach: false,
       it: false,
       expect: false,
       spyOn: false,
