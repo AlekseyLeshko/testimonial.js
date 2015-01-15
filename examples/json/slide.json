@@ -8,5 +8,5 @@
     "name": "GitHub Repo",
     "url": "https://github.com/AlekseyLeshko/testimonial.js"
   },
-  "quote": "JSON slide"
+  "quote": "JSON slide loaded via AJAX"
 }
