@@ -208,6 +208,8 @@ describe('Testimonial', function() {
     setTimeout(function() {
       expect(Testimonial.prototype.next).toHaveBeenCalled();
       expect(Testimonial.prototype.timerId).toBeDefined();
+      clearInterval(Testimonial.prototype.timerId);
+      Testimonial.prototype.timerId = undefined;
       done();
     }, delay);
   });
