@@ -2,29 +2,11 @@
 
 var Testimonial = function($container, options) {
   this.$container = $container;
-  this.pluginOptions = {};
-
-  this.$slides = [];
-  this.dataArr = [];
-  this.currentSlideIndex = 0;
 
   this.initPlugin(options);
 };
 
 Testimonial.prototype = {
-  initPlugin: function(options) {
-    this.createOptions(options);
-    this.parseDomTree();
-    this.createSlides();
-    this.createInfrastructure();
-    this.slideListRendering();
-    this.resizePluginContainer();
-
-    if (this.pluginOptions.autostart) {
-      this.start();
-    }
-  },
-
   start: function() {
     var self = this;
     this.timerId = setInterval(function() {
@@ -43,15 +25,61 @@ Testimonial.prototype = {
       this.stop();
     }
 
-    var currentSlide = this.$slides[this.currentSlideIndex];
+    var currentSlide = this.$slideList[this.currentSlideIndex];
     this.indexing();
-    var nextSlide = this.$slides[this.currentSlideIndex];
+    var nextSlide = this.$slideList[this.currentSlideIndex];
 
     currentSlide.animateHide();
     nextSlide.animateShow();
     this.resizePluginContainer();
 
+    if (this.currentSlideIndex <= this.pluginOptions.slideCount - 1) {
+      this.loadSlide();
+    }
+
     this.start();
+  },
+
+  add: function(slideObj) {
+    /* global TestimonialSlide: false */
+    var slide = new TestimonialSlide(slideObj);
+
+    this.$slideList.push(slide);
+    this.slideRendering(slide, false);
+
+    this.removeSlide();
+  },
+
+  loadSlide: function() {
+    if (this.updateDataUrl) {
+      var self = this;
+      $.ajax({
+        url: this.updateDataUrl,
+        success: function(data) {
+          var slide = data;
+          self.add(slide);
+        }
+      });
+      return;
+    }
+
+    if (this.slideLoader) {
+      var slide = this.slideLoader();
+      this.add(slide);
+      return;
+    }
+  },
+
+  removeSlide: function() {
+    if (this.$slideList.length > this.pluginOptions.slideCount) {
+      var index = 1;
+      if (this.currentSlideIndex !== 0) {
+        index = 0;
+        this.currentSlideIndex--;
+      }
+      this.$slideList[index].$domNode.remove();
+      this.$slideList.splice(index, 1);
+    }
   },
 
   createOptions: function(options) {
@@ -62,14 +90,15 @@ Testimonial.prototype = {
   getDefaultOptions: function() {
     var defaultOptions = {
       timeout: 7000,
-      autostart: true
+      autostart: true,
+      slideCount: 3
     };
     return defaultOptions;
   },
 
   slideListRendering: function() {
-    for (var i = 0; i < this.$slides.length; i++) {
-      var slide = this.$slides[i];
+    for (var i = 0; i < this.$slideList.length; i++) {
+      var slide = this.$slideList[i];
       var isShow = i === this.currentSlideIndex;
       this.slideRendering(slide, isShow);
     }
@@ -83,23 +112,23 @@ Testimonial.prototype = {
     $nodeArr.remove();
     /* global Parser: false */
     var parser = new Parser($nodeArr);
-    this.dataArr = parser.parse();
+    this.dataList = parser.parse();
   },
 
   createSlides: function() {
-    for (var i = 0; i < this.dataArr.length; i++) {
-      var data = this.dataArr[i];
+    for (var i = 0; i < this.dataList.length; i++) {
+      var data = this.dataList[i];
       /* global TestimonialSlide: false */
       var $slide = new TestimonialSlide(data);
-      this.$slides.push($slide);
+      this.$slideList.push($slide);
     }
   },
 
   createInfrastructure: function() {
-    this.$slidesWrapper = $('<div />', {
+    this.$slideListWrapper = $('<div />', {
       'class': 'main_container'
     });
-    this.$container.append(this.$slidesWrapper);
+    this.$container.append(this.$slideListWrapper);
     this.createButtonNext();
   },
 
@@ -115,23 +144,23 @@ Testimonial.prototype = {
   },
 
   resizePluginContainer: function() {
-    if (this.$slides.length <= 0) {
+    if (this.$slideList.length <= 0) {
       return;
     }
     var indents = 20;
-    var slideHeight = this.$slides[this.currentSlideIndex].height();
+    var slideHeight = this.$slideList[this.currentSlideIndex].height();
 
     this.$container.height(slideHeight + indents);
   },
 
   indexing: function() {
-    if (this.$slides.length === 0) {
+    if (this.$slideList.length === 0) {
       this.currentSlideIndex = 0;
       return;
     }
 
     this.currentSlideIndex++;
-    if (this.currentSlideIndex === this.$slides.length) {
+    if (this.currentSlideIndex === this.$slideList.length) {
       this.currentSlideIndex = 0;
     }
   },
@@ -141,14 +170,29 @@ Testimonial.prototype = {
       slide.hideSlide();
     }
     var $node = slide.getDomNode();
-    this.$slidesWrapper.append($node);
+    this.$slideListWrapper.append($node);
   },
 
-  add: function(slideObj) {
-    /* global TestimonialSlide: false */
-    var slide = new TestimonialSlide(slideObj);
+  initSlideList: function() {
+    this.parseDomTree();
+    this.createSlides();
+    this.createInfrastructure();
+    this.slideListRendering();
+    this.resizePluginContainer();
+  },
 
-    this.$slides.push(slide);
-    this.slideRendering(slide, false);
+  initPlugin: function(options) {
+    this.$slideList = [];
+    this.dataList = [];
+    this.currentSlideIndex = 0;
+    this.slideLoader = undefined;
+    this.updateDataUrl = undefined;
+
+    this.createOptions(options);
+    this.initSlideList();
+
+    if (this.pluginOptions.autostart) {
+      this.start();
+    }
   }
 };

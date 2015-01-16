@@ -1,6 +1,6 @@
 {
   "name": "testimonial",
-  "version": "0.1.9",
+  "version": "1.0.0",
   "homepage": "http://alekseyleshko.github.io/testimonial.js/",
   "authors": [
     "alekseyleshko <alekseyleshko@gmail.com>"
@@ -27,24 +27,11 @@
     "gulpfile.js"
   ],
   "keywords": [
+    "reviews",
+    "slider",
     "testimonial",
-    "revocation",
-    "estimation",
-    "opinion",
-    "judgement",
-    "review",
-    "thought",
-    "recall",
-    "comment",
-    "mention",
-    "pronouncement",
-    "view",
-    "mind",
-    "consideration",
-    "belief",
-    "jquery",
     "plugin",
-    "slider"
+    "jquery"
   ],
   "dependencies": {
     "jquery": ">=1.6.0"

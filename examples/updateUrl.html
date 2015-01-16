@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Testimonial.js:Example:UpdateUrl</title>
+  <link rel="stylesheet" href="./css/examples.css">
+  <link rel="stylesheet" href="../dist/css/testimonial.min.css">
+  <script src="../dist/js/testimonial.min.map.js"></script>
+  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="../node_modules/jsonlint/lib/jsonlint.js"></script>
+  <script src="./js/examplesHelper.js"></script>
+</head>
+
+<body>
+  <div class="parent">
+    <div class="block">
+      <div class="testimonial_slider" style="margin-left: -200px;">
+          <div class="slide">
+            <div class="quote">
+              №1 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
+            </div>
+            <div class="author">
+              <a href="https://github.com/AlekseyLeshko">
+                Aleksey Leshko
+              </a>
+              <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
+            </div>
+            <div class="company">
+              <a href="https://github.com/AlekseyLeshko/testimonial.js">
+                Company
+              </a>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="author">
+              <a href="https://github.com/AlekseyLeshko">
+                Aleksey Leshko
+              </a>
+              <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
+            </div>
+            <div class="quote">
+              №2 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
+            </div>
+            <div class="company">
+              <a href="https://github.com/AlekseyLeshko/testimonial.js">
+                Company
+              </a>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="author">
+              <a href="https://github.com/AlekseyLeshko">
+                Aleksey Leshko
+              </a>
+              <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
+            </div>
+            <div class="company">
+              <a href="https://github.com/AlekseyLeshko/testimonial.js">
+                Company
+              </a>
+            </div>
+            <div class="quote">
+              №3 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
+            </div>
+          </div>
+      </div>
+      <div style="margin-left: -200px;">
+        <p>
+          Slide count: <input id="slideCount" type="text" name="slideCount" value="3">
+          <input type="button" value="Enter" onclick="testimonial.pluginOptions.slideCount = parseInt($('#slideCount').val())">
+        </p>
+        <input type="button" value="Clean updateDataUrl" onclick="testimonial.updateDataUrl = undefined;">
+        <input type="button" value="Set updateDataUrl" onclick="testimonial.updateDataUrl = updateDataUrl">
+      </div>
+    </div>
+  </div>
+  <script>
+    var updateDataUrl = 'json/slide.json';
+    var slide;
+    var testimonial;
+    $(window).load(function() {
+      var $container = $('.testimonial_slider');
+      testimonial = new Testimonial($container);
+      testimonial.updateDataUrl = updateDataUrl;
+    });
+  </script>
+</body>
+
+</html>

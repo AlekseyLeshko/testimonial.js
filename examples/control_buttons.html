@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Testimonial.js:Example:ControlButtons</title>
+  <link rel="stylesheet" href="./css/examples.css">
+  <link rel="stylesheet" href="../dist/css/testimonial.min.css">
+  <script src="../dist/js/testimonial.min.map.js"></script>
+  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="parent">
+    <div class="block">
+      <div class="testimonial_slider" style="margin-left: -200px;">
+          <div class="slide">
+            <div class="quote">
+              №1 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
+            </div>
+            <div class="author">
+              <a href="https://github.com/AlekseyLeshko">
+                Aleksey Leshko
+              </a>
+              <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
+            </div>
+            <div class="company">
+              <a href="https://github.com/AlekseyLeshko/testimonial.js">
+                Company
+              </a>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="author">
+              <a href="https://github.com/AlekseyLeshko">
+                Aleksey Leshko
+              </a>
+              <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
+            </div>
+            <div class="quote">
+              №2 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
+            </div>
+            <div class="company">
+              <a href="https://github.com/AlekseyLeshko/testimonial.js">
+                Company
+              </a>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="author">
+              <a href="https://github.com/AlekseyLeshko">
+                Aleksey Leshko
+              </a>
+              <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
+            </div>
+            <div class="company">
+              <a href="https://github.com/AlekseyLeshko/testimonial.js">
+                Company
+              </a>
+            </div>
+            <div class="quote">
+              №3 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
+            </div>
+          </div>
+      </div>
+      <div>
+        <p style="margin-left: -200px;">
+          <input type="button" value="start" onclick="testimonial.start();">
+          <input type="button" value="stop" onclick="testimonial.stop();">
+        </p>
+      </div>
+    </div>
+  </div>
+  <script>
+    var testimonial;
+    $(window).load(function() {
+      var $container = $('.testimonial_slider');
+      testimonial = new Testimonial($container);
+    });
+  </script>
+</body>
+
+</html>

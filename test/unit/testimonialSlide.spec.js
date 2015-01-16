@@ -17,11 +17,15 @@ describe('TestimonialSlide', function() {
   it('should create data', function() {
     var data = {};
     var expected = {
-      authorHref: '',
-      company: '',
-      companyHref: '',
-      fotoSrc: '',
-      fullName: '',
+      author: {
+        name: '',
+        url: '',
+        avatar: ''
+      },
+      company: {
+        name: '',
+        url: ''
+      },
       quote: ''
     };
     var res = TestimonialSlide.prototype.createData(data);
@@ -48,15 +52,19 @@ describe('TestimonialSlide', function() {
   });
 
   it('should create quote node', function() {
-    spyOn(TestimonialSlide.prototype, 'createQuotationMark');
+    spyOn(TestimonialSlide.prototype, 'createDivWithClass').and.callThrough();
     spyOn(TestimonialSlide.prototype, 'createTextNode');
-    spyOn(TestimonialSlide.prototype, 'createQuotationMarkInverted');
     spyOn(TestimonialSlide.prototype, 'createSignatureNode');
 
     var $res = TestimonialSlide.prototype.createQuoteNode();
 
+    expect(TestimonialSlide.prototype.createDivWithClass.calls.count()).toEqual(2);
+
     expect($res.prop('tagName')).toEqual('DIV');
     expect($res.attr('class')).toEqual('quote');
+    expect($res.children().length).toEqual(2);
+    expect($res.children().first().attr('class')).toEqual('quotation_mark');
+    expect($res.children().last().attr('class')).toEqual('quotation_mark_inverted');
   });
 
   it('should create text node', function() {
@@ -71,18 +79,12 @@ describe('TestimonialSlide', function() {
     expect($res.text()).toEqual(quote);
   });
 
-  it('should create quotation mark', function() {
-    var $res = TestimonialSlide.prototype.createQuotationMark();
+  it('should create div with class name', function() {
+    var className = 'test';
+    var $div = TestimonialSlide.prototype.createDivWithClass(className);
 
-    expect($res.prop('tagName')).toEqual('DIV');
-    expect($res.attr('class')).toEqual('quotation_mark');
-  });
-
-  it('should create quotation mark inverted', function() {
-    var $res = TestimonialSlide.prototype.createQuotationMarkInverted();
-
-    expect($res.prop('tagName')).toEqual('DIV');
-    expect($res.attr('class')).toEqual('quotation_mark_inverted');
+    expect($div.prop('tagName')).toEqual('DIV');
+    expect($div.attr('class')).toEqual(className);
   });
 
   it('should create link node', function() {
@@ -172,22 +174,27 @@ describe('TestimonialSlide', function() {
 
 
   it('should create img author foto', function() {
-    var fotoSrc = 'example.com/image.jpg';
+    var avatar = 'example.com/image.jpg';
     TestimonialSlide.prototype.data = {
-      fotoSrc: fotoSrc
+      author: {
+        avatar: avatar
+      }
     };
 
     var $node = TestimonialSlide.prototype.createImgAuthorFoto();
 
     expect($node.prop('tagName')).toEqual('IMG');
     expect($node.attr('class')).toEqual('author_foto');
-    expect($node.attr('src')).toEqual(fotoSrc);
+    expect($node.attr('src')).toEqual(avatar);
   });
 
   it('should create slide', function() {
     spyOn(TestimonialSlide.prototype, 'createStandardDomNode');
     spyOn(TestimonialSlide.prototype, 'createQuoteNode').and.returnValue($('<div />'));
     spyOn(TestimonialSlide.prototype, 'createImgAuthorFoto').and.returnValue($('<div />'));
+
+    var $domNode = $('<div />');
+    TestimonialSlide.prototype.$domNode = $domNode;
 
     TestimonialSlide.prototype.createSlide();
     var $node = TestimonialSlide.prototype.$domNode;
@@ -199,36 +206,44 @@ describe('TestimonialSlide', function() {
   });
 
   it('should create company node', function() {
-    spyOn(TestimonialSlide.prototype, 'createLinkNode');
-    var companyHref = 'example.com';
-    var company = 'example';
-    TestimonialSlide.prototype.data = {
-      companyHref: companyHref,
-      company: company
+    spyOn(TestimonialSlide.prototype, 'createLinkNode').and.returnValue($('<a />'));
+    var url = 'example.com';
+    var name = 'example';
+    var data = {
+      company: {
+        name: name,
+        url: url
+      }
     };
+    TestimonialSlide.prototype.data = data;
 
     var $node = TestimonialSlide.prototype.createCompanyNode();
 
     expect($node.prop('tagName')).toEqual('DIV');
     expect($node.attr('class')).toEqual('company');
-    expect(TestimonialSlide.prototype.createLinkNode).toHaveBeenCalledWith(companyHref, company);
+    expect($node.find('a').length).toEqual(1);
+    expect(TestimonialSlide.prototype.createLinkNode).toHaveBeenCalledWith(url, name);
   });
 
   it('should create author node', function() {
-    spyOn(TestimonialSlide.prototype, 'createLinkNode');
-    var authorHref = 'example.com';
-    var fullName = 'example';
-    TestimonialSlide.prototype.data = {
-      authorHref: authorHref,
-      fullName: fullName
+    spyOn(TestimonialSlide.prototype, 'createLinkNode').and.returnValue($('<a />'));
+    var url = 'example.com';
+    var name = 'example';
+    var data = {
+      author: {
+        name: name,
+        url: url
+      }
     };
+    TestimonialSlide.prototype.data = data;
 
     var $node = TestimonialSlide.prototype.createAuthorNode();
 
     expect($node.prop('tagName')).toEqual('DIV');
     expect($node.attr('class')).toEqual('author');
     expect($node.text()).toEqual('- ');
-    expect(TestimonialSlide.prototype.createLinkNode).toHaveBeenCalledWith(authorHref, fullName);
+    expect($node.find('a').length).toEqual(1);
+    expect(TestimonialSlide.prototype.createLinkNode).toHaveBeenCalledWith(url, name);
   });
 
   it('should create signature node', function() {
