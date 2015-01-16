@@ -319,6 +319,7 @@ describe('Testimonial', function() {
 
     describe('first and second slide', function() {
       beforeEach(function() {
+        Testimonial.prototype.pluginOptions.slideCount = 1;
         spyOn(slide1, 'animateHide');
         spyOn(slide2, 'animateShow');
       });
