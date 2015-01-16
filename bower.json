@@ -27,24 +27,11 @@
     "gulpfile.js"
   ],
   "keywords": [
-    "testimonial",
-    "revocation",
-    "estimation",
-    "opinion",
-    "judgement",
-    "review",
-    "thought",
-    "recall",
-    "comment",
-    "mention",
-    "pronouncement",
-    "view",
-    "mind",
-    "consideration",
-    "belief",
-    "jquery",
-    "plugin",
+    "reviews",
     "slider"
+    "testimonial",
+    "plugin",
+    "jquery"
   ],
   "dependencies": {
     "jquery": ">=1.6.0"
