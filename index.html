@@ -1,178 +1,173 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <title>Testimonial.js</title>
+  <meta charset='utf-8' />
+  <meta name="description" content="Testimonial.js" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Testimonial.js : Show all testimonial letters about your business!" />
+  <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/theme-white-plum.bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/index.css">
+  <link rel="stylesheet" href="bower_components/testimonial/dist/css/testimonial.min.css">
+  <style>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-    <link rel="stylesheet" href="bower_components/testimonial/dist/css/testimonial.min.css">
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/testimonial/dist/js/testimonial.min.js"></script>
-    <title>Testimonial.js</title>
-    <style type="text/css">
-      .borderClass {
-        border: 0px;
-      }
-    </style>
-    <script>
-      var testimonial;
-      $(window).load(function() {
-        var $container = $('.testimonial_slider');
-        testimonial = new Testimonial($container);
-      });
-
-      function border() {
-        var $container = $('.testimonial_slider');
-        var className = 'borderClass';
-        $container.hasClass(className) ? $container.removeClass('borderClass') : $container.addClass('borderClass');
-      }
-    </script>
-  </head>
-
+  </style>
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/testimonial/dist/js/testimonial.min.js"></script>
+</head>
   <body>
+    <a href="https://github.com/AlekseyLeshko/testimonial.js.">
+      <img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/82b228a3648bf44fc1163ef44c62fcc60081495e/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png">
+    </a>
+    <div class="container">
+      <div class="jumbotron">
+        <h1>Testimonial.js</h1>
+        <p>Show all testimonial letters about your business!</p>
+      </div>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/AlekseyLeshko/testimonial.js">View on GitHub</a>
-
-          <h1 id="project_title">Testimonial.js</h1>
-          <h2 id="project_tagline">Show all testimonial letters about your business!</h2>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h1>
-          <a name="hello-world" class="anchor" href="#hello-world">
-            <span class="octicon octicon-link">
-            </span>
-          </a>
-          <!-- Hello -->
-        </h1>
-
-        <h3>
-          <a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages">
-          <span class="octicon octicon-link">
-          </span>
-          </a>
-          Install plugin
-        </h3>
-        <p>
-          with bower
-        </p>
-        <pre><code>$ bower install testimonial --save-dev</code></pre>
-        <p>
-          with npm
-        </p>
-        <pre><code>$ npm i -D testimonial</code></pre>
-        <h3>
-          <a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages">
-          <span class="octicon octicon-link">
-          </span>
-          </a>
-          Use
-        </h3>
-        <p>
-          Include files testimonial.min.css and testimonial.min.js.
-          And do not forget jQuery.
-        </p>
-        <h3>
-          <a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages">
-          <span class="octicon octicon-link">
-          </span>
-          </a>
-          Example
-        </h3>
-        <div>
-          <div class="testimonial_slider" style="padding-right: 20px;">
-            <div class="slide">
-              <div class="quote">
-                The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
-              </div>
-              <div class="author">
-                <div class="full_name">
-                  <a href="https://github.com/AlekseyLeshko">
-                    Aleksey Leshko
+      <div class="row">
+        <div class="col-lg-3 col-lg-offset-1">
+          <div class="panel panel-default">
+            <div class="panel-heading">Examples</div>
+            <div class="panel-body">
+              <ul>
+                <li>
+                  <a href="#simple_example">
+                    Simple
                   </a>
-                </div>
-                <div class="company">
-                  <a href="https://github.com/AlekseyLeshko">
-                    Company
+                </li>
+                <li>
+                  <a href="#custom_options_example">
+                    With custom options
                   </a>
-                </div>
-                <img class="foto" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
-              </div>
-            </div>
-            <div class="slide">
-              <div class="quote">
-                Есть два главных человеческих греха, из которых вытекают все прочие: нетерпение и небрежность. Из-за нетерпения люди изгнаны из рая, из-за небрежности они не возвращаются туда. А может быть, есть только один главный грех: нетерпение. Из-за нетерпения изгнаны, из-за нетерпения не возвращаются.
-              </div>
-              <div class="author">
-                <div class="full_name">
-                  <a href="#">
-                    Кафка Франц
+                </li>
+                <li>
+                  <a href="#control_buttons_example">
+                    With control buttons
                   </a>
-                </div>
-                <div class="company">
-                  <a href="#">
-                    Company
+                </li>
+                <li>
+                  <a href="#addSlide_example">
+                    Add slide via JS
                   </a>
-                </div>
-                <img class="foto" src="./img/author_logo.png">
-              </div>
-            </div>
-            <div class="slide">
-              <div class="quote">
-                Начиная с определенной точки, возврат уже невозможен. Этой точки надо достичь.
-              </div>
-              <div class="author">
-                <div class="full_name">
-                  <a href="#">
-                    Кафка Франц
+                </li>
+                <h3>
+                  with use AJAX
+                </h3>
+                <li>
+                  <a href="#updateUrl_example">
+                    With updateUrl
                   </a>
-                </div>
-                <div class="company">
-                  <a href="#">
-                    Company
+                </li>
+                <li>
+                  <a href="#slideLoader_example">
+                    With slideLoader
                   </a>
-                </div>
-                <img class="foto" src="./img/author_logo.png">
-              </div>
+                </li>
+              </ul>
             </div>
           </div>
-          <input type="button" value="start" onclick="testimonial.start();">
-          <input type="button" value="stop" onclick="testimonial.stop();">
-          <input type="button" value="Show/hide border" onclick="border();">
         </div>
-      </section>
+      </div>
+      <div class="row" id="simple_example">
+        <div class="col-lg-10 col-lg-offset-1">
+          <div class="panel panel-default">
+            <div class="panel-heading">Simple</div>
+            <div class="panel-body">
+            <pre>
+function preFormatting() {
+  // looks like this;
+  var something = somethingElse;
+  return true;
+}</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="custom_options_example">
+        <div class="col-lg-10 col-lg-offset-1">
+          <div class="panel panel-default">
+            <div class="panel-heading">With custom options</div>
+            <div class="panel-body">
+            <pre>
+function preFormatting() {
+  // looks like this;
+  var something = somethingElse;
+  return true;
+}</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="control_buttons_example">
+        <div class="col-lg-10 col-lg-offset-1">
+          <div class="panel panel-default">
+            <div class="panel-heading">With control buttons</div>
+            <div class="panel-body">
+            <pre>
+function preFormatting() {
+  // looks like this;
+  var something = somethingElse;
+  return true;
+}</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="addSlide_example">
+        <div class="col-lg-10 col-lg-offset-1">
+          <div class="panel panel-default">
+            <div class="panel-heading">Add slide via JS</div>
+            <div class="panel-body">
+            <pre>
+function preFormatting() {
+  // looks like this;
+  var something = somethingElse;
+  return true;
+}</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="updateUrl_example">
+        <div class="col-lg-10 col-lg-offset-1">
+          <div class="panel panel-default">
+            <div class="panel-heading">With updateUrl</div>
+            <div class="panel-body">
+            <pre>
+function preFormatting() {
+  // looks like this;
+  var something = somethingElse;
+  return true;
+}</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="slideLoader_example">
+        <div class="col-lg-10 col-lg-offset-1">
+          <div class="panel panel-default">
+            <div class="panel-heading">With slideLoader</div>
+            <div class="panel-body">
+            <pre>
+function preFormatting() {
+  // looks like this;
+  var something = somethingElse;
+  return true;
+}</pre>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Testimonial.js maintained by <a href="https://github.com/AlekseyLeshko">AlekseyLeshko</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-              <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
   ga('create', 'UA-51119524-1', 'auto');
   ga('send', 'pageview');
 </script>
-
   </body>
 </html>
