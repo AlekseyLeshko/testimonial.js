@@ -9,15 +9,13 @@
 
   <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/theme-white-plum.bootstrap.min.css">
   <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/index.css">
-  <link rel="stylesheet" href="bower_components/testimonial/dist/css/testimonial.min.css">
-  <style>
+  <link rel="stylesheet" href="stylesheets/testimonial.min.css">
 
-  </style>
-  <script src="bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="bower_components/testimonial/dist/js/testimonial.min.js"></script>
+  <script src="javascripts/jquery.min.js"></script>
+  <script src="javascripts/testimonial.min.js"></script>
 </head>
   <body>
-    <a href="https://github.com/AlekseyLeshko/testimonial.js.">
+    <a href="https://github.com/AlekseyLeshko/testimonial.js/">
       <img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/82b228a3648bf44fc1163ef44c62fcc60081495e/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png">
     </a>
     <div class="container">
@@ -25,7 +23,69 @@
         <h1>Testimonial.js</h1>
         <p>Show all testimonial letters about your business!</p>
       </div>
-
+      <div class="row" style="margin-bottom: 10px;">
+        <div class="col-lg-7 col-lg-offset-3">
+          <div>
+            <div class="testimonial_slider" style="border-width: 0px; border-style: solid; border-top-width: 3px; border-top-color: #7a62d3;">
+              <div class="slide">
+                <div class="quote">
+                  №1 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
+                </div>
+                <div class="author">
+                  <a href="https://github.com/AlekseyLeshko">
+                    Aleksey Leshko
+                  </a>
+                  <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
+                </div>
+                <div class="company">
+                  <a href="https://github.com/AlekseyLeshko/testimonial.js">
+                    GitHub Repo
+                  </a>
+                </div>
+              </div>
+              <div class="slide">
+                <div class="author">
+                  <a href="https://github.com/AlekseyLeshko">
+                    Aleksey Leshko
+                  </a>
+                  <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
+                </div>
+                <div class="quote">
+                  №2 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
+                </div>
+                <div class="company">
+                  <a href="https://github.com/AlekseyLeshko/testimonial.js">
+                    GitHub Repo
+                  </a>
+                </div>
+              </div>
+              <div class="slide">
+                <div class="author">
+                  <a href="https://github.com/AlekseyLeshko">
+                    Aleksey Leshko
+                  </a>
+                  <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
+                </div>
+                <div class="company">
+                  <a href="https://github.com/AlekseyLeshko/testimonial.js">
+                    GitHub Repo
+                  </a>
+                </div>
+                <div class="quote">
+                  №3 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
+                </div>
+              </div>
+            </div>
+            <script>
+              var testimonial;
+              $(window).load(function() {
+                var $container = $('.testimonial_slider');
+                testimonial = new Testimonial($container);
+              });
+            </script>
+          </div>
+        </div>
+      </div>
       <div class="row">
         <div class="col-lg-3 col-lg-offset-1">
           <div class="panel panel-default">
