@@ -186,14 +186,14 @@
               <pre>
 var $container = $('.testimonial_slider');
 var testimonial = new Testimonial($container);</pre>
+              <script>
+                var testimonialSimple;
+                $(window).load(function() {
+                  var $container = $('#testimonial_simple');
+                  testimonialSimple = new Testimonial($container);
+                });
+              </script>
             </div>
-          <script>
-            var testimonialSimple;
-            $(window).load(function() {
-              var $container = $('#testimonial_simple');
-              testimonialSimple = new Testimonial($container);
-            });
-          </script>
           </div>
         </div>
       </div>
