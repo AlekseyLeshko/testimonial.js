@@ -352,17 +352,106 @@ testimonial.start();</pre>
           </div>
         </div>
       </div>
-      <div class="row" id="addSlide_example">
+      <div class="row" id="add_slide_example">
         <div class="col-lg-10 col-lg-offset-1">
           <div class="panel panel-default">
             <div class="panel-heading">Add slide via JS</div>
             <div class="panel-body">
-            <pre>
-function preFormatting() {
-  // looks like this;
-  var something = somethingElse;
-  return true;
-}</pre>
+              <div id="testimonial_add_slide" class="testimonial_slider border_for_testiomonial">
+                <div class="slide">
+                  <div class="quote">
+                    №1 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
+                  </div>
+                  <div class="author">
+                    <a href="https://github.com/AlekseyLeshko">
+                      Aleksey Leshko
+                    </a>
+                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
+                  </div>
+                  <div class="company">
+                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
+                      GitHub Repo
+                    </a>
+                  </div>
+                </div>
+                <div class="slide">
+                  <div class="author">
+                    <a href="https://github.com/AlekseyLeshko">
+                      Aleksey Leshko
+                    </a>
+                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
+                  </div>
+                  <div class="quote">
+                    №2 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
+                  </div>
+                  <div class="company">
+                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
+                      GitHub Repo
+                    </a>
+                  </div>
+                </div>
+                <div class="slide">
+                  <div class="author">
+                    <a href="https://github.com/AlekseyLeshko">
+                      Aleksey Leshko
+                    </a>
+                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
+                  </div>
+                  <div class="company">
+                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
+                      GitHub Repo
+                    </a>
+                  </div>
+                  <div class="quote">
+                    №3 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p>
+                  Slide count: <input id="slideCount" type="text" name="slideCount" value="10">
+                  <input type="button" value="Enter" onclick="testimonialAddSlide.pluginOptions.slideCount = parseInt($('#slideCount').val())">
+                </p>
+                <p>
+                  <h3>
+                    Slide
+                  </h3>
+                </p>
+                <script src="javascripts/jsonlint.js"></script>
+                <textarea id="json_input" name="json_input" class="json_input" rows="20" cols="74" spellcheck="false" placeholder="Enter JSON" wrap="off"></textarea>
+                <br/>
+                <input id="add_slide_button" type="button" value="Add slide" onclick="testimonialAddSlide.add(slide);">
+              </div>
+              <pre>
+var $container = $('.testimonial_slider');
+var testimonial = new Testimonial($container);
+testimonial.pluginOptions.slideCount = 10;
+var slide = {
+  author: {
+    name: 'name',
+    url: 'url',
+    avatar: 'avatarUrl'
+  },
+  company: {
+    name: 'name',
+    url: 'url'
+  },
+  quote: 'quote'
+};
+testimonial.add(slide);
+</pre>
+              <script>
+                var slide;
+                var testimonialAddSlide;
+                $(window).load(function() {
+                  var $container = $('#testimonial_add_slide');
+                  testimonialAddSlide = new Testimonial($container);
+                  testimonialAddSlide.pluginOptions.slideCount = 10;
+                  slide = getDefaultSlide();
+                  setJson(slide, 'textarea#json_input');
+                  textareaForSlide();
+                });
+              </script>
             </div>
           </div>
         </div>
