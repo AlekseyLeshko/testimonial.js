@@ -5,3 +5,10 @@ body {
 .borderClass {
   border: 0px;
 }
+
+.border_for_testiomonial {
+  border-width: 0px;
+  border-style: solid;
+  border-top-width: 3px;
+  border-top-color: #7a62d3;
+}

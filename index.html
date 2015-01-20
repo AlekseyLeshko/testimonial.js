@@ -25,7 +25,7 @@
       </div>
       <div class="row" style="margin-bottom: 10px;">
         <div class="col-lg-7 col-lg-offset-3">
-          <div class="testimonial_slider" style="border-width: 0px; border-style: solid; border-top-width: 3px; border-top-color: #7a62d3;">
+          <div id="testimonial_main" class="testimonial_slider border_for_testiomonial">
             <div class="slide">
               <div class="quote">
                 №1 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
@@ -76,10 +76,10 @@
             </div>
           </div>
           <script>
-            var testimonial;
+            var testimonialMain;
             $(window).load(function() {
-              var $container = $('.testimonial_slider');
-              testimonial = new Testimonial($container);
+              var $container = $('#testimonial_main');
+              testimonialMain = new Testimonial($container);
             });
           </script>
         </div>
