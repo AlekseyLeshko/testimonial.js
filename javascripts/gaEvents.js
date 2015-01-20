@@ -4,6 +4,6 @@ function createGAEvents() {
 
 function githubRibbon() {
   $('#githubRibbon').click(function() {
-    ga('send', 'event', 'Crossing', 'ClickOnForkMe')
+    ga('send', 'event', 'Crossing', 'ClickOnForkMe');
   });
 }
