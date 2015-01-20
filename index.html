@@ -79,13 +79,6 @@
               </div>
             </div>
           </div>
-          <script>
-            var testimonialMain;
-            $(window).load(function() {
-              var $container = $('#testimonial_main');
-              testimonialMain = new Testimonial($container);
-            });
-          </script>
         </div>
       </div>
       <div class="row">
@@ -336,8 +329,8 @@ var testimonial = new Testimonial($container, options);</pre>
                 </div>
               </div>
               <div>
-                <input type="button" value="start" onclick="testimonialControlButtons.start();">
-                <input type="button" value="stop" onclick="testimonialControlButtons.stop();">
+                <input type="button" class="btn btn-default" value="start" onclick="testimonialControlButtons.start();">
+                <input type="button" class="btn btn-default" value="stop" onclick="testimonialControlButtons.stop();">
               </div>
               <pre>
 var $container = $('.testimonial_slider');
@@ -410,25 +403,26 @@ testimonial.start();</pre>
                   </div>
                 </div>
               </div>
-              <div>
-                <p>
-                  Slide count: <input id="slideCount" type="text" name="slideCount" value="10">
-                  <input type="button" value="Enter" onclick="testimonialAddSlide.pluginOptions.slideCount = parseInt($('#slideCount').val())">
-                </p>
-                <p>
-                  <h3>
-                    Slide
-                  </h3>
-                </p>
-                <script src="javascripts/jsonlint.js"></script>
-                <textarea id="json_input" name="json_input" class="json_input" rows="20" cols="74" spellcheck="false" placeholder="Enter JSON" wrap="off"></textarea>
-                <br/>
-                <input id="add_slide_button" type="button" value="Add slide" onclick="testimonialAddSlide.add(slide);">
+              <div class="form-horizontal">
+<!--                 <div class="form-group">
+                  <label for="slideCount" class="col-lg-2 control-label">Slide count:</label>
+                  <div class="col-lg-10">
+                    <input id="slideCount" type="text" class="form-control" name="slideCount" value="10">
+
+                    <input type="button" class="btn btn-default" value="Enter" onclick="testimonialAddSlide.pluginOptions.slideCount = parseInt($('#slideCount').val())">
+                  </div>
+                </div> -->
+                <div class="form-group">
+                  <label for="json_input" class="col-lg-2 control-label">Slide</label>
+                  <div class="col-lg-10">
+                    <textarea id="json_input" class="form-control" rows="12" placeholder="Enter JSON"></textarea>
+                    <input id="add_slide_button" type="button" class="btn btn-default" value="Add slide" onclick="testimonialAddSlide.add(slideAddSlide);">
+                  </div>
+                </div>
               </div>
-              <pre>
-var $container = $('.testimonial_slider');
+              <pre>var $container = $('.testimonial_slider');
 var testimonial = new Testimonial($container);
-testimonial.pluginOptions.slideCount = 10;
+testimonial.pluginOptions.slideCount = 5;
 var slide = {
   author: {
     name: 'name',
@@ -442,17 +436,18 @@ var slide = {
   quote: 'quote'
 };
 testimonial.add(slide);
-</pre>
+                </pre>
               <script>
-                var slide;
+                var slideAddSlide;
                 var testimonialAddSlide;
                 $(window).load(function() {
+                  var selectorAddSlide = 'textarea#json_input';
                   var $container = $('#testimonial_add_slide');
                   testimonialAddSlide = new Testimonial($container);
-                  testimonialAddSlide.pluginOptions.slideCount = 10;
-                  slide = getDefaultSlide();
-                  setJson(slide, 'textarea#json_input');
-                  textareaForSlide();
+                  testimonialAddSlide.pluginOptions.slideCount = 5;
+                  slideAddSlide = getDefaultSlide();
+                  setJson(slideAddSlide, selectorAddSlide);
+                  textareaForSlide('json_input');
                 });
               </script>
             </div>
@@ -517,10 +512,10 @@ testimonial.add(slide);
               <div>
                 <p>
                   Slide count: <input id="slideCount2" type="text" name="slideCount" value="10">
-                  <input type="button" value="Enter" onclick="testimonialUpdateUrl.pluginOptions.slideCount = parseInt($('#slideCount2').val())">
+                  <input type="button" class="btn btn-default" value="Enter" onclick="testimonialUpdateUrl.pluginOptions.slideCount = parseInt($('#slideCount2').val())">
                 </p>
-                <input type="button" value="Clean updateDataUrl" onclick="testimonialUpdateUrl.updateDataUrl = undefined;">
-                <input type="button" value="Set updateDataUrl" onclick="testimonialUpdateUrl.updateDataUrl = updateDataUrl">
+                <input type="button" class="btn btn-default" value="Clean updateDataUrl" onclick="testimonialUpdateUrl.updateDataUrl = undefined;">
+                <input type="button" class="btn btn-default" value="Set updateDataUrl" onclick="testimonialUpdateUrl.updateDataUrl = updateDataUrl">
               </div>
               <pre>
 var updateUrl = 'http://example.com/slide/random';
@@ -599,10 +594,10 @@ var testimonial = new Testimonial($container); testimonial.updateDataUrl = updat
               <div>
                 <p>
                   Slide count: <input id="slideCount3" type="text" name="slideCount" value="10">
-                  <input type="button" value="Enter" onclick="testimonialSlideLoader.pluginOptions.slideCount = parseInt($('#slideCount3').val())">
+                  <input type="button" class="btn btn-default" value="Enter" onclick="testimonialSlideLoader.pluginOptions.slideCount = parseInt($('#slideCount3').val())">
                 </p>
-                <input type="button" value="Clean slideLoader" onclick="testimonialSlideLoader.slideLoader = undefined;">
-                <input type="button" value="Set slideLoader" onclick="testimonialSlideLoader.slideLoader = slideLoader">
+                <input type="button" class="btn btn-default" value="Clean slideLoader" onclick="testimonialSlideLoader.slideLoader = undefined;">
+                <input type="button" class="btn btn-default" value="Set slideLoader" onclick="testimonialSlideLoader.slideLoader = slideLoader">
               </div>
               <pre>
 function slideLoader() {
@@ -636,6 +631,12 @@ testimonial.slideLoader = slideLoader;</pre>
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
   ga('create', 'UA-51119524-1', 'auto');
   ga('send', 'pageview');
+</script>
+<script>
+  $(window).load(function() {
+    createGAEvents();
+    runExamples();
+  });
 </script>
   </body>
 </html>

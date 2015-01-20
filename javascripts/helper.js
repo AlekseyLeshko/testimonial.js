@@ -6,27 +6,27 @@ function setJson(obj, id) {
 function getDefaultSlide() {
   var slide = {
     author: {
-      name: 'Aleksey Leshko',
-      url: 'https://github.com/AlekseyLeshko',
+      name: 'name',
+      url: 'url',
       avatar: 'http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146'
     },
     company: {
-      name: 'GitHub Repo',
-      url: 'https://github.com/AlekseyLeshko/testimonial.js'
+      name: 'name',
+      url: 'url'
     },
-    quote: 'The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!'
+    quote: 'New quote #1.'
   };
   return slide;
 }
 
-function textareaForSlide() {
-  $('textarea#json_input').bind('input propertychange', checkTextarea);
-  checkTextarea();
+function textareaForSlide(selector) {
+  $(selector).bind('input propertychange', checkTextarea);
+  checkTextarea(selector);
 }
 
 var slide;
-function checkTextarea() {
-  var $textarea = $('textarea#json_input');
+function checkTextarea(textareaSelector) {
+  var $textarea = $(textareaSelector);
   var $addSlideButton = $('input#add_slide_button');
 
   var data = $textarea.val();
