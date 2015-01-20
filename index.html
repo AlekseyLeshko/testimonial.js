@@ -461,12 +461,79 @@ testimonial.add(slide);
           <div class="panel panel-default">
             <div class="panel-heading">With updateUrl</div>
             <div class="panel-body">
-            <pre>
-function preFormatting() {
-  // looks like this;
-  var something = somethingElse;
-  return true;
-}</pre>
+              <div id="testimonial_update_url" class="testimonial_slider border_for_testiomonial">
+                <div class="slide">
+                  <div class="quote">
+                    №1 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
+                  </div>
+                  <div class="author">
+                    <a href="https://github.com/AlekseyLeshko">
+                      Aleksey Leshko
+                    </a>
+                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
+                  </div>
+                  <div class="company">
+                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
+                      GitHub Repo
+                    </a>
+                  </div>
+                </div>
+                <div class="slide">
+                  <div class="author">
+                    <a href="https://github.com/AlekseyLeshko">
+                      Aleksey Leshko
+                    </a>
+                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
+                  </div>
+                  <div class="quote">
+                    №2 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
+                  </div>
+                  <div class="company">
+                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
+                      GitHub Repo
+                    </a>
+                  </div>
+                </div>
+                <div class="slide">
+                  <div class="author">
+                    <a href="https://github.com/AlekseyLeshko">
+                      Aleksey Leshko
+                    </a>
+                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
+                  </div>
+                  <div class="company">
+                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
+                      GitHub Repo
+                    </a>
+                  </div>
+                  <div class="quote">
+                    №3 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p>
+                  Slide count: <input id="slideCount2" type="text" name="slideCount" value="10">
+                  <input type="button" value="Enter" onclick="testimonialUpdateUrl.pluginOptions.slideCount = parseInt($('#slideCount2').val())">
+                </p>
+                <input type="button" value="Clean updateDataUrl" onclick="testimonialUpdateUrl.updateDataUrl = undefined;">
+                <input type="button" value="Set updateDataUrl" onclick="testimonialUpdateUrl.updateDataUrl = updateDataUrl">
+              </div>
+              <pre>
+var updateUrl = 'http://example.com/slide/random';
+
+var $container = $('.testimonial_slider');
+var testimonial = new Testimonial($container); testimonial.updateDataUrl = updateUrl;</pre>
+              <script>
+                var updateDataUrl = 'json/slide.json';
+                var testimonialUpdateUrl;
+                $(window).load(function() {
+                  var $container = $('#testimonial_update_url');
+                  testimonialUpdateUrl = new Testimonial($container);
+                  testimonialUpdateUrl.pluginOptions.slideCount = 10;
+                  testimonialUpdateUrl.updateDataUrl = updateDataUrl;
+                });
+              </script>
             </div>
           </div>
         </div>
