@@ -202,12 +202,76 @@ var testimonial = new Testimonial($container);</pre>
           <div class="panel panel-default">
             <div class="panel-heading">With custom options</div>
             <div class="panel-body">
-            <pre>
-function preFormatting() {
-  // looks like this;
-  var something = somethingElse;
-  return true;
-}</pre>
+              <div id="testimonial_custom_options" class="testimonial_slider border_for_testiomonial">
+                <div class="slide">
+                  <div class="quote">
+                    №1 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
+                  </div>
+                  <div class="author">
+                    <a href="https://github.com/AlekseyLeshko">
+                      Aleksey Leshko
+                    </a>
+                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
+                  </div>
+                  <div class="company">
+                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
+                      GitHub Repo
+                    </a>
+                  </div>
+                </div>
+                <div class="slide">
+                  <div class="author">
+                    <a href="https://github.com/AlekseyLeshko">
+                      Aleksey Leshko
+                    </a>
+                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
+                  </div>
+                  <div class="quote">
+                    №2 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
+                  </div>
+                  <div class="company">
+                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
+                      GitHub Repo
+                    </a>
+                  </div>
+                </div>
+                <div class="slide">
+                  <div class="author">
+                    <a href="https://github.com/AlekseyLeshko">
+                      Aleksey Leshko
+                    </a>
+                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
+                  </div>
+                  <div class="company">
+                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
+                      GitHub Repo
+                    </a>
+                  </div>
+                  <div class="quote">
+                    №3 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
+                  </div>
+                </div>
+              </div>
+              <pre>
+var options = {
+  timeout: 3684,
+  autostart: true,
+  slideCount: 3
+};
+var $container = $('.testimonial_slider');
+var testimonial = new Testimonial($container, options);</pre>
+              <script>
+                var testimonialCustomOptions;
+                var options = {
+                  timeout: 3684,
+                  autostart: true,
+                  slideCount: 3
+                };
+                $(window).load(function() {
+                  var $container = $('#testimonial_custom_options');
+                  testimonialCustomOptions = new Testimonial($container, options);
+                });
+              </script>
             </div>
           </div>
         </div>
