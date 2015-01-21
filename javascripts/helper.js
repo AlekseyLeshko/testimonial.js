@@ -20,24 +20,28 @@ function getDefaultSlide() {
 }
 
 function textareaForSlide(selector) {
-  $(selector).bind('input propertychange', checkTextarea);
+  $(selector).bind('input propertychange', function() {
+    checkTextarea(selector);
+  });
   checkTextarea(selector);
 }
 
-var slide;
 function checkTextarea(textareaSelector) {
+  var errorClass = 'has-error';
   var $textarea = $(textareaSelector);
   var $addSlideButton = $('input#add_slide_button');
 
   var data = $textarea.val();
   try {
-    slide = jsonlint.parse(data);
-    if (slide) {
-      $textarea.css('background-color', '');
+    slideAddSlide = jsonlint.parse(data);
+    if (slideAddSlide) {
+      var $container = $textarea.parent().parent();
+      $container.removeClass(errorClass);
       $addSlideButton.prop('disabled', false);
     }
   } catch(e) {
-    $textarea.css('background-color', '#F00');
+    var $container = $textarea.parent().parent();
+    $container.addClass(errorClass);
     $addSlideButton.prop('disabled', true);
   }
 }
@@ -49,6 +53,7 @@ function getQuote() {
 }
 
 function slideLoader() {
+  var slide = getDefaultSlide();
   var quote = getQuote();
   slide.quote = quote;
   return slide;

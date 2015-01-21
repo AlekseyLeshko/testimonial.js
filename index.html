@@ -183,13 +183,6 @@
               <pre>
 var $container = $('.testimonial_slider');
 var testimonial = new Testimonial($container);</pre>
-              <script>
-                var testimonialSimple;
-                $(window).load(function() {
-                  var $container = $('#testimonial_simple');
-                  testimonialSimple = new Testimonial($container);
-                });
-              </script>
             </div>
           </div>
         </div>
@@ -257,18 +250,6 @@ var options = {
 };
 var $container = $('.testimonial_slider');
 var testimonial = new Testimonial($container, options);</pre>
-              <script>
-                var testimonialCustomOptions;
-                var options = {
-                  timeout: 3684,
-                  autostart: true,
-                  slideCount: 3
-                };
-                $(window).load(function() {
-                  var $container = $('#testimonial_custom_options');
-                  testimonialCustomOptions = new Testimonial($container, options);
-                });
-              </script>
             </div>
           </div>
         </div>
@@ -337,13 +318,6 @@ var $container = $('.testimonial_slider');
 var testimonial = new Testimonial($container);
 testimonial.stop();
 testimonial.start();</pre>
-              <script>
-                var testimonialControlButtons;
-                $(window).load(function() {
-                  var $container = $('#testimonial_control_buttons');
-                  testimonialControlButtons = new Testimonial($container);
-                });
-              </script>
             </div>
           </div>
         </div>
@@ -404,14 +378,6 @@ testimonial.start();</pre>
                 </div>
               </div>
               <div class="form-horizontal">
-<!--                 <div class="form-group">
-                  <label for="slideCount" class="col-lg-2 control-label">Slide count:</label>
-                  <div class="col-lg-10">
-                    <input id="slideCount" type="text" class="form-control" name="slideCount" value="10">
-
-                    <input type="button" class="btn btn-default" value="Enter" onclick="testimonialAddSlide.pluginOptions.slideCount = parseInt($('#slideCount').val())">
-                  </div>
-                </div> -->
                 <div class="form-group">
                   <label for="json_input" class="col-lg-2 control-label">Slide</label>
                   <div class="col-lg-10">
@@ -437,19 +403,6 @@ var slide = {
 };
 testimonial.add(slide);
                 </pre>
-              <script>
-                var slideAddSlide;
-                var testimonialAddSlide;
-                $(window).load(function() {
-                  var selectorAddSlide = 'textarea#json_input';
-                  var $container = $('#testimonial_add_slide');
-                  testimonialAddSlide = new Testimonial($container);
-                  testimonialAddSlide.pluginOptions.slideCount = 5;
-                  slideAddSlide = getDefaultSlide();
-                  setJson(slideAddSlide, selectorAddSlide);
-                  textareaForSlide('json_input');
-                });
-              </script>
             </div>
           </div>
         </div>
@@ -522,16 +475,6 @@ var updateUrl = 'http://example.com/slide/random';
 
 var $container = $('.testimonial_slider');
 var testimonial = new Testimonial($container); testimonial.updateDataUrl = updateUrl;</pre>
-              <script>
-                var updateDataUrl = 'json/slide.json';
-                var testimonialUpdateUrl;
-                $(window).load(function() {
-                  var $container = $('#testimonial_update_url');
-                  testimonialUpdateUrl = new Testimonial($container);
-                  testimonialUpdateUrl.pluginOptions.slideCount = 10;
-                  testimonialUpdateUrl.updateDataUrl = updateDataUrl;
-                });
-              </script>
             </div>
           </div>
         </div>
@@ -608,17 +551,6 @@ function slideLoader() {
 var $container = $('.testimonial_slider');
 var testimonial = new Testimonial($container);
 testimonial.slideLoader = slideLoader;</pre>
-              <script>
-                var slideSlideLoader = getDefaultSlide();
-                var number = 0;
-                var testimonialSlideLoader;
-                $(window).load(function() {
-                  var $container = $('#testimonial_slide_loader');
-                  testimonialSlideLoader = new Testimonial($container);
-                  testimonialSlideLoader.pluginOptions.slideCount = 10;
-                  testimonialSlideLoader.slideLoader = slideLoader;
-                });
-              </script>
             </div>
           </div>
         </div>
