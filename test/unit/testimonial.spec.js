@@ -443,71 +443,25 @@ describe('Testimonial', function() {
     });
   });
 
-  it('should load slide return undefined', function() {
-    var slide = Testimonial.prototype.loadSlide();
+  it('should loadSlide without getSlide not add slide', function() {
+    spyOn(Testimonial.prototype, 'add');
 
-    expect(slide).toBeUndefined();
+    Testimonial.prototype.loadSlide();
+
+    expect(Testimonial.prototype.add).not.toHaveBeenCalled();
   });
 
-  it('should load slide with slideLoader', function() {
+  it('should load slide with getSlide', function() {
     var expected = {
       quote: 'quote'
     };
-    Testimonial.prototype.slideLoader = function() {
-      return expected;
-    };
+    Testimonial.prototype.getSlide = null;
     spyOn(Testimonial.prototype, 'add');
-    spyOn(Testimonial.prototype, 'slideLoader').and.returnValue(expected);
+    spyOn(Testimonial.prototype, 'getSlide').and.returnValue(expected);
 
     Testimonial.prototype.loadSlide();
 
-    expect(Testimonial.prototype.slideLoader).toHaveBeenCalled();
+    expect(Testimonial.prototype.getSlide).toHaveBeenCalled();
     expect(Testimonial.prototype.add).toHaveBeenCalledWith(expected);
-  });
-
-  it('should load slide with updateDataUrl', function() {
-    var updateDataUrl = 'json/slide.json';
-    Testimonial.prototype.updateDataUrl = updateDataUrl;
-    spyOn($, 'ajax');
-
-    Testimonial.prototype.loadSlide();
-
-    expect($.ajax).toHaveBeenCalled();
-    var ajaxArgs = $.ajax.calls.allArgs()[0][0];
-    expect(ajaxArgs.url).toEqual(updateDataUrl);
-    expect(ajaxArgs.success).not.toBeUndefined();
-  });
-
-  it('should ajax call add method', function() {
-    spyOn(Testimonial.prototype, 'add');
-    var updateDataUrl = './slide.json';
-    Testimonial.prototype.updateDataUrl = updateDataUrl;
-    var expected = {
-      test: 'test'
-    };
-    spyOn($, 'ajax').and.callFake(function (req) {
-      req.success(expected);
-    });
-
-    Testimonial.prototype.loadSlide();
-
-    expect($.ajax).toHaveBeenCalled();
-    expect(Testimonial.prototype.add).toHaveBeenCalledWith(expected);
-  });
-
-  it('should load slide with slideLoader and updateDataUrl', function() {
-    Testimonial.prototype.slideLoader = function() {
-      return {};
-    };
-    var updateDataUrl = 'json/slide.json';
-    Testimonial.prototype.updateDataUrl = updateDataUrl;
-    spyOn($, 'ajax');
-
-    Testimonial.prototype.loadSlide();
-
-    expect($.ajax).toHaveBeenCalled();
-    var ajaxArgs = $.ajax.calls.allArgs()[0][0];
-    expect(ajaxArgs.url).toEqual(updateDataUrl);
-    expect(ajaxArgs.success).not.toBeUndefined();
   });
 });

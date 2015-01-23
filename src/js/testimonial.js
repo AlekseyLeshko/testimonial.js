@@ -51,20 +51,8 @@ Testimonial.prototype = {
   },
 
   loadSlide: function() {
-    if (this.updateDataUrl) {
-      var self = this;
-      $.ajax({
-        url: this.updateDataUrl,
-        success: function(data) {
-          var slide = data;
-          self.add(slide);
-        }
-      });
-      return;
-    }
-
-    if (this.slideLoader) {
-      var slide = this.slideLoader();
+    if (this.getSlide && typeof this.getSlide === 'function') {
+      var slide = this.getSlide();
       this.add(slide);
       return;
     }
