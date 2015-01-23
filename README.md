@@ -13,28 +13,29 @@
 [![NPM](https://nodei.co/npm-dl/testimonial.png?months=3&height=3)](https://nodei.co/npm/testimonial/)
 <iframe src="//benschwarz.github.io/bower-badges/embed.html?pkgname=testimonial" width="160" height="32" allowtransparency="true" frameborder="0" scrolling="0"></iframe>
 > JS testimonial slider with AJAX!
+
 [Site with examples](http://alekseyleshko.github.io/testimonial.js/)
 
 ## Install 
 
-### with [npm](https://www.npmjs.org/)
+#### with [npm](https://www.npmjs.org/)
 ```
 npm i -D testimonial
 ```
 
-### with [bower](http://bower.io/)
+#### with [bower](http://bower.io/)
 ```
 bower install testimonial --save-dev
 ```
 
 ## Usage
-### Slider simple use
+#### Slider simple use
 ```js
 var $container = $('.testimonial_slider');
 var testimonial = new Testimonial($container);
 ```
 
-### Slider with custom options
+#### Slider with custom options
 ```js
 var $container = $('.testimonial_slider');
 var options = {
@@ -45,7 +46,7 @@ var options = {
 var testimonial = new Testimonial($container, options);
 ```
 
-### Slider API
+#### Slider API
 ```js
 var $container = $('.testimonial_slider');
 var testimonial = new Testimonial($container, options);
@@ -55,7 +56,7 @@ testimonial.next();
 testimonial.add({...});
 ```
 
-### Slider with ajax slide load
+#### Slider with ajax slide load
 ```js
 function getSlide() {
   var slide = getRandomSlide();
