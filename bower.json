@@ -5,7 +5,7 @@
   "authors": [
     "alekseyleshko <alekseyleshko@gmail.com>"
   ],
-  "description": "Plugin that will help show all testimonial letters about your business!",
+  "description": "JS testimonial slider with AJAX",
   "license": "MIT (https://github.com/AlekseyLeshko/testimonial.js/blob/master/LICENSE)",
   "repository": {
     "type": "git",

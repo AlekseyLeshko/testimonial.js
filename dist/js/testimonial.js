@@ -1,5 +1,5 @@
 /**
-  * testimonial - Plugin that will help show all testimonial letters about your business!
+  * testimonial - JS testimonial slider with AJAX
   * @version v1.0.0
   * @link http://alekseyleshko.github.io/testimonial.js/
   * @license MIT (https://github.com/AlekseyLeshko/testimonial.js/blob/master/LICENSE)
@@ -125,20 +125,8 @@ Testimonial.prototype = {
   },
 
   loadSlide: function() {
-    if (this.updateDataUrl) {
-      var self = this;
-      $.ajax({
-        url: this.updateDataUrl,
-        success: function(data) {
-          var slide = data;
-          self.add(slide);
-        }
-      });
-      return;
-    }
-
-    if (this.slideLoader) {
-      var slide = this.slideLoader();
+    if (this.getSlide && typeof this.getSlide === 'function') {
+      var slide = this.getSlide();
       this.add(slide);
       return;
     }
@@ -259,8 +247,7 @@ Testimonial.prototype = {
     this.$slideList = [];
     this.dataList = [];
     this.currentSlideIndex = 0;
-    this.slideLoader = undefined;
-    this.updateDataUrl = undefined;
+    this.getSlide = null;
 
     this.createOptions(options);
     this.initSlideList();
