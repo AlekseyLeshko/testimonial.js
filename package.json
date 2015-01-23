@@ -1,0 +1,17 @@
+{
+  "name": "github-pages-testimonial",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AlekseyLeshko/testimonial.js.git"
+  },
+  "author": "Aleksey Leshko <alekseyleshko@gmail.com> (https://github.com/AlekseyLeshko)",
+  "bugs": {
+    "url": "https://github.com/AlekseyLeshko/testimonial.js/issues"
+  },
+  "homepage": "https://github.com/AlekseyLeshko/testimonial.js",
+  "private": true
+}
