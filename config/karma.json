@@ -24,7 +24,7 @@
       "served": true,
       "included": false
     }, {
-      "pattern": "examples/img/**/*.png",
+      "pattern": "example/img/**/*.png",
       "watched": false,
       "served": true,
       "included": false
