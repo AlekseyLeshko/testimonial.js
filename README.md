@@ -12,28 +12,29 @@
 [![NPM](https://nodei.co/npm/testimonial.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/testimonial/)
 [![NPM](https://nodei.co/npm-dl/testimonial.png?months=3&height=3)](https://nodei.co/npm/testimonial/)
 <iframe src="//benschwarz.github.io/bower-badges/embed.html?pkgname=testimonial" width="160" height="32" allowtransparency="true" frameborder="0" scrolling="0"></iframe>
-> This plugin that will help show all testimonial letters about your business!
+> JS testimonial slider with AJAX!
+[Site with examples](http://alekseyleshko.github.io/testimonial.js/)
 
 ## Install 
 
-#### with [npm](https://www.npmjs.org/)
+### with [npm](https://www.npmjs.org/)
 ```
 npm i -D testimonial
 ```
 
-#### with [bower](http://bower.io/)
+### with [bower](http://bower.io/)
 ```
 bower install testimonial --save-dev
 ```
 
 ## Usage
-#### Use plugin with default options
+### Slider simple use
 ```js
 var $container = $('.testimonial_slider');
 var testimonial = new Testimonial($container);
 ```
 
-#### Use plugin with custom options
+### Slider with custom options
 ```js
 var $container = $('.testimonial_slider');
 var options = {
@@ -44,37 +45,45 @@ var options = {
 var testimonial = new Testimonial($container, options);
 ```
 
-#### Loading slides via ajax
-###### Use updateDataUrl string 
+### Slider API
 ```js
-var updateUrl = 'http://example.com/slide/random';
-
 var $container = $('.testimonial_slider');
-var testimonial = new Testimonial($container);
-testimonial.updateDataUrl = updateUrl;
+var testimonial = new Testimonial($container, options);
+testimonial.stop();
+testimonial.start();
+testimonial.next();
+testimonial.add({...});
 ```
-__Warning__: updateDataUrl has a higher priority than slideLoader
 
-###### Use slideLoader function 
+### Slider with ajax slide load
 ```js
-function slideLoader() {
+function getSlide() {
   var slide = getRandomSlide();
   return slide;
 };
 
 var $container = $('.testimonial_slider');
 var testimonial = new Testimonial($container);
-testimonial.slideLoader = slideLoader;
+testimonial.getSlide = getSlide;
 ```
 
-## [Examples](https://github.com/AlekseyLeshko/testimonial.js/tree/master/examples)
+## [Examples](http://alekseyleshko.github.io/testimonial.js/)
 
-## Config Options
+## Structure of the slide
+* author
+  * name
+  * url
+  * avatar(url)
+* company
+  * name
+  * url
+* quote
+
+## Options
 - __timeout__, type: Number, default: 700
 - __autostart__, type: Boolean, default: true
 - __slideCount__, type: Number, default: 3
-- __slideLoader__, type: Function, default: undefined
-- __updateDataUrl__, type: String, default: undefined
+- __getSlide__, type: Function, default: null
 
 ## Build project
 ```
