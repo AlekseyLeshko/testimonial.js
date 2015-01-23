@@ -3,13 +3,13 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Testimonial.js:Example:AddSlide</title>
-  <link rel="stylesheet" href="./css/examples.css">
-  <link rel="stylesheet" href="../dist/css/testimonial.min.css">
-  <script src="../dist/js/testimonial.min.map.js"></script>
-  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
-  <script src="../node_modules/jsonlint/lib/jsonlint.js"></script>
-  <script src="./js/examplesHelper.js"></script>
+  <title>Testimonial.js:Example:SlideLoader</title>
+  <link rel="stylesheet" href="../css/examples.css">
+  <link rel="stylesheet" href="../../dist/css/testimonial.min.css">
+  <script src="../../dist/js/testimonial.min.map.js"></script>
+  <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="../../node_modules/jsonlint/lib/jsonlint.js"></script>
+  <script src="../js/examplesHelper.js"></script>
 </head>
 
 <body>
@@ -70,27 +70,19 @@
           Slide count: <input id="slideCount" type="text" name="slideCount" value="3">
           <input type="button" value="Enter" onclick="testimonial.pluginOptions.slideCount = parseInt($('#slideCount').val())">
         </p>
-        <p>
-          <h3>
-            Slide
-          </h3>
-        </p>
-        <textarea id="json_input" name="json_input" class="json_input" rows="20" cols="74" spellcheck="false" placeholder="Enter JSON" wrap="off"></textarea>
-        <br/>
-        <input id="add_slide_button" type="button" value="Add slide" onclick="addSlide();">
+        <input type="button" value="Clean getSlide" onclick="testimonial.getSlide = undefined;">
+        <input type="button" value="Set getSlide" onclick="testimonial.getSlide = slideLoader">
       </div>
     </div>
   </div>
   <script>
-    var slide;
+    var slide = getDefaultSlide();
     var testimonial;
+    var number = 0;
     $(window).load(function() {
       var $container = $('.testimonial_slider');
       testimonial = new Testimonial($container);
-
-      slide = getDefaultSlide();
-      setJson(slide, 'textarea#json_input');
-      textareaForSlide();
+      testimonial.getSlide = slideLoader;
     });
   </script>
 </body>
