@@ -3,13 +3,11 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Testimonial.js:Example:CustomOptions</title>
-  <link rel="stylesheet" href="./css/examples.css">
-  <link rel="stylesheet" href="../dist/css/testimonial.min.css">
-  <script src="../dist/js/testimonial.min.map.js"></script>
-  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
-  <script src="../node_modules/jsonlint/lib/jsonlint.js"></script>
-  <script src="./js/examplesHelper.js"></script>
+  <title>Testimonial.js:Example:Simple</title>
+  <link rel="stylesheet" href="../css/examples.css">
+  <link rel="stylesheet" href="../../dist/css/testimonial.min.css">
+  <script src="../../dist/js/testimonial.min.map.js"></script>
+  <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
 </head>
 
 <body>
@@ -65,31 +63,13 @@
           </div>
         </div>
       </div>
-      <div>
-        <p>
-          <h2>
-            Options:
-          </h2>
-        </p>
-        <p>
-          <textarea id="textarea" rows="10" cols="74" readonly style="margin-left: -200px;">
-          </textarea>
-        </p>
-      </div>
     </div>
   </div>
   <script>
     var testimonial;
-    var options = {
-      timeout: 3684,
-      autostart: true,
-      slideCount: 3
-    };
     $(window).load(function() {
       var $container = $('.testimonial_slider');
-      testimonial = new Testimonial($container, options);
-
-      setJson(options, 'textarea#textarea');
+      testimonial = new Testimonial($container);
     });
   </script>
 </body>

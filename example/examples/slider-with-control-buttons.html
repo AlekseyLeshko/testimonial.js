@@ -3,13 +3,11 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Testimonial.js:Example:SlideLoader</title>
-  <link rel="stylesheet" href="./css/examples.css">
-  <link rel="stylesheet" href="../dist/css/testimonial.min.css">
-  <script src="../dist/js/testimonial.min.map.js"></script>
-  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
-  <script src="../node_modules/jsonlint/lib/jsonlint.js"></script>
-  <script src="./js/examplesHelper.js"></script>
+  <title>Testimonial.js:Example:ControlButtons</title>
+  <link rel="stylesheet" href="../css/examples.css">
+  <link rel="stylesheet" href="../../dist/css/testimonial.min.css">
+  <script src="../../dist/js/testimonial.min.map.js"></script>
+  <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
 </head>
 
 <body>
@@ -65,24 +63,19 @@
             </div>
           </div>
       </div>
-      <div style="margin-left: -200px;">
-        <p>
-          Slide count: <input id="slideCount" type="text" name="slideCount" value="3">
-          <input type="button" value="Enter" onclick="testimonial.pluginOptions.slideCount = parseInt($('#slideCount').val())">
+      <div>
+        <p style="margin-left: -200px;">
+          <input type="button" value="start" onclick="testimonial.start();">
+          <input type="button" value="stop" onclick="testimonial.stop();">
         </p>
-        <input type="button" value="Clean slideLoader" onclick="testimonial.slideLoader = undefined;">
-        <input type="button" value="Set slideLoader" onclick="testimonial.slideLoader = slideLoader">
       </div>
     </div>
   </div>
   <script>
-    var slide = getDefaultSlide();
     var testimonial;
-    var number = 0;
     $(window).load(function() {
       var $container = $('.testimonial_slider');
       testimonial = new Testimonial($container);
-      testimonial.slideLoader = slideLoader;
     });
   </script>
 </body>
