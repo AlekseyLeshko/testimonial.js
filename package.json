@@ -13,5 +13,8 @@
     "url": "https://github.com/AlekseyLeshko/testimonial.js/issues"
   },
   "homepage": "https://github.com/AlekseyLeshko/testimonial.js",
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "testimonial": "^1.0.1"
+  }
 }
