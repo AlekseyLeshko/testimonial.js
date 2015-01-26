@@ -51,32 +51,95 @@ describe('TestimonialSlide', function() {
     expect(TestimonialSlide.prototype.$domNode).toBeDefined();
   });
 
-  it('should create quote node', function() {
-    spyOn(TestimonialSlide.prototype, 'createDivWithClass').and.callThrough();
-    spyOn(TestimonialSlide.prototype, 'createTextNode');
-    spyOn(TestimonialSlide.prototype, 'createSignatureNode');
+  describe('uses createDivWithClass', function() {
+    beforeEach(function() {
+      /* global createDivWithClassStub: false */
+      spyOn(TestimonialSlide.prototype, 'createDivWithClass').and.callFake(createDivWithClassStub);
+    });
 
-    var $res = TestimonialSlide.prototype.createQuoteNode();
+    it('should create quote node', function() {
+      spyOn(TestimonialSlide.prototype, 'createTextNode');
+      spyOn(TestimonialSlide.prototype, 'createSignatureNode');
 
-    expect(TestimonialSlide.prototype.createDivWithClass.calls.count()).toEqual(2);
+      var $res = TestimonialSlide.prototype.createQuoteNode();
 
-    expect($res.prop('tagName')).toEqual('DIV');
-    expect($res.attr('class')).toEqual('quote');
-    expect($res.children().length).toEqual(2);
-    expect($res.children().first().attr('class')).toEqual('quotation_mark');
-    expect($res.children().last().attr('class')).toEqual('quotation_mark_inverted');
-  });
+      expect(TestimonialSlide.prototype.createDivWithClass.calls.count()).toEqual(2);
 
-  it('should create text node', function() {
-    var quote = 'test';
-    TestimonialSlide.prototype.data = {
-      quote: quote
-    };
-    var $res = TestimonialSlide.prototype.createTextNode();
+      expect($res.prop('tagName')).toEqual('DIV');
+      expect($res.attr('class')).toEqual('quote');
+      expect($res.children().length).toEqual(2);
+      expect($res.children().first().attr('class')).toEqual('quotation_mark');
+      expect($res.children().last().attr('class')).toEqual('quotation_mark_inverted');
+    });
 
-    expect($res.prop('tagName')).toEqual('DIV');
-    expect($res.attr('class')).toEqual('text');
-    expect($res.text()).toEqual(quote);
+    it('should create text node', function() {
+      var quote = 'test';
+      TestimonialSlide.prototype.data = {
+        quote: quote
+      };
+      var $res = TestimonialSlide.prototype.createTextNode();
+
+      expect(TestimonialSlide.prototype.createDivWithClass).toHaveBeenCalled();
+      expect($res.prop('tagName')).toEqual('DIV');
+      expect($res.attr('class')).toEqual('text');
+      expect($res.text()).toEqual(quote);
+    });
+
+    it('should create signature node', function() {
+      spyOn(TestimonialSlide.prototype, 'createAuthorNode');
+      spyOn(TestimonialSlide.prototype, 'createCompanyNode');
+
+      var $node = TestimonialSlide.prototype.createSignatureNode();
+
+      expect(TestimonialSlide.prototype.createDivWithClass).toHaveBeenCalled();
+      expect($node.prop('tagName')).toEqual('DIV');
+      expect($node.attr('class')).toEqual('signature');
+      expect(TestimonialSlide.prototype.createAuthorNode).toHaveBeenCalled();
+      expect(TestimonialSlide.prototype.createCompanyNode).toHaveBeenCalled();
+    });
+
+    it('should create author node', function() {
+      spyOn(TestimonialSlide.prototype, 'createLinkNode').and.returnValue($('<a />'));
+      var url = 'example.com';
+      var name = 'example';
+      var data = {
+        author: {
+          name: name,
+          url: url
+        }
+      };
+      TestimonialSlide.prototype.data = data;
+
+      var $node = TestimonialSlide.prototype.createAuthorNode();
+
+      expect(TestimonialSlide.prototype.createDivWithClass).toHaveBeenCalled();
+      expect($node.prop('tagName')).toEqual('DIV');
+      expect($node.attr('class')).toEqual('author');
+      expect($node.text()).toEqual('- ');
+      expect($node.find('a').length).toEqual(1);
+      expect(TestimonialSlide.prototype.createLinkNode).toHaveBeenCalledWith(url, name);
+    });
+
+    it('should create company node', function() {
+      spyOn(TestimonialSlide.prototype, 'createLinkNode').and.returnValue($('<a />'));
+      var url = 'example.com';
+      var name = 'example';
+      var data = {
+        company: {
+          name: name,
+          url: url
+        }
+      };
+      TestimonialSlide.prototype.data = data;
+
+      var $node = TestimonialSlide.prototype.createCompanyNode();
+
+      expect(TestimonialSlide.prototype.createDivWithClass).toHaveBeenCalled();
+      expect($node.prop('tagName')).toEqual('DIV');
+      expect($node.attr('class')).toEqual('company');
+      expect($node.find('a').length).toEqual(1);
+      expect(TestimonialSlide.prototype.createLinkNode).toHaveBeenCalledWith(url, name);
+    });
   });
 
   it('should create div with class name', function() {
@@ -117,61 +180,63 @@ describe('TestimonialSlide', function() {
     expect(height).toEqual(expected);
   });
 
-  it('should hide slide', function() {
-    TestimonialSlide.prototype.createOptions();
-    var marginLeft = '-' + TestimonialSlide.prototype.options.distance + 'px';
+  describe('animation', function() {
+    var options;
+    var node;
+    var marginLeft;
+    var delay;
 
-    var node = $('<div />');
-    TestimonialSlide.prototype.$domNode = node;
-    TestimonialSlide.prototype.hideSlide();
+    beforeEach(function() {
+      /* global defaultTestimonialSlideOptions: false */
+      options = defaultTestimonialSlideOptions();
+      marginLeft = options.distance + 'px';
+      delay = options.duration * 2 + 10;
 
-    var $res = TestimonialSlide.prototype.$domNode;
-    expect($res.css('display')).toEqual('none');
-    expect($res.css('opacity')).toEqual('0');
-    expect($res.css('margin-left')).toEqual(marginLeft);
-  });
+      node = $('<div />');
+      TestimonialSlide.prototype.$domNode = node;
+      TestimonialSlide.prototype.options = options;
+      TestimonialSlide.prototype.options.duration = 2;
+    });
 
-  it('should animate show', function(done) {
-    TestimonialSlide.prototype.createOptions();
-    TestimonialSlide.prototype.options.duration = 2;
-    var marginLeft = TestimonialSlide.prototype.options.distance + 'px';
-    var node = $('<div />');
-    TestimonialSlide.prototype.$domNode = node;
-    TestimonialSlide.prototype.animateShow();
-    var delay = TestimonialSlide.prototype.options.duration * 2 + 10;
+    it('should hide slide', function() {
+      var marginLeft = '-' + options.distance + 'px';
 
-    setTimeout(function() {
+      TestimonialSlide.prototype.hideSlide();
+
       var $res = TestimonialSlide.prototype.$domNode;
-      expect($res.css('display')).toEqual('block');
-      expect($res.css('opacity')).toEqual('1');
-      expect($res.css('margin-left')).toEqual(marginLeft);
-      done();
-    }, delay);
-  });
-
-  it('should animate hide', function(done) {
-    spyOn(TestimonialSlide.prototype, 'hideSlide');
-
-    TestimonialSlide.prototype.createOptions();
-    TestimonialSlide.prototype.options.duration = 2;
-    var marginLeft = TestimonialSlide.prototype.options.distance + 'px';
-    var node = $('<div />');
-    TestimonialSlide.prototype.$domNode = node;
-    var delay = TestimonialSlide.prototype.options.duration * 2 + 10;
-
-    TestimonialSlide.prototype.animateHide();
-
-    setTimeout(function() {
-      var $res = TestimonialSlide.prototype.$domNode;
-      expect($res.css('display')).toEqual('');
+      expect($res.css('display')).toEqual('none');
       expect($res.css('opacity')).toEqual('0');
       expect($res.css('margin-left')).toEqual(marginLeft);
+    });
 
-      expect(TestimonialSlide.prototype.hideSlide).toHaveBeenCalled();
-      done();
-    }, delay);
+    it('should animate show', function(done) {
+      TestimonialSlide.prototype.animateShow();
+
+      setTimeout(function() {
+        var $res = TestimonialSlide.prototype.$domNode;
+        expect($res.css('display')).toEqual('block');
+        expect($res.css('opacity')).toEqual('1');
+        expect($res.css('margin-left')).toEqual(marginLeft);
+        done();
+      }, delay);
+    });
+
+    it('should animate hide', function(done) {
+      spyOn(TestimonialSlide.prototype, 'hideSlide');
+
+      TestimonialSlide.prototype.animateHide();
+
+      setTimeout(function() {
+        var $res = TestimonialSlide.prototype.$domNode;
+        expect($res.css('display')).toEqual('');
+        expect($res.css('opacity')).toEqual('0');
+        expect($res.css('margin-left')).toEqual(marginLeft);
+
+        expect(TestimonialSlide.prototype.hideSlide).toHaveBeenCalled();
+        done();
+      }, delay);
+    });
   });
-
 
   it('should create img author foto', function() {
     var avatar = 'example.com/image.jpg';
@@ -205,56 +270,18 @@ describe('TestimonialSlide', function() {
     expect(TestimonialSlide.prototype.createImgAuthorFoto).toHaveBeenCalled();
   });
 
-  it('should create company node', function() {
-    spyOn(TestimonialSlide.prototype, 'createLinkNode').and.returnValue($('<a />'));
-    var url = 'example.com';
-    var name = 'example';
-    var data = {
-      company: {
-        name: name,
-        url: url
-      }
-    };
-    TestimonialSlide.prototype.data = data;
+  it('should slide not to be exist', function() {
+    var $node = $('<div />');
 
-    var $node = TestimonialSlide.prototype.createCompanyNode();
+    TestimonialSlide.prototype.$domNode = $node;
+    spyOn($node, 'empty').and.callThrough();
+    spyOn($node, 'remove').and.callThrough();
 
-    expect($node.prop('tagName')).toEqual('DIV');
-    expect($node.attr('class')).toEqual('company');
-    expect($node.find('a').length).toEqual(1);
-    expect(TestimonialSlide.prototype.createLinkNode).toHaveBeenCalledWith(url, name);
-  });
+    TestimonialSlide.prototype.remove();
 
-  it('should create author node', function() {
-    spyOn(TestimonialSlide.prototype, 'createLinkNode').and.returnValue($('<a />'));
-    var url = 'example.com';
-    var name = 'example';
-    var data = {
-      author: {
-        name: name,
-        url: url
-      }
-    };
-    TestimonialSlide.prototype.data = data;
-
-    var $node = TestimonialSlide.prototype.createAuthorNode();
-
-    expect($node.prop('tagName')).toEqual('DIV');
-    expect($node.attr('class')).toEqual('author');
-    expect($node.text()).toEqual('- ');
-    expect($node.find('a').length).toEqual(1);
-    expect(TestimonialSlide.prototype.createLinkNode).toHaveBeenCalledWith(url, name);
-  });
-
-  it('should create signature node', function() {
-    spyOn(TestimonialSlide.prototype, 'createAuthorNode');
-    spyOn(TestimonialSlide.prototype, 'createCompanyNode');
-
-    var $node = TestimonialSlide.prototype.createSignatureNode();
-
-    expect($node.prop('tagName')).toEqual('DIV');
-    expect($node.attr('class')).toEqual('signature');
-    expect(TestimonialSlide.prototype.createAuthorNode).toHaveBeenCalled();
-    expect(TestimonialSlide.prototype.createCompanyNode).toHaveBeenCalled();
+    expect($node.empty).toHaveBeenCalled();
+    expect($node.remove).toHaveBeenCalled();
+    var res = $(TestimonialSlide.prototype.$domNode).is(':empty');
+    expect(res).toBeTruthy();
   });
 });
