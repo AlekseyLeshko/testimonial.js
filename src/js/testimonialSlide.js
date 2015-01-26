@@ -146,5 +146,10 @@ TestimonialSlide.prototype = {
 
   getDomNode: function() {
     return this.$domNode;
+  },
+
+  remove: function() {
+    this.$domNode.empty();
+    this.$domNode.remove();
   }
 };
