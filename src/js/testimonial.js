@@ -47,7 +47,7 @@ Testimonial.prototype = {
     this.$slideList.push(slide);
     this.slideRendering(slide, false);
 
-    this.removeSlide();
+    this.cleanSlideList();
   },
 
   loadSlide: function() {
@@ -58,16 +58,27 @@ Testimonial.prototype = {
     }
   },
 
-  removeSlide: function() {
-    if (this.$slideList.length > this.pluginOptions.slideCount) {
+  cleanSlideList: function() {
+    if (this.whetherToRemoveSlide()) {
       var index = 1;
       if (this.currentSlideIndex !== 0) {
         index = 0;
         this.currentSlideIndex--;
       }
-      this.$slideList[index].$domNode.remove();
-      this.$slideList.splice(index, 1);
+
+      this.removeSlide(index);
     }
+  },
+
+  whetherToRemoveSlide: function() {
+    var res = this.$slideList.length > this.pluginOptions.slideCount;
+    return res;
+  },
+
+  removeSlide: function(index) {
+    this.$slideList[index].itRemove = true;
+    var a = this.$slideList.splice(index, 1);
+    delete a[0];
   },
 
   createOptions: function(options) {
