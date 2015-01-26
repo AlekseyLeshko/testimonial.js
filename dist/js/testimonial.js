@@ -1,6 +1,6 @@
 /**
   * testimonial - JS testimonial slider with AJAX
-  * @version v1.0.1
+  * @version v1.0.2
   * @link http://alekseyleshko.github.io/testimonial.js/
   * @license MIT (https://github.com/AlekseyLeshko/testimonial.js/blob/master/LICENSE)
 */
@@ -99,6 +99,8 @@ Testimonial.prototype = {
       this.stop();
     }
 
+    this.cleanSlideList();
+
     var currentSlide = this.$slideList[this.currentSlideIndex];
     this.indexing();
     var nextSlide = this.$slideList[this.currentSlideIndex];
@@ -120,8 +122,6 @@ Testimonial.prototype = {
 
     this.$slideList.push(slide);
     this.slideRendering(slide, false);
-
-    this.removeSlide();
   },
 
   loadSlide: function() {
@@ -132,16 +132,27 @@ Testimonial.prototype = {
     }
   },
 
-  removeSlide: function() {
-    if (this.$slideList.length > this.pluginOptions.slideCount) {
+  cleanSlideList: function() {
+    if (this.whetherToRemoveSlide()) {
       var index = 1;
       if (this.currentSlideIndex !== 0) {
         index = 0;
         this.currentSlideIndex--;
       }
-      this.$slideList[index].$domNode.remove();
-      this.$slideList.splice(index, 1);
+
+      this.removeSlide(index);
     }
+  },
+
+  whetherToRemoveSlide: function() {
+    var res = this.$slideList.length > this.pluginOptions.slideCount;
+    return res;
+  },
+
+  removeSlide: function(index) {
+    this.$slideList[index].remove();
+    var a = this.$slideList.splice(index, 1);
+    delete a[0];
   },
 
   createOptions: function(options) {
@@ -406,5 +417,10 @@ TestimonialSlide.prototype = {
 
   getDomNode: function() {
     return this.$domNode;
+  },
+
+  remove: function() {
+    this.$domNode.empty();
+    this.$domNode.remove();
   }
 };
