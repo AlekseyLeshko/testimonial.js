@@ -53,6 +53,7 @@ describe('TestimonialSlide', function() {
 
   describe('uses createDivWithClass', function() {
     beforeEach(function() {
+      /* global createDivWithClassStub: false */
       spyOn(TestimonialSlide.prototype, 'createDivWithClass').and.callFake(createDivWithClassStub);
     });
 
@@ -186,6 +187,7 @@ describe('TestimonialSlide', function() {
     var delay;
 
     beforeEach(function() {
+      /* global defaultTestimonialSlideOptions: false */
       options = defaultTestimonialSlideOptions();
       marginLeft = options.distance + 'px';
       delay = options.duration * 2 + 10;
