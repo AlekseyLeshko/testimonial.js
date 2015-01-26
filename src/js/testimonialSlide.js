@@ -119,6 +119,7 @@ TestimonialSlide.prototype = {
       this.options.duration,
       function() {
         self.hideSlide();
+        self.remove();
       }
     );
   },
@@ -146,5 +147,12 @@ TestimonialSlide.prototype = {
 
   getDomNode: function() {
     return this.$domNode;
+  },
+
+  remove: function() {
+    if (this.itRemove) {
+      this.$domNode.empty();
+      this.$domNode.remove();
+    }
   }
 };
