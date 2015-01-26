@@ -292,12 +292,14 @@ describe('Testimonial', function() {
     });
 
     beforeEach(function() {
+      spyOn(Testimonial.prototype, 'cleanSlideList');
       spyOn(Testimonial.prototype, 'indexing').and.callThrough();
       spyOn(Testimonial.prototype, 'resizePluginContainer');
       spyOn(Testimonial.prototype, 'start');
     });
 
     afterEach(function() {
+      expect(Testimonial.prototype.cleanSlideList).toHaveBeenCalled();
       expect(Testimonial.prototype.indexing).toHaveBeenCalled();
       expect(Testimonial.prototype.resizePluginContainer).toHaveBeenCalled();
       expect(Testimonial.prototype.start).toHaveBeenCalled();
@@ -349,14 +351,12 @@ describe('Testimonial', function() {
 
     var cSpy = spyOn(window, 'TestimonialSlide');
     spyOn(Testimonial.prototype, 'slideRendering');
-    spyOn(Testimonial.prototype, 'cleanSlideList');
 
     Testimonial.prototype.add(slide);
 
     expect(cSpy).toHaveBeenCalledWith(slide);
     expect(Testimonial.prototype.$slideList.length).toEqual(1);
     expect(Testimonial.prototype.slideRendering.calls.argsFor(0)[1]).toEqual(false);
-    expect(Testimonial.prototype.cleanSlideList).toHaveBeenCalled();
   });
 
   it('should rendering slide', function() {
@@ -489,12 +489,13 @@ describe('Testimonial', function() {
   });
 
   it('should remove slide', function() {
-    var obj = {
-      test: 'test'
-    };
+    var $node = $('<div />');
+    var slide = new TestimonialSlide($node);
+    spyOn(slide, 'remove');
+
     Testimonial.prototype.$slideList = [
       1,
-      obj,
+      slide,
       3
     ];
     var index = 1;
@@ -502,6 +503,6 @@ describe('Testimonial', function() {
     Testimonial.prototype.removeSlide(index);
 
     expect(Testimonial.prototype.$slideList).toEqual([1, 3]);
-    expect(obj.itRemove).toBeTruthy();
+    expect(slide.remove).toHaveBeenCalled();
   });
 });

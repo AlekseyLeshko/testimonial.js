@@ -223,7 +223,6 @@ describe('TestimonialSlide', function() {
 
     it('should animate hide', function(done) {
       spyOn(TestimonialSlide.prototype, 'hideSlide');
-      spyOn(TestimonialSlide.prototype, 'remove');
 
       TestimonialSlide.prototype.animateHide();
 
@@ -234,7 +233,6 @@ describe('TestimonialSlide', function() {
         expect($res.css('margin-left')).toEqual(marginLeft);
 
         expect(TestimonialSlide.prototype.hideSlide).toHaveBeenCalled();
-        expect(TestimonialSlide.prototype.remove).toHaveBeenCalled();
         done();
       }, delay);
     });
@@ -272,38 +270,18 @@ describe('TestimonialSlide', function() {
     expect(TestimonialSlide.prototype.createImgAuthorFoto).toHaveBeenCalled();
   });
 
-  describe('remove method', function() {
-    var $node;
+  it('should slide not to be exist', function() {
+    var $node = $('<div />');
 
-    beforeEach(function() {
-      $node = $('<div />');
+    TestimonialSlide.prototype.$domNode = $node;
+    spyOn($node, 'empty').and.callThrough();
+    spyOn($node, 'remove').and.callThrough();
 
-      TestimonialSlide.prototype.$domNode = $node;
-      TestimonialSlide.prototype.itRemove = true;
+    TestimonialSlide.prototype.remove();
 
-      spyOn($node, 'empty').and.callThrough();
-      spyOn($node, 'remove').and.callThrough();
-    });
-
-    it('should slide not to be exist', function() {
-      TestimonialSlide.prototype.remove();
-
-      expect($node.empty).toHaveBeenCalled();
-      expect($node.remove).toHaveBeenCalled();
-      var res = $(TestimonialSlide.prototype.$domNode).is(':empty');
-      expect(res).toBeTruthy();
-    });
-
-    it('should slide to be exist', function() {
-      var $element = $('<div />');
-      $node.append($element);
-
-      TestimonialSlide.prototype.itRemove = false;
-
-      TestimonialSlide.prototype.remove();
-
-      var res = $(TestimonialSlide.prototype.$domNode).is(':empty');
-      expect(res).toBeFalsy();
-    });
+    expect($node.empty).toHaveBeenCalled();
+    expect($node.remove).toHaveBeenCalled();
+    var res = $(TestimonialSlide.prototype.$domNode).is(':empty');
+    expect(res).toBeTruthy();
   });
 });

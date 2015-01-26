@@ -25,6 +25,8 @@ Testimonial.prototype = {
       this.stop();
     }
 
+    this.cleanSlideList();
+
     var currentSlide = this.$slideList[this.currentSlideIndex];
     this.indexing();
     var nextSlide = this.$slideList[this.currentSlideIndex];
@@ -46,8 +48,6 @@ Testimonial.prototype = {
 
     this.$slideList.push(slide);
     this.slideRendering(slide, false);
-
-    this.cleanSlideList();
   },
 
   loadSlide: function() {
@@ -76,7 +76,7 @@ Testimonial.prototype = {
   },
 
   removeSlide: function(index) {
-    this.$slideList[index].itRemove = true;
+    this.$slideList[index].remove();
     var a = this.$slideList.splice(index, 1);
     delete a[0];
   },

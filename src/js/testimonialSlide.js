@@ -119,7 +119,6 @@ TestimonialSlide.prototype = {
       this.options.duration,
       function() {
         self.hideSlide();
-        self.remove();
       }
     );
   },
@@ -150,9 +149,7 @@ TestimonialSlide.prototype = {
   },
 
   remove: function() {
-    if (this.itRemove) {
-      this.$domNode.empty();
-      this.$domNode.remove();
-    }
+    this.$domNode.empty();
+    this.$domNode.remove();
   }
 };
