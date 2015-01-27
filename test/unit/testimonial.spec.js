@@ -577,4 +577,25 @@ describe('Testimonial', function() {
     expect($container.height()).toEqual(height);
     expect($container.width()).toEqual(width);
   });
+
+  it('should create and add slide', function() {
+    var $node = $('<div />');
+    var width = 700;
+
+    Testimonial.prototype.$slideList = [];
+    Testimonial.prototype.pluginOptions = {
+      width: width
+    };
+    var cSpy = spyOn(window, 'TestimonialSlide');
+
+    Testimonial.prototype.createAndAddSlide($node);
+
+    var expected = {
+      width: width
+    };
+    var args = cSpy.calls.argsFor(0);
+    expect(cSpy).toHaveBeenCalled();
+    expect(Testimonial.prototype.$slideList.length).toEqual(1);
+    expect(args).toEqual([$node, expected]);
+  });
 });

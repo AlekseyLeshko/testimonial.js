@@ -137,6 +137,15 @@ Testimonial.prototype = {
     }
   },
 
+  createAndAddSlide: function(data) {
+    var options = {
+      width: this.pluginOptions.width
+    };
+    /* global TestimonialSlide: false */
+    var slide = new TestimonialSlide(data, options);
+    this.$slideList.push(slide);
+  },
+
   createInfrastructure: function() {
     var indents = 500;
     this.$slideListWrapper = $('<div />', {
