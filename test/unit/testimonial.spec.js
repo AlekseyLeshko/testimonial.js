@@ -517,4 +517,37 @@ describe('Testimonial', function() {
 
     expect(slideCount).toEqual(expected);
   });
+
+  it('should set slide count', function() {
+    var value = 3;
+
+    Testimonial.prototype.pluginOptions = {
+      slideCount: 1
+    };
+
+    Testimonial.prototype.setSlideCount(value);
+
+    var slideCount = Testimonial.prototype.pluginOptions.slideCount;
+    expect(slideCount).toEqual(value);
+  });
+
+  it('should need to remove two slide', function() {
+    spyOn(Testimonial.prototype, 'cleanSlideList').and.callFake(function() {
+      Testimonial.prototype.$slideList.length -=1;
+    });
+    var value = 3;
+    Testimonial.prototype.pluginOptions = {
+      slideCount: 5
+    };
+    Testimonial.prototype.$slideList = [1, 2, 3, 4, 5];
+
+    Testimonial.prototype.setSlideCount(value);
+
+    var length = Testimonial.prototype.$slideList.length;
+    expect(length).toEqual(value);
+    var slideCount = Testimonial.prototype.pluginOptions.slideCount;
+    expect(slideCount).toEqual(value);
+    expect(Testimonial.prototype.cleanSlideList).toHaveBeenCalled();
+    expect(Testimonial.prototype.cleanSlideList.calls.count()).toEqual(2);
+  });
 });
