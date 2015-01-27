@@ -33,9 +33,13 @@ describe('Testimonial', function() {
   it('should getDefaultOptions', function() {
     var options = Testimonial.prototype.getDefaultOptions();
 
+    var propertyCount = Object.keys(options).length;
+    expect(propertyCount).toEqual(5);
+    expect(options.height).toEqual(175);
+    expect(options.width).toEqual(700);
     expect(options.timeout).toEqual(7000);
-    expect(options.autostart).toBeTruthy();
     expect(options.slideCount).toEqual(3);
+    expect(options.autostart).toBeTruthy();
   });
 
   it('should resizePluginContainer', function() {

@@ -100,9 +100,11 @@ Testimonial.prototype = {
 
   getDefaultOptions: function() {
     var defaultOptions = {
+      height: 175,
+      width: 700,
+      slideCount: 3,
       timeout: 7000,
-      autostart: true,
-      slideCount: 3
+      autostart: true
     };
     return defaultOptions;
   },
