@@ -43,10 +43,9 @@ Testimonial.prototype = {
   },
 
   add: function(slideObj) {
-    /* global TestimonialSlide: false */
-    var slide = new TestimonialSlide(slideObj);
+    this.createAndAddSlide(slideObj);
 
-    this.$slideList.push(slide);
+    var slide = this.$slideList[this.$slideList.length - 1];
     this.slideRendering(slide, false);
   },
 

@@ -358,17 +358,23 @@ describe('Testimonial', function() {
   });
 
   it('should add slide', function() {
+    var slide = {
+      test: 'test'
+    };
     Testimonial.prototype.$slideList = [];
-    var slide = {};
-
-    var cSpy = spyOn(window, 'TestimonialSlide');
+    var expected = {
+      test: 'expected'
+    }
+    spyOn(Testimonial.prototype, 'createAndAddSlide').and.callFake(function() {
+      Testimonial.prototype.$slideList.push(expected);
+    });
     spyOn(Testimonial.prototype, 'slideRendering');
 
     Testimonial.prototype.add(slide);
 
-    expect(cSpy).toHaveBeenCalledWith(slide);
+    expect(Testimonial.prototype.createAndAddSlide).toHaveBeenCalledWith(slide);
     expect(Testimonial.prototype.$slideList.length).toEqual(1);
-    expect(Testimonial.prototype.slideRendering.calls.argsFor(0)[1]).toEqual(false);
+    expect(Testimonial.prototype.slideRendering.calls.argsFor(0)).toEqual([expected, false]);
   });
 
   it('should rendering slide', function() {
