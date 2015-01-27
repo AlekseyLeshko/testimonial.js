@@ -47,8 +47,15 @@ describe('TestimonialSlide', function() {
   });
 
   it('should create standard dom node', function() {
+    var expected = 700;
+    TestimonialSlide.prototype.options = {
+      width: expected
+    };
+
     TestimonialSlide.prototype.createStandardDomNode();
 
+    var width = TestimonialSlide.prototype.$domNode.width();
+    expect(width).toEqual(expected);
     expect(TestimonialSlide.prototype.$domNode).toBeDefined();
   });
 

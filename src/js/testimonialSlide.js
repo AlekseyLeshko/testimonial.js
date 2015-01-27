@@ -44,6 +44,7 @@ TestimonialSlide.prototype = {
     this.$domNode = $('<div />', {
       'class': this.options.cssClass
     });
+    this.$domNode.width(this.options.width);
   },
 
   createQuoteNode: function() {
