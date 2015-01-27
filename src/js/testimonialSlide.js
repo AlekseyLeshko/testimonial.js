@@ -1,9 +1,9 @@
 'use strict';
 
-var TestimonialSlide = function(data) {
+var TestimonialSlide = function(data, options) {
   this.data = this.createData(data);
 
-  this.createOptions();
+  this.createOptions(options);
   this.createSlide();
 };
 

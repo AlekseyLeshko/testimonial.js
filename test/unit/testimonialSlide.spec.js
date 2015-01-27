@@ -5,12 +5,16 @@ describe('TestimonialSlide', function() {
     spyOn(TestimonialSlide.prototype, 'createData').and.returnValue({});
     spyOn(TestimonialSlide.prototype, 'createOptions');
     spyOn(TestimonialSlide.prototype, 'createSlide');
+    var $node = $('<div />');
+    var options = {
+      test: 'test'
+    };
 
-    var testimonialSlide = new TestimonialSlide();
+    var testimonialSlide = new TestimonialSlide($node, options);
 
     expect(testimonialSlide.data).toBeDefined();
-    expect(testimonialSlide.createData).toHaveBeenCalled();
-    expect(testimonialSlide.createOptions).toHaveBeenCalled();
+    expect(testimonialSlide.createData).toHaveBeenCalledWith($node);
+    expect(testimonialSlide.createOptions).toHaveBeenCalledWith(options);
     expect(testimonialSlide.createSlide).toHaveBeenCalled();
   });
 
