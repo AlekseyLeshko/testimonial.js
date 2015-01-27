@@ -27,6 +27,7 @@ TestimonialSlide.prototype = {
 
   createOptions: function() {
     this.options = {
+      width: 700,
       duration: 750,
       distance: 250,
       cssClass: 'testimonial_slide'

@@ -35,6 +35,7 @@ describe('TestimonialSlide', function() {
 
   it('should create options', function() {
     var expected = {
+      width: 700,
       duration: 750,
       distance: 250,
       cssClass: 'testimonial_slide'
