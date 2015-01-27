@@ -104,13 +104,14 @@ describe('Testimonial', function() {
   });
 
   it('should createSlides', function() {
-    Testimonial.prototype.$slideList.length = 0;
-    var arr = [{}, {}, {}];
+    var arr = [1, 2, 3];
     Testimonial.prototype.dataList = arr;
+    spyOn(Testimonial.prototype, 'createAndAddSlide');
 
     Testimonial.prototype.createSlides();
 
-    expect(Testimonial.prototype.$slideList.length).toEqual(arr.length);
+    expect(Testimonial.prototype.createAndAddSlide).toHaveBeenCalled();
+    expect(Testimonial.prototype.createAndAddSlide.calls.count()).toEqual(arr.length);
   });
 
   it('should parseDomTree', function() {

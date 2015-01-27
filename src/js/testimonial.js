@@ -131,9 +131,7 @@ Testimonial.prototype = {
   createSlides: function() {
     for (var i = 0; i < this.dataList.length; i++) {
       var data = this.dataList[i];
-      /* global TestimonialSlide: false */
-      var $slide = new TestimonialSlide(data);
-      this.$slideList.push($slide);
+      this.createAndAddSlide(data);
     }
   },
 
