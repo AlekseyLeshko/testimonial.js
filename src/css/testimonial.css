@@ -1,9 +1,8 @@
 .testimonial_slider {
-  width: 600px;
-  height: 200px;
+  width: 700px;
+  height: 175px;
   overflow: hidden;
   position: relative;
-  padding-right: 10px;
 }
 .testimonial_slider .main_container {
   width: 6000px;
@@ -29,7 +28,7 @@
   filter: alpha(opacity=35);
 }
 .testimonial_slide {
-  width: 600px;
+  width: 700px;
   float: left;
   margin-right: 10px;
 }
