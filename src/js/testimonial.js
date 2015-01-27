@@ -81,6 +81,10 @@ Testimonial.prototype = {
     delete a[0];
   },
 
+  getSlideCount: function() {
+    return this.pluginOptions.slideCount;
+  },
+
   createOptions: function(options) {
     var defaultOptions = this.getDefaultOptions();
     this.pluginOptions = $.extend(defaultOptions, options);

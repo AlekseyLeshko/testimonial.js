@@ -505,4 +505,16 @@ describe('Testimonial', function() {
     expect(Testimonial.prototype.$slideList).toEqual([1, 3]);
     expect(slide.remove).toHaveBeenCalled();
   });
+
+  it('should get slide count', function() {
+    var expected = 3;
+
+    Testimonial.prototype.pluginOptions = {
+      slideCount: expected
+    };
+
+    var slideCount = Testimonial.prototype.getSlideCount();
+
+    expect(slideCount).toEqual(expected);
+  });
 });
