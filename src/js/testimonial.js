@@ -138,7 +138,7 @@ Testimonial.prototype = {
   },
 
   createInfrastructure: function() {
-    var indents = 200;
+    var indents = 500;
     this.$slideListWrapper = $('<div />', {
       'class': 'main_container'
     });

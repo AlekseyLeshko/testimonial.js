@@ -90,7 +90,7 @@ describe('Testimonial', function() {
     Testimonial.prototype.pluginOptions = {
       width: 700
     };
-    var expected = 1600;
+    var expected = 1900;
     spyOn(Testimonial.prototype, 'createButtonNext');
     Testimonial.prototype.$container = $('<div />');
 
