@@ -1,6 +1,6 @@
 /**
   * testimonial - JS testimonial slider with AJAX
-  * @version v1.0.2
+  * @version v1.0.3
   * @link http://alekseyleshko.github.io/testimonial.js/
   * @license MIT (https://github.com/AlekseyLeshko/testimonial.js/blob/master/LICENSE)
 */
@@ -153,6 +153,18 @@ Testimonial.prototype = {
     this.$slideList[index].remove();
     var a = this.$slideList.splice(index, 1);
     delete a[0];
+  },
+
+  getSlideCount: function() {
+    return this.pluginOptions.slideCount;
+  },
+
+  setSlideCount: function(value) {
+    this.pluginOptions.slideCount = value;
+
+    while (this.whetherToRemoveSlide() === true) {
+      this.cleanSlideList();
+    }
   },
 
   createOptions: function(options) {
