@@ -5,7 +5,6 @@
   position: relative;
 }
 .testimonial_slider .main_container {
-  width: 6000px;
   float: left;
   margin: 10px;
 }
@@ -30,7 +29,6 @@
 .testimonial_slide {
   width: 700px;
   float: left;
-  margin-right: 10px;
 }
 .testimonial_slide .author_foto {
   width: 146px;
