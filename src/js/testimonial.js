@@ -195,6 +195,7 @@ Testimonial.prototype = {
   },
 
   initSlideList: function() {
+    this.configContainer();
     this.parseDomTree();
     this.createSlides();
     this.createInfrastructure();

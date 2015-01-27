@@ -185,6 +185,7 @@ describe('Testimonial', function() {
   });
 
   it('should initSlideList', function() {
+    spyOn(Testimonial.prototype, 'configContainer');
     spyOn(Testimonial.prototype, 'parseDomTree');
     spyOn(Testimonial.prototype, 'createSlides');
     spyOn(Testimonial.prototype, 'createInfrastructure');
@@ -193,6 +194,7 @@ describe('Testimonial', function() {
 
     Testimonial.prototype.initSlideList();
 
+    expect(Testimonial.prototype.configContainer).toHaveBeenCalled();
     expect(Testimonial.prototype.parseDomTree).toHaveBeenCalled();
     expect(Testimonial.prototype.createSlides).toHaveBeenCalled();
     expect(Testimonial.prototype.createInfrastructure).toHaveBeenCalled();
