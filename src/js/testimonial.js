@@ -189,6 +189,11 @@ Testimonial.prototype = {
     this.$slideListWrapper.append($node);
   },
 
+  configContainer: function() {
+    this.$container.height(this.pluginOptions.height);
+    this.$container.width(this.pluginOptions.width);
+  },
+
   initSlideList: function() {
     this.parseDomTree();
     this.createSlides();

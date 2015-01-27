@@ -559,4 +559,20 @@ describe('Testimonial', function() {
     expect(Testimonial.prototype.cleanSlideList).toHaveBeenCalled();
     expect(Testimonial.prototype.cleanSlideList.calls.count()).toEqual(2);
   });
+
+  it('should set height and width for container', function() {
+    var height = 175;
+    var width = 700;
+    Testimonial.prototype.pluginOptions = {
+      height: height,
+      width: width
+    };
+    var $node = $('<div />');
+
+    Testimonial.prototype.configContainer();
+
+    var $container = Testimonial.prototype.$container;
+    expect($container.height()).toEqual(height);
+    expect($container.width()).toEqual(width);
+  });
 });
