@@ -1,34 +1,5 @@
-.testimonial_slider {
-  width: 700px;
-  height: 175px;
-  overflow: hidden;
-  position: relative;
-  .main_container {
-    float: left;
-    margin: 10px;
-  }
-  .next_slide {
-    min-width: 50px;
-    width: 50px;
-    height: 100%;
-    right: 0;
-    position: absolute;
-    background-color: #fff;
-    opacity: 0;
-    cursor: pointer;
-    background-image: url("../img/arrow_right.png");
-    background-repeat: no-repeat;
-    background-position: center center;
-    &:hover {
-      opacity: 0.35;
-      -moz-opacity: 0.35;
-      filter: alpha(opacity = 35);
-    }
-  }
-}
-
 .testimonial_slide {
-  width: 700px;
+  width: $base-width;
   float: left;
   .author_foto {
     width: 146px;

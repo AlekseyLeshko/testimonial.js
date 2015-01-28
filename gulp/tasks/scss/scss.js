@@ -8,7 +8,7 @@ gulp.task('scss', function() {
     keepSpecialComments: 0
   };
 
-  return gulp.src('src/css/**/*.scss')
+  return gulp.src('src/scss/**/*.scss')
     .pipe(sass())
     .pipe(minifyCSS(config))
     .pipe(concat('testimonial.min.css'))
