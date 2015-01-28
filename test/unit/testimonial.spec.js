@@ -364,7 +364,7 @@ describe('Testimonial', function() {
     Testimonial.prototype.$slideList = [];
     var expected = {
       test: 'expected'
-    }
+    };
     spyOn(Testimonial.prototype, 'createAndAddSlide').and.callFake(function() {
       Testimonial.prototype.$slideList.push(expected);
     });
