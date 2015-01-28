@@ -33,9 +33,13 @@ describe('Testimonial', function() {
   it('should getDefaultOptions', function() {
     var options = Testimonial.prototype.getDefaultOptions();
 
+    var propertyCount = Object.keys(options).length;
+    expect(propertyCount).toEqual(5);
+    expect(options.height).toEqual(175);
+    expect(options.width).toEqual(700);
     expect(options.timeout).toEqual(7000);
-    expect(options.autostart).toBeTruthy();
     expect(options.slideCount).toEqual(3);
+    expect(options.autostart).toBeTruthy();
   });
 
   it('should resizePluginContainer', function() {
@@ -83,25 +87,31 @@ describe('Testimonial', function() {
   });
 
   it('should createInfrastructure', function() {
+    Testimonial.prototype.pluginOptions = {
+      width: 700
+    };
+    var expected = 1900;
     spyOn(Testimonial.prototype, 'createButtonNext');
     Testimonial.prototype.$container = $('<div />');
 
     Testimonial.prototype.createInfrastructure();
-    var $obj = Testimonial.prototype.$container.find('div').first();
+    var $obj = Testimonial.prototype.$slideListWrapper;
 
+    expect($obj.width()).toEqual(expected);
     expect($obj.prop('tagName')).toEqual('DIV');
     expect($obj.attr('class')).toEqual('main_container');
     expect(Testimonial.prototype.createButtonNext).toHaveBeenCalled();
   });
 
   it('should createSlides', function() {
-    Testimonial.prototype.$slideList.length = 0;
-    var arr = [{}, {}, {}];
+    var arr = [1, 2, 3];
     Testimonial.prototype.dataList = arr;
+    spyOn(Testimonial.prototype, 'createAndAddSlide');
 
     Testimonial.prototype.createSlides();
 
-    expect(Testimonial.prototype.$slideList.length).toEqual(arr.length);
+    expect(Testimonial.prototype.createAndAddSlide).toHaveBeenCalled();
+    expect(Testimonial.prototype.createAndAddSlide.calls.count()).toEqual(arr.length);
   });
 
   it('should parseDomTree', function() {
@@ -176,6 +186,7 @@ describe('Testimonial', function() {
   });
 
   it('should initSlideList', function() {
+    spyOn(Testimonial.prototype, 'configContainer');
     spyOn(Testimonial.prototype, 'parseDomTree');
     spyOn(Testimonial.prototype, 'createSlides');
     spyOn(Testimonial.prototype, 'createInfrastructure');
@@ -184,6 +195,7 @@ describe('Testimonial', function() {
 
     Testimonial.prototype.initSlideList();
 
+    expect(Testimonial.prototype.configContainer).toHaveBeenCalled();
     expect(Testimonial.prototype.parseDomTree).toHaveBeenCalled();
     expect(Testimonial.prototype.createSlides).toHaveBeenCalled();
     expect(Testimonial.prototype.createInfrastructure).toHaveBeenCalled();
@@ -346,17 +358,23 @@ describe('Testimonial', function() {
   });
 
   it('should add slide', function() {
+    var slide = {
+      test: 'test'
+    };
     Testimonial.prototype.$slideList = [];
-    var slide = {};
-
-    var cSpy = spyOn(window, 'TestimonialSlide');
+    var expected = {
+      test: 'expected'
+    };
+    spyOn(Testimonial.prototype, 'createAndAddSlide').and.callFake(function() {
+      Testimonial.prototype.$slideList.push(expected);
+    });
     spyOn(Testimonial.prototype, 'slideRendering');
 
     Testimonial.prototype.add(slide);
 
-    expect(cSpy).toHaveBeenCalledWith(slide);
+    expect(Testimonial.prototype.createAndAddSlide).toHaveBeenCalledWith(slide);
     expect(Testimonial.prototype.$slideList.length).toEqual(1);
-    expect(Testimonial.prototype.slideRendering.calls.argsFor(0)[1]).toEqual(false);
+    expect(Testimonial.prototype.slideRendering.calls.argsFor(0)).toEqual([expected, false]);
   });
 
   it('should rendering slide', function() {
@@ -549,5 +567,42 @@ describe('Testimonial', function() {
     expect(slideCount).toEqual(value);
     expect(Testimonial.prototype.cleanSlideList).toHaveBeenCalled();
     expect(Testimonial.prototype.cleanSlideList.calls.count()).toEqual(2);
+  });
+
+  it('should set height and width for container', function() {
+    var height = 175;
+    var width = 700;
+    Testimonial.prototype.pluginOptions = {
+      height: height,
+      width: width
+    };
+    var $node = $('<div />');
+
+    Testimonial.prototype.configContainer();
+
+    var $container = Testimonial.prototype.$container;
+    expect($container.height()).toEqual(height);
+    expect($container.width()).toEqual(width);
+  });
+
+  it('should create and add slide', function() {
+    var $node = $('<div />');
+    var width = 700;
+
+    Testimonial.prototype.$slideList = [];
+    Testimonial.prototype.pluginOptions = {
+      width: width
+    };
+    var cSpy = spyOn(window, 'TestimonialSlide');
+
+    Testimonial.prototype.createAndAddSlide($node);
+
+    var expected = {
+      width: width
+    };
+    var args = cSpy.calls.argsFor(0);
+    expect(cSpy).toHaveBeenCalled();
+    expect(Testimonial.prototype.$slideList.length).toEqual(1);
+    expect(args).toEqual([$node, expected]);
   });
 });

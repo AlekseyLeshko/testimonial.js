@@ -1,6 +1,6 @@
 /**
   * testimonial - JS testimonial slider with AJAX
-  * @version v1.0.3
+  * @version v1.0.4
   * @link http://alekseyleshko.github.io/testimonial.js/
   * @license MIT (https://github.com/AlekseyLeshko/testimonial.js/blob/master/LICENSE)
 */
@@ -117,10 +117,9 @@ Testimonial.prototype = {
   },
 
   add: function(slideObj) {
-    /* global TestimonialSlide: false */
-    var slide = new TestimonialSlide(slideObj);
+    this.createAndAddSlide(slideObj);
 
-    this.$slideList.push(slide);
+    var slide = this.$slideList[this.$slideList.length - 1];
     this.slideRendering(slide, false);
   },
 
@@ -174,9 +173,11 @@ Testimonial.prototype = {
 
   getDefaultOptions: function() {
     var defaultOptions = {
+      height: 175,
+      width: 700,
+      slideCount: 3,
       timeout: 7000,
-      autostart: true,
-      slideCount: 3
+      autostart: true
     };
     return defaultOptions;
   },
@@ -203,16 +204,26 @@ Testimonial.prototype = {
   createSlides: function() {
     for (var i = 0; i < this.dataList.length; i++) {
       var data = this.dataList[i];
-      /* global TestimonialSlide: false */
-      var $slide = new TestimonialSlide(data);
-      this.$slideList.push($slide);
+      this.createAndAddSlide(data);
     }
   },
 
+  createAndAddSlide: function(data) {
+    var options = {
+      width: this.pluginOptions.width
+    };
+    /* global TestimonialSlide: false */
+    var slide = new TestimonialSlide(data, options);
+    this.$slideList.push(slide);
+  },
+
   createInfrastructure: function() {
+    var indents = 500;
     this.$slideListWrapper = $('<div />', {
       'class': 'main_container'
     });
+    var width = this.pluginOptions.width * 2 + indents;
+    this.$slideListWrapper.width(width);
     this.$container.append(this.$slideListWrapper);
     this.createButtonNext();
   },
@@ -258,7 +269,13 @@ Testimonial.prototype = {
     this.$slideListWrapper.append($node);
   },
 
+  configContainer: function() {
+    this.$container.height(this.pluginOptions.height);
+    this.$container.width(this.pluginOptions.width);
+  },
+
   initSlideList: function() {
+    this.configContainer();
     this.parseDomTree();
     this.createSlides();
     this.createInfrastructure();
@@ -283,10 +300,10 @@ Testimonial.prototype = {
 
 'use strict';
 
-var TestimonialSlide = function(data) {
+var TestimonialSlide = function(data, options) {
   this.data = this.createData(data);
 
-  this.createOptions();
+  this.createOptions(options);
   this.createSlide();
 };
 
@@ -308,12 +325,19 @@ TestimonialSlide.prototype = {
     return resultData;
   },
 
-  createOptions: function() {
-    this.options = {
+  createOptions: function(options) {
+    var defaultOptions = this.getDefaultOptions();
+    this.options = $.extend({}, defaultOptions, options);
+  },
+
+  getDefaultOptions: function() {
+    var defaultOptions = {
+      width: 700,
       duration: 750,
       distance: 250,
       cssClass: 'testimonial_slide'
     };
+    return defaultOptions;
   },
 
   createSlide: function() {
@@ -326,6 +350,7 @@ TestimonialSlide.prototype = {
     this.$domNode = $('<div />', {
       'class': this.options.cssClass
     });
+    this.$domNode.width(this.options.width);
   },
 
   createQuoteNode: function() {
