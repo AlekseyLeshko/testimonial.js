@@ -5,12 +5,16 @@ describe('TestimonialSlide', function() {
     spyOn(TestimonialSlide.prototype, 'createData').and.returnValue({});
     spyOn(TestimonialSlide.prototype, 'createOptions');
     spyOn(TestimonialSlide.prototype, 'createSlide');
+    var $node = $('<div />');
+    var options = {
+      test: 'test'
+    };
 
-    var testimonialSlide = new TestimonialSlide();
+    var testimonialSlide = new TestimonialSlide($node, options);
 
     expect(testimonialSlide.data).toBeDefined();
-    expect(testimonialSlide.createData).toHaveBeenCalled();
-    expect(testimonialSlide.createOptions).toHaveBeenCalled();
+    expect(testimonialSlide.createData).toHaveBeenCalledWith($node);
+    expect(testimonialSlide.createOptions).toHaveBeenCalledWith(options);
     expect(testimonialSlide.createSlide).toHaveBeenCalled();
   });
 
@@ -34,20 +38,46 @@ describe('TestimonialSlide', function() {
   });
 
   it('should create options', function() {
+    var getDefaultOptionsStub = function() {
+     var defaultOptions = {
+        width: 700,
+        duration: 750,
+        distance: 250,
+        cssClass: 'testimonial_slide'
+      };
+      return defaultOptions;
+    };
+
+    spyOn(TestimonialSlide.prototype, 'getDefaultOptions').and.callFake(getDefaultOptionsStub);
+
     var expected = {
+      width: 900,
       duration: 750,
       distance: 250,
       cssClass: 'testimonial_slide'
     };
+    var options = {
+      width: 900,
+      duration: 750,
+      cssClass: 'testimonial_slide'
+    };
 
-    TestimonialSlide.prototype.createOptions();
+    TestimonialSlide.prototype.createOptions(options);
 
+    expect(TestimonialSlide.prototype.getDefaultOptions).toHaveBeenCalled();
     expect(TestimonialSlide.prototype.options).toEqual(expected);
   });
 
   it('should create standard dom node', function() {
+    var expected = 700;
+    TestimonialSlide.prototype.options = {
+      width: expected
+    };
+
     TestimonialSlide.prototype.createStandardDomNode();
 
+    var width = TestimonialSlide.prototype.$domNode.width();
+    expect(width).toEqual(expected);
     expect(TestimonialSlide.prototype.$domNode).toBeDefined();
   });
 

@@ -1,6 +1,6 @@
 {
   "name": "testimonial",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "JS testimonial slider with AJAX",
   "main": "./js/testimonial.js",
   "homepage": "http://alekseyleshko.github.io/testimonial.js/",

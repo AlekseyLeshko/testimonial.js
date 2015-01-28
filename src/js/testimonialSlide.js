@@ -1,9 +1,9 @@
 'use strict';
 
-var TestimonialSlide = function(data) {
+var TestimonialSlide = function(data, options) {
   this.data = this.createData(data);
 
-  this.createOptions();
+  this.createOptions(options);
   this.createSlide();
 };
 
@@ -25,12 +25,19 @@ TestimonialSlide.prototype = {
     return resultData;
   },
 
-  createOptions: function() {
-    this.options = {
+  createOptions: function(options) {
+    var defaultOptions = this.getDefaultOptions();
+    this.options = $.extend({}, defaultOptions, options);
+  },
+
+  getDefaultOptions: function() {
+    var defaultOptions = {
+      width: 700,
       duration: 750,
       distance: 250,
       cssClass: 'testimonial_slide'
     };
+    return defaultOptions;
   },
 
   createSlide: function() {
@@ -43,6 +50,7 @@ TestimonialSlide.prototype = {
     this.$domNode = $('<div />', {
       'class': this.options.cssClass
     });
+    this.$domNode.width(this.options.width);
   },
 
   createQuoteNode: function() {
