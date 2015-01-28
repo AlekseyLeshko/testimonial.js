@@ -38,15 +38,33 @@ describe('TestimonialSlide', function() {
   });
 
   it('should create options', function() {
+    var getDefaultOptionsStub = function() {
+     var defaultOptions = {
+        width: 700,
+        duration: 750,
+        distance: 250,
+        cssClass: 'testimonial_slide'
+      };
+      return defaultOptions;
+    }
+
+    spyOn(TestimonialSlide.prototype, 'getDefaultOptions').and.callFake(getDefaultOptionsStub);
+
     var expected = {
-      width: 700,
+      width: 900,
       duration: 750,
       distance: 250,
       cssClass: 'testimonial_slide'
     };
+    var options = {
+      width: 900,
+      duration: 750,
+      cssClass: 'testimonial_slide'
+    };
 
-    TestimonialSlide.prototype.createOptions();
+    TestimonialSlide.prototype.createOptions(options);
 
+    expect(TestimonialSlide.prototype.getDefaultOptions).toHaveBeenCalled();
     expect(TestimonialSlide.prototype.options).toEqual(expected);
   });
 

@@ -25,13 +25,19 @@ TestimonialSlide.prototype = {
     return resultData;
   },
 
-  createOptions: function() {
-    this.options = {
+  createOptions: function(options) {
+    var defaultOptions = this.getDefaultOptions();
+    this.options = $.extend({}, defaultOptions, options);
+  },
+
+  getDefaultOptions: function() {
+    var defaultOptions = {
       width: 700,
       duration: 750,
       distance: 250,
       cssClass: 'testimonial_slide'
     };
+    return defaultOptions;
   },
 
   createSlide: function() {
