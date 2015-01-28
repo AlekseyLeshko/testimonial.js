@@ -46,7 +46,7 @@ describe('TestimonialSlide', function() {
         cssClass: 'testimonial_slide'
       };
       return defaultOptions;
-    }
+    };
 
     spyOn(TestimonialSlide.prototype, 'getDefaultOptions').and.callFake(getDefaultOptionsStub);
 
