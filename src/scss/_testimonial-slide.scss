@@ -9,7 +9,7 @@
     margin-top: 5px;
     margin-left: 5px;
     border: 2px solid #DDDDDD;
-    border-radius: 50%;
+    @include border-radius(50%);
     box-shadow: 1px 3px 10px 1px #000000;
   }
   .quote {
@@ -41,4 +41,11 @@
       padding: 5px 5px 5px 300px;
     }
   }
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
 }
