@@ -6,46 +6,76 @@
 }
 
 .testimonial_slide {
-  width: $base-width;
+  width: $base-width - $main-container-margin * 2;
   float: left;
-  .author_foto {
-    width: 146px;
-    height: 146px;
+  .content {
+    width: 100%;
+    height: 100%;
     float: left;
-    position: relative;
-    margin-top: 5px;
-    margin-left: 5px;
-    border: 2px solid #DDDDDD;
-    @include border-radius(50%);
-    box-shadow: 1px 3px 10px 1px #000000;
-  }
-  .quote {
-    width: 430px;
-    float: left;
-    position: relative;
-    padding: 35px 0px 0px 5px;
-    .text {
-      position: relative;
-    }
-    .quotation_mark {
-      width: 22px;
-      height: 17px;
-      background: url("../img/quotation_mark.png") 0 0 no-repeat;
+    .main {
+      width: 80%;
       float: left;
-      position: relative;
-      margin-left: 20px;
-      margin-right: 5px;
+      .quote {
+        width: 100%;
+        float: left;
+        .text {
+          width: 96%;
+          float: left;
+          margin-left: 4%;
+          margin-top: 1%;
+          position: relative;
+        }
+        .quotation_mark {
+          width: 22px;
+          height: 17px;
+          background: url("../img/quotation_mark.png") 0 0 no-repeat;
+          float: left;
+          position: relative;
+          top: 9px;
+          right: 24px;
+        }
+        .quotation_mark_inverted {
+          width: 22px;
+          height: 17px;
+          background: url("../img/quotation_mark_inverted.png") 0 0 no-repeat;
+          float: right;
+          position: relative;
+          bottom: 26px;
+          left: 26px;
+        }
+      }
+      .signature {
+        // float: right;
+        // padding-top: 3%;
+        // padding-right: 5%;
+
+        float: right;
+        // position: relative;
+      }
     }
-    .quotation_mark_inverted {
-      width: 22px;
-      height: 17px;
-      background: url("../img/quotation_mark_inverted.png") 0 0 no-repeat;
+    .avatar {
+      width: 20%;
       float: left;
-      position: relative;
-      margin-left: 400px;
-    }
-    .signature {
-      padding: 5px 5px 5px 300px;
+      .block {
+        width: 150px;
+        margin: 0 auto;
+        .author {
+          width: 146px;
+          height: 146px;
+          float: left;
+          // position: relative;
+          margin-top: 5px;
+          margin-left: 5px;
+
+          @extend  .border-radius-wrapper;
+        }
+      }
     }
   }
+}
+
+.border-radius-wrapper {
+  border: 2px solid #DDDDDD;
+  @include border-radius(50%);
+  box-shadow: 1px 3px 10px 1px #000000;
 }

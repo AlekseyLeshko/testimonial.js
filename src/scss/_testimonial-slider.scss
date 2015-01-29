@@ -1,11 +1,13 @@
 .testimonial_slider {
   width: $base-width;
   height: $base-height;
+  min-width: $base-width;
   overflow: hidden;
   position: relative;
+  border: 2px solid #000;
   .main_container {
     float: left;
-    margin: 10px;
+    margin: $main-container-margin;
   }
   .next_slide {
     min-width: 50px;
