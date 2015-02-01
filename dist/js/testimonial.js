@@ -342,15 +342,55 @@ TestimonialSlide.prototype = {
 
   createSlide: function() {
     this.createStandardDomNode();
-    this.$domNode.append(this.createQuoteNode());
-    this.$domNode.append(this.createImgAuthorFoto());
+    this.$domNode.append(this.createContentNode());
+    // this.$domNode.append(this.createQuoteNode());
+    // this.$domNode.append(this.createImgAuthorFoto());
+  },
+
+  createContentNode: function() {
+    var $node = $('<div />', {
+      'class': 'content'
+    });
+
+    $node.append(this.createMainNode());
+    $node.append(this.createAvatarNode());
+
+    return $node;
+  },
+
+  createMainNode: function() {
+    var $node = $('<div />', {
+      'class': 'main'
+    });
+    return $node;
+  },
+
+  createAvatarNode: function() {
+    var $authorNode = $('<div />', {
+      'class': 'author'
+    });
+
+    var $blockNode = $('<div />', {
+      'class': 'block'
+    });
+
+    var $node = $('<div />', {
+      'class': 'avatar'
+    });
+
+    $authorNode.append(this.createImgAuthorFoto());
+    $blockNode.append($authorNode);
+    $node.append($blockNode);
+
+    return $node;
   },
 
   createStandardDomNode: function() {
     this.$domNode = $('<div />', {
       'class': this.options.cssClass
     });
-    this.$domNode.width(this.options.width);
+    var width = this.options.width - 20;
+    this.$domNode.width(width);
   },
 
   createQuoteNode: function() {
@@ -411,7 +451,6 @@ TestimonialSlide.prototype = {
 
   createImgAuthorFoto: function() {
     var $authorFoto = $('<img />', {
-      'class': 'author_foto',
       'src': this.data.author.avatar
     });
     return $authorFoto;
