@@ -279,6 +279,22 @@ describe('Testimonial', function() {
     expect(Testimonial.prototype.getDefaultOptions).toHaveBeenCalled();
   });
 
+  it('should createOptions with width', function() {
+    var expected = 400;
+    spyOn(Testimonial.prototype, 'getDefaultOptions').and.callThrough();
+    var timeout = 5;
+    var options = {
+      timeout: timeout,
+      width: 350
+    };
+
+    Testimonial.prototype.createOptions(options);
+
+    expect(Testimonial.prototype.pluginOptions.timeout).toEqual(timeout);
+    expect(Testimonial.prototype.getDefaultOptions).toHaveBeenCalled();
+    expect(Testimonial.prototype.pluginOptions.width).toEqual(expected);
+  });
+
   describe('Next method', function() {
     var slide1;
     var slide2;

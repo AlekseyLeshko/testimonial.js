@@ -95,6 +95,9 @@ Testimonial.prototype = {
   createOptions: function(options) {
     var defaultOptions = this.getDefaultOptions();
     this.pluginOptions = $.extend(defaultOptions, options);
+    if (this.pluginOptions.width < 400) {
+      this.pluginOptions.width = 400;
+    }
   },
 
   getDefaultOptions: function() {
