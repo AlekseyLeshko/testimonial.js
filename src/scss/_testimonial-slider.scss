@@ -6,8 +6,8 @@ $main-container-margin: 10px;
   min-width: $base-width;
   overflow: hidden;
   position: relative;
-  border: 2px solid #000;
   .main_container {
+    width: $base-width;
     float: left;
     margin: $main-container-margin;
   }
