@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
 
-gulp.task('jshint', ['jshint-test'], function() {
+gulp.task('jshint', function() {
   var paths = [
     'gulpfile.js',
     'gulp/**/*.js',
