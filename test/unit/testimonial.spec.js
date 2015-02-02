@@ -34,13 +34,14 @@ describe('Testimonial', function() {
     var options = Testimonial.prototype.getDefaultOptions();
 
     var propertyCount = Object.keys(options).length;
-    expect(propertyCount).toEqual(6);
+    expect(propertyCount).toEqual(7);
     expect(options.height).toEqual(175);
     expect(options.width).toEqual(700);
     expect(options.timeout).toEqual(7000);
     expect(options.slideCount).toEqual(3);
     expect(options.autostart).toBeTruthy();
     expect(options.indents).toEqual(20);
+    expect(options.minWidth).toEqual(400);
   });
 
   it('should resizePluginContainer', function() {

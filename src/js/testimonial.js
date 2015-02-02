@@ -104,7 +104,8 @@ Testimonial.prototype = {
       slideCount: 3,
       timeout: 7000,
       autostart: true,
-      indents: 20
+      indents: 20,
+      minWidth: 400
     };
     return defaultOptions;
   },
