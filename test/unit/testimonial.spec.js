@@ -402,11 +402,13 @@ describe('Testimonial', function() {
     var slide = new TestimonialSlide();
     var $node = $('<div />');
     spyOn(slide, 'getDomNode').and.returnValue($node);
+    spyOn(slide, 'setHeightForBlockDiv');
 
     Testimonial.prototype.slideRendering(slide, false);
 
     expect(slide.getDomNode).toHaveBeenCalled();
     expect(Testimonial.prototype.$slideListWrapper.children().length).toEqual(1);
+    expect(slide.setHeightForBlockDiv).toHaveBeenCalled();
   });
 
   it('should rendering slide with hide slide', function() {
@@ -417,11 +419,13 @@ describe('Testimonial', function() {
     var $node = $('<div />');
     spyOn(slide, 'getDomNode').and.returnValue($node);
     spyOn(slide, 'hideSlide');
+    spyOn(slide, 'setHeightForBlockDiv');
 
     Testimonial.prototype.slideRendering(slide, true);
 
     expect(slide.getDomNode).toHaveBeenCalled();
     expect(Testimonial.prototype.$slideListWrapper.children().length).toEqual(1);
+    expect(slide.setHeightForBlockDiv).toHaveBeenCalled();
   });
 
   describe('Clean slide list', function() {

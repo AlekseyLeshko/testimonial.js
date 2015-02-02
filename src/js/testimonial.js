@@ -198,6 +198,7 @@ Testimonial.prototype = {
     }
     var $node = slide.getDomNode();
     this.$slideListWrapper.append($node);
+    slide.setHeightForBlockDiv();
   },
 
   configContainer: function() {
