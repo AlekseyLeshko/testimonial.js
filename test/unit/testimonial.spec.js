@@ -34,12 +34,14 @@ describe('Testimonial', function() {
     var options = Testimonial.prototype.getDefaultOptions();
 
     var propertyCount = Object.keys(options).length;
-    expect(propertyCount).toEqual(5);
+    expect(propertyCount).toEqual(7);
     expect(options.height).toEqual(175);
     expect(options.width).toEqual(700);
     expect(options.timeout).toEqual(7000);
     expect(options.slideCount).toEqual(3);
     expect(options.autostart).toBeTruthy();
+    expect(options.indents).toEqual(20);
+    expect(options.minWidth).toEqual(400);
   });
 
   it('should resizePluginContainer', function() {
@@ -277,6 +279,22 @@ describe('Testimonial', function() {
     expect(Testimonial.prototype.getDefaultOptions).toHaveBeenCalled();
   });
 
+  it('should createOptions with width', function() {
+    var expected = 400;
+    spyOn(Testimonial.prototype, 'getDefaultOptions').and.callThrough();
+    var timeout = 5;
+    var options = {
+      timeout: timeout,
+      width: 350
+    };
+
+    Testimonial.prototype.createOptions(options);
+
+    expect(Testimonial.prototype.pluginOptions.timeout).toEqual(timeout);
+    expect(Testimonial.prototype.getDefaultOptions).toHaveBeenCalled();
+    expect(Testimonial.prototype.pluginOptions.width).toEqual(expected);
+  });
+
   describe('Next method', function() {
     var slide1;
     var slide2;
@@ -384,11 +402,13 @@ describe('Testimonial', function() {
     var slide = new TestimonialSlide();
     var $node = $('<div />');
     spyOn(slide, 'getDomNode').and.returnValue($node);
+    spyOn(slide, 'setHeightForBlockDiv');
 
     Testimonial.prototype.slideRendering(slide, false);
 
     expect(slide.getDomNode).toHaveBeenCalled();
     expect(Testimonial.prototype.$slideListWrapper.children().length).toEqual(1);
+    expect(slide.setHeightForBlockDiv).toHaveBeenCalled();
   });
 
   it('should rendering slide with hide slide', function() {
@@ -399,11 +419,13 @@ describe('Testimonial', function() {
     var $node = $('<div />');
     spyOn(slide, 'getDomNode').and.returnValue($node);
     spyOn(slide, 'hideSlide');
+    spyOn(slide, 'setHeightForBlockDiv');
 
     Testimonial.prototype.slideRendering(slide, true);
 
     expect(slide.getDomNode).toHaveBeenCalled();
     expect(Testimonial.prototype.$slideListWrapper.children().length).toEqual(1);
+    expect(slide.setHeightForBlockDiv).toHaveBeenCalled();
   });
 
   describe('Clean slide list', function() {

@@ -95,6 +95,9 @@ Testimonial.prototype = {
   createOptions: function(options) {
     var defaultOptions = this.getDefaultOptions();
     this.pluginOptions = $.extend(defaultOptions, options);
+    if (this.pluginOptions.width < 400) {
+      this.pluginOptions.width = 400;
+    }
   },
 
   getDefaultOptions: function() {
@@ -103,7 +106,9 @@ Testimonial.prototype = {
       width: 700,
       slideCount: 3,
       timeout: 7000,
-      autostart: true
+      autostart: true,
+      indents: 20,
+      minWidth: 400
     };
     return defaultOptions;
   },
@@ -193,6 +198,7 @@ Testimonial.prototype = {
     }
     var $node = slide.getDomNode();
     this.$slideListWrapper.append($node);
+    slide.setHeightForBlockDiv();
   },
 
   configContainer: function() {
