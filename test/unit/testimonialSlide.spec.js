@@ -43,7 +43,8 @@ describe('TestimonialSlide', function() {
         width: 700,
         duration: 750,
         distance: 250,
-        cssClass: 'testimonial_slide'
+        cssClass: 'testimonial_slide',
+        indents: 20
       };
       return defaultOptions;
     };
@@ -54,7 +55,8 @@ describe('TestimonialSlide', function() {
       width: 900,
       duration: 750,
       distance: 250,
-      cssClass: 'testimonial_slide'
+      cssClass: 'testimonial_slide',
+      indents: 20
     };
     var options = {
       width: 900,
@@ -68,38 +70,77 @@ describe('TestimonialSlide', function() {
     expect(TestimonialSlide.prototype.options).toEqual(expected);
   });
 
-  it('should create standard dom node', function() {
-    var expected = 700;
-    TestimonialSlide.prototype.options = {
-      width: expected
-    };
-
-    TestimonialSlide.prototype.createStandardDomNode();
-
-    var width = TestimonialSlide.prototype.$domNode.width();
-    expect(width).toEqual(expected);
-    expect(TestimonialSlide.prototype.$domNode).toBeDefined();
-  });
-
   describe('uses createDivWithClass', function() {
     beforeEach(function() {
       /* global createDivWithClassStub: false */
       spyOn(TestimonialSlide.prototype, 'createDivWithClass').and.callFake(createDivWithClassStub);
     });
 
+    it('should create standard dom node', function() {
+      var indents = 20;
+      var width = 680;
+      var expected = width - indents;
+      TestimonialSlide.prototype.options = {
+        width: width,
+        indents: indents
+      };
+
+      TestimonialSlide.prototype.createStandardDomNode();
+
+      width = TestimonialSlide.prototype.$domNode.width();
+      expect(width).toEqual(expected);
+      expect(TestimonialSlide.prototype.$domNode).toBeDefined();
+      expect(TestimonialSlide.prototype.createDivWithClass).toHaveBeenCalled();
+    });
+
+    it('should createAvatarNode', function() {
+      spyOn(TestimonialSlide.prototype, 'createImgAuthorFoto').and.callFake(function() {
+        return $('<div />');
+      });
+
+      var $node = TestimonialSlide.prototype.createAvatarNode();
+
+      expect($node.prop('tagName')).toEqual('DIV');
+      expect($node.attr('class')).toEqual('avatar');
+      expect($node.find('.block').length).toEqual(1);
+      expect($node.find('.author').length).toEqual(1);
+      expect($node.find('.helper').length).toEqual(1);
+      expect(TestimonialSlide.prototype.createDivWithClass.calls.count()).toEqual(4);
+    });
+
+    it('should createMainNode', function() {
+      var width = 180;
+      var expected = width - 180;
+      TestimonialSlide.prototype.options = {
+        width: width
+      };
+      spyOn(TestimonialSlide.prototype, 'createQuoteNode').and.callFake(function() {
+        return $('<div />');
+      });
+      spyOn(TestimonialSlide.prototype, 'createSignatureNode').and.callFake(function() {
+        return $('<div />');
+      });
+      var $node = TestimonialSlide.prototype.createMainNode();
+
+      expect($node.width()).toEqual(expected);
+      expect(TestimonialSlide.prototype.createDivWithClass).toHaveBeenCalled();
+      expect(TestimonialSlide.prototype.createQuoteNode).toHaveBeenCalled();
+      expect(TestimonialSlide.prototype.createSignatureNode).toHaveBeenCalled();
+    });
+
     it('should create quote node', function() {
-      spyOn(TestimonialSlide.prototype, 'createTextNode');
-      spyOn(TestimonialSlide.prototype, 'createSignatureNode');
+      spyOn(TestimonialSlide.prototype, 'createTextNode').and.callFake(function() {
+        return $('<div />');
+      });
 
       var $res = TestimonialSlide.prototype.createQuoteNode();
 
-      expect(TestimonialSlide.prototype.createDivWithClass.calls.count()).toEqual(2);
+      expect(TestimonialSlide.prototype.createDivWithClass).toHaveBeenCalled();
+      expect(TestimonialSlide.prototype.createTextNode).toHaveBeenCalled();
 
       expect($res.prop('tagName')).toEqual('DIV');
       expect($res.attr('class')).toEqual('quote');
-      expect($res.children().length).toEqual(2);
-      expect($res.children().first().attr('class')).toEqual('quotation_mark');
-      expect($res.children().last().attr('class')).toEqual('quotation_mark_inverted');
+      expect($res.children().length).toEqual(1);
     });
 
     it('should create text node', function() {
@@ -109,10 +150,11 @@ describe('TestimonialSlide', function() {
       };
       var $res = TestimonialSlide.prototype.createTextNode();
 
-      expect(TestimonialSlide.prototype.createDivWithClass).toHaveBeenCalled();
+      expect(TestimonialSlide.prototype.createDivWithClass.calls.count()).toEqual(3);
       expect($res.prop('tagName')).toEqual('DIV');
       expect($res.attr('class')).toEqual('text');
       expect($res.text()).toEqual(quote);
+      expect($res.children().length).toEqual(3);
     });
 
     it('should create signature node', function() {
@@ -279,25 +321,22 @@ describe('TestimonialSlide', function() {
     var $node = TestimonialSlide.prototype.createImgAuthorFoto();
 
     expect($node.prop('tagName')).toEqual('IMG');
-    expect($node.attr('class')).toEqual('author_foto');
     expect($node.attr('src')).toEqual(avatar);
   });
 
   it('should create slide', function() {
-    spyOn(TestimonialSlide.prototype, 'createStandardDomNode');
-    spyOn(TestimonialSlide.prototype, 'createQuoteNode').and.returnValue($('<div />'));
-    spyOn(TestimonialSlide.prototype, 'createImgAuthorFoto').and.returnValue($('<div />'));
-
-    var $domNode = $('<div />');
-    TestimonialSlide.prototype.$domNode = $domNode;
+    spyOn(TestimonialSlide.prototype, 'createStandardDomNode').and.callFake(function() {
+      var $domNode = $('<div />');
+      TestimonialSlide.prototype.$domNode = $domNode;
+    });
+    spyOn(TestimonialSlide.prototype, 'createContentNode').and.returnValue($('<div />'));
 
     TestimonialSlide.prototype.createSlide();
     var $node = TestimonialSlide.prototype.$domNode;
 
-    expect($node.children().length).toEqual(2);
+    expect($node.children().length).toEqual(1);
     expect(TestimonialSlide.prototype.createStandardDomNode).toHaveBeenCalled();
-    expect(TestimonialSlide.prototype.createQuoteNode).toHaveBeenCalled();
-    expect(TestimonialSlide.prototype.createImgAuthorFoto).toHaveBeenCalled();
+    expect(TestimonialSlide.prototype.createContentNode).toHaveBeenCalled();
   });
 
   it('should slide not to be exist', function() {
@@ -313,5 +352,49 @@ describe('TestimonialSlide', function() {
     expect($node.remove).toHaveBeenCalled();
     var res = $(TestimonialSlide.prototype.$domNode).is(':empty');
     expect(res).toBeTruthy();
+  });
+
+  it('should getDefaultOptions', function() {
+    var options = TestimonialSlide.prototype.getDefaultOptions();
+
+    var propertyCount = Object.keys(options).length;
+    expect(propertyCount).toEqual(5);
+    expect(options.width).toEqual(700);
+    expect(options.duration).toEqual(750);
+    expect(options.distance).toEqual(250);
+    expect(options.cssClass).toEqual('testimonial_slide');
+    expect(options.indents).toEqual(20);
+  });
+
+  it('should setHeightForBlockDiv', function() {
+    var height = 344;
+
+    var $blockNode = $('<div />', {
+      'class': 'block'
+    });
+
+    var $node = $('<div />', {
+      'class': 'avatar'
+    });
+    $node.height(height);
+    $node.append($blockNode);
+    TestimonialSlide.prototype.$domNode = $node;
+
+    TestimonialSlide.prototype.setHeightForBlockDiv();
+
+    expect($node.find('.block').height()).toEqual(height);
+  });
+
+  it('should createContentNode', function() {
+    /* global createDivWithClassStub: false */
+    spyOn(TestimonialSlide.prototype, 'createDivWithClass').and.callFake(createDivWithClassStub);
+    spyOn(TestimonialSlide.prototype, 'createMainNode');
+    spyOn(TestimonialSlide.prototype, 'createAvatarNode');
+
+    TestimonialSlide.prototype.createContentNode();
+
+    expect(TestimonialSlide.prototype.createDivWithClass).toHaveBeenCalled();
+    expect(TestimonialSlide.prototype.createMainNode).toHaveBeenCalled();
+    expect(TestimonialSlide.prototype.createAvatarNode).toHaveBeenCalled();
   });
 });

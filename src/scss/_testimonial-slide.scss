@@ -1,8 +1,9 @@
 $slide-width: $base-width - $main-container-margin * 2;
-$avatar-width: 160px;
+$avatar-width: 150px;
 
 .testimonial_slide {
   width: $slide-width;
+  min-width: $slide-width;
   float: left;
   .content {
     width: 100%;
@@ -15,6 +16,7 @@ $avatar-width: 160px;
         width: 100%;
         float: left;
         .text {
+          width: 96%;
           float: left;
           margin-right: 25px;
           margin-top: $avatar-width / 10;
@@ -55,23 +57,30 @@ $avatar-width: 160px;
     }
     .avatar {
       width: $avatar-width;
-      // width: 20%;
       float: left;
       .block {
-        width: 150px;
-        margin: 0 auto;
+        min-height: $avatar-width;
+        text-align: center;
         .author {
           width: 146px;
           height: 146px;
           min-height: 146px;
           min-width: 146px;
-          // float: left;
-          // margin-top: 5px;
-          // margin-left: 5px;
-
+          display: -moz-inline-box;
+          display: inline-block;
+          vertical-align: middle;
+          zoom: 1;
           img {
             @extend  .border-radius-wrapper;
           }
+        }
+        .helper {
+          width: 0px;
+          height: 100%;
+          display: -moz-inline-box;
+          display: inline-block;
+          vertical-align: middle;
+          zoom: 1;
         }
       }
     }
