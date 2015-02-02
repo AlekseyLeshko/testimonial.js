@@ -169,6 +169,9 @@ Testimonial.prototype = {
   createOptions: function(options) {
     var defaultOptions = this.getDefaultOptions();
     this.pluginOptions = $.extend(defaultOptions, options);
+    if (this.pluginOptions.width < 400) {
+      this.pluginOptions.width = 400;
+    }
   },
 
   getDefaultOptions: function() {
@@ -177,7 +180,9 @@ Testimonial.prototype = {
       width: 700,
       slideCount: 3,
       timeout: 7000,
-      autostart: true
+      autostart: true,
+      indents: 20,
+      minWidth: 400
     };
     return defaultOptions;
   },
@@ -267,6 +272,7 @@ Testimonial.prototype = {
     }
     var $node = slide.getDomNode();
     this.$slideListWrapper.append($node);
+    slide.setHeightForBlockDiv();
   },
 
   configContainer: function() {
@@ -335,79 +341,99 @@ TestimonialSlide.prototype = {
       width: 700,
       duration: 750,
       distance: 250,
-      cssClass: 'testimonial_slide'
+      cssClass: 'testimonial_slide',
+      indents: 20
     };
     return defaultOptions;
+  },
+
+  setHeightForBlockDiv: function() {
+    var height = this.$domNode.height();
+    this.$domNode.find('.block').height(height);
   },
 
   createSlide: function() {
     this.createStandardDomNode();
     this.$domNode.append(this.createContentNode());
-    // this.$domNode.append(this.createQuoteNode());
-    // this.$domNode.append(this.createImgAuthorFoto());
   },
 
   createContentNode: function() {
-    var $node = $('<div />', {
-      'class': 'content'
-    });
+    var className = 'content';
+    var $node = this.createDivWithClass(className);
 
     $node.append(this.createMainNode());
     $node.append(this.createAvatarNode());
-
     return $node;
   },
 
   createMainNode: function() {
-    var $node = $('<div />', {
-      'class': 'main'
-    });
+    var className = 'main';
+    var $node = this.createDivWithClass(className);
+
+    var width = this.options.width - 20 - 160;
+    $node.width(width);
+    $node.append(this.createQuoteNode());
+    $node.append(this.createSignatureNode());
+
     return $node;
   },
 
   createAvatarNode: function() {
-    var $authorNode = $('<div />', {
-      'class': 'author'
-    });
+    var className = 'author';
+    var $authorNode = this.createDivWithClass(className);
 
-    var $blockNode = $('<div />', {
-      'class': 'block'
-    });
+    className = 'block';
+    var $blockNode = this.createDivWithClass(className);
 
-    var $node = $('<div />', {
-      'class': 'avatar'
-    });
+    className = 'avatar';
+    var $node = this.createDivWithClass(className);
+
+    className = 'helper';
+    var $helperNode = this.createDivWithClass(className);
 
     $authorNode.append(this.createImgAuthorFoto());
     $blockNode.append($authorNode);
+    $blockNode.append($helperNode);
     $node.append($blockNode);
 
     return $node;
   },
 
   createStandardDomNode: function() {
-    this.$domNode = $('<div />', {
-      'class': this.options.cssClass
-    });
-    var width = this.options.width - 20;
+    this.$domNode = this.createDivWithClass(this.options.cssClass);
+    var width = this.options.width - this.options.indents;
     this.$domNode.width(width);
   },
 
   createQuoteNode: function() {
-    var $quoteNode = $('<div />', {
-      'class': 'quote'
-    });
+    var className = 'quote';
+    var $quoteNode = this.createDivWithClass(className);
 
-    $quoteNode.append(this.createDivWithClass('quotation_mark'));
     $quoteNode.append(this.createTextNode());
-    $quoteNode.append(this.createDivWithClass('quotation_mark_inverted'));
-    $quoteNode.append(this.createSignatureNode());
     return $quoteNode;
   },
 
   createTextNode: function() {
+    var p = $('<p />');
+    p.text(this.data.quote);
+
     var $text = this.createDivWithClass('text');
-    $text.text(this.data.quote);
+
+    var leftMark = this.createDivWithClass('quotation_mark left');
+    var leftImg = $('<img />', {
+      src: 'dist/img/quotation_mark.png'
+    });
+    leftMark.append(leftImg);
+    var rightMark = this.createDivWithClass('quotation_mark right');
+    var rightImg = $('<img />', {
+      src: 'dist/img/quotation_mark_inverted.png'
+    });
+    rightMark.append(rightImg);
+
+    $text.append(leftMark);
+    $text.append(p);
+    $text.append(rightMark);
+
     return $text;
   },
 
