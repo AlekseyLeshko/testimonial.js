@@ -179,14 +179,12 @@ Testimonial.prototype = {
   },
 
   slideRendering: function(slide, isShow) {
+    var $slideListWrapper = this.$container.find('.main_container');
+    slide.renderTo($slideListWrapper);
+
     if (!isShow) {
       slide.hideSlide();
     }
-    var $node = slide.getDomNode();
-
-    var $slideListWrapper = this.$container.find('.main_container');
-    $slideListWrapper.append($node);
-    slide.setHeightForBlockDiv();
   },
 
   configContainer: function() {
@@ -201,6 +199,7 @@ Testimonial.prototype = {
   },
 
   renderTemplate: function() {
+    /* global Handlebars: false */
     var template = Handlebars.compile(this.template);
     var data = {
       width: this.pluginOptions.width * 2 + 500

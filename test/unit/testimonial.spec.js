@@ -410,17 +410,12 @@ describe('Testimonial', function() {
 
     beforeEach(function() {
       slide = new TestimonialSlide();
-      var $node = $('<div />');
-      spyOn(slide, 'getDomNode').and.returnValue($node);
-      spyOn(slide, 'setHeightForBlockDiv');
+      spyOn(slide, 'renderTo');
     });
 
     afterEach(function() {
-      expect(slide.getDomNode).toHaveBeenCalled();
       var $mainContainer = Testimonial.prototype.$container.find('.main_container');
-      var slideCount = $mainContainer.children().length;
-      expect(slideCount).toEqual(1);
-      expect(slide.setHeightForBlockDiv).toHaveBeenCalled();
+      expect(slide.renderTo).toHaveBeenCalledWith($mainContainer);
     });
 
     it('should don\'t hide slide', function() {
