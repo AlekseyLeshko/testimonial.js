@@ -392,16 +392,15 @@ describe('Testimonial', function() {
     expect(Testimonial.prototype.slideRendering.calls.argsFor(0)).toEqual([expected, false]);
   });
 
-  var MAIN_CONTAINER_NAME = 'main_container';
-
   describe('Slide rendering', function() {
     var slide;
 
     beforeEach(function() {
       var $container = $('<div />');
       var $slideListWrapper = $('<div />', {
-        class: MAIN_CONTAINER_NAME
+        class: 'main_container'
       });
+      $container.append($slideListWrapper);
       Testimonial.prototype.$container = $container;
     });
 
@@ -414,20 +413,20 @@ describe('Testimonial', function() {
 
     afterEach(function() {
       expect(slide.getDomNode).toHaveBeenCalled();
-      var $mainContainer = Testimonial.prototype.$container.find(MAIN_CONTAINER_NAME);
+      var $mainContainer = Testimonial.prototype.$container.find('.main_container');
       var slideCount = $mainContainer.children().length;
       expect(slideCount).toEqual(1);
       expect(slide.setHeightForBlockDiv).toHaveBeenCalled();
     });
 
     it('should don\'t hide slide', function() {
-      Testimonial.prototype.slideRendering(slide, false);
+      Testimonial.prototype.slideRendering(slide, true);
     });
 
     it('should hide slide', function() {
       spyOn(slide, 'hideSlide');
 
-      Testimonial.prototype.slideRendering(slide, true);
+      Testimonial.prototype.slideRendering(slide, false);
 
       expect(slide.hideSlide).toHaveBeenCalled();
     });
