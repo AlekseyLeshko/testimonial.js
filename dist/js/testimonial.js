@@ -222,26 +222,12 @@ Testimonial.prototype = {
     this.$slideList.push(slide);
   },
 
-  createInfrastructure: function() {
-    var indents = 500;
-    this.$slideListWrapper = $('<div />', {
-      'class': 'main_container'
-    });
-    var width = this.pluginOptions.width * 2 + indents;
-    this.$slideListWrapper.width(width);
-    this.$container.append(this.$slideListWrapper);
-    this.createButtonNext();
-  },
-
-  createButtonNext: function() {
-    var $buttonNext = $('<div />', {
-      'class': 'next_slide'
-    });
+  bindEvents: function() {
+    var $buttonNext = this.$container.find('.next_slide');
     var self = this;
     $buttonNext.click(function() {
       self.next();
     });
-    this.$container.append($buttonNext);
   },
 
   resizePluginContainer: function() {
@@ -267,12 +253,12 @@ Testimonial.prototype = {
   },
 
   slideRendering: function(slide, isShow) {
+    var $slideListWrapper = this.$container.find('.main_container');
+    slide.renderTo($slideListWrapper);
+
     if (!isShow) {
       slide.hideSlide();
     }
-    var $node = slide.getDomNode();
-    this.$slideListWrapper.append($node);
-    slide.setHeightForBlockDiv();
   },
 
   configContainer: function() {
@@ -280,13 +266,31 @@ Testimonial.prototype = {
     this.$container.width(this.pluginOptions.width);
   },
 
+  createTemplate: function() {
+    this.template = '' +
+      '<div class="main_container" style="width: {{width}}px;"></div>' +
+      '<div class="next_slide"></div>';
+  },
+
+  renderTemplate: function() {
+    /* global Handlebars: false */
+    var template = Handlebars.compile(this.template);
+    var data = {
+      width: this.pluginOptions.width * 2 + 500
+    };
+    var result = template(data);
+    this.$container.html(result);
+  },
+
   initSlideList: function() {
-    this.configContainer();
-    this.parseDomTree();
-    this.createSlides();
-    this.createInfrastructure();
-    this.slideListRendering();
-    this.resizePluginContainer();
+      this.parseDomTree();
+      this.configContainer();
+      this.createTemplate();
+      this.renderTemplate();
+      this.bindEvents();
+      this.createSlides();
+      this.slideListRendering();
+      this.resizePluginContainer();
   },
 
   initPlugin: function(options) {
@@ -353,133 +357,8 @@ TestimonialSlide.prototype = {
   },
 
   createSlide: function() {
-    this.createStandardDomNode();
-    this.$domNode.append(this.createContentNode());
-  },
-
-  createContentNode: function() {
-    var className = 'content';
-    var $node = this.createDivWithClass(className);
-
-    $node.append(this.createMainNode());
-    $node.append(this.createAvatarNode());
-    return $node;
-  },
-
-  createMainNode: function() {
-    var className = 'main';
-    var $node = this.createDivWithClass(className);
-
-    var width = this.options.width - 20 - 160;
-    $node.width(width);
-    $node.append(this.createQuoteNode());
-    $node.append(this.createSignatureNode());
-
-    return $node;
-  },
-
-  createAvatarNode: function() {
-    var className = 'author';
-    var $authorNode = this.createDivWithClass(className);
-
-    className = 'block';
-    var $blockNode = this.createDivWithClass(className);
-
-    className = 'avatar';
-    var $node = this.createDivWithClass(className);
-
-    className = 'helper';
-    var $helperNode = this.createDivWithClass(className);
-
-    $authorNode.append(this.createImgAuthorFoto());
-    $blockNode.append($authorNode);
-    $blockNode.append($helperNode);
-    $node.append($blockNode);
-
-    return $node;
-  },
-
-  createStandardDomNode: function() {
-    this.$domNode = this.createDivWithClass(this.options.cssClass);
-    var width = this.options.width - this.options.indents;
-    this.$domNode.width(width);
-  },
-
-  createQuoteNode: function() {
-    var className = 'quote';
-    var $quoteNode = this.createDivWithClass(className);
-
-    $quoteNode.append(this.createTextNode());
-    return $quoteNode;
-  },
-
-  createTextNode: function() {
-    var p = $('<p />');
-    p.text(this.data.quote);
-
-    var $text = this.createDivWithClass('text');
-
-    var leftMark = this.createDivWithClass('quotation_mark left');
-    var leftImg = $('<img />', {
-      src: 'dist/img/quotation_mark.png'
-    });
-    leftMark.append(leftImg);
-    var rightMark = this.createDivWithClass('quotation_mark right');
-    var rightImg = $('<img />', {
-      src: 'dist/img/quotation_mark_inverted.png'
-    });
-    rightMark.append(rightImg);
-
-    $text.append(leftMark);
-    $text.append(p);
-    $text.append(rightMark);
-
-    return $text;
-  },
-
-  createDivWithClass: function(className) {
-    var $div = $('<div />', {
-      'class': className
-    });
-    return $div;
-  },
-
-  createSignatureNode: function() {
-    var $signatureNode = this.createDivWithClass('signature');
-    $signatureNode.append(this.createAuthorNode());
-    $signatureNode.append(this.createCompanyNode());
-    return $signatureNode;
-  },
-
-  createAuthorNode: function() {
-    var $authorNode = this.createDivWithClass('author');
-    $authorNode.text('- ');
-    var $link = this.createLinkNode(this.data.author.url, this.data.author.name);
-    $authorNode.append($link);
-    return $authorNode;
-  },
-
-  createCompanyNode: function() {
-    var $companyNode = this.createDivWithClass('company');
-    var $link = this.createLinkNode(this.data.company.url, this.data.company.name);
-    $companyNode.append($link);
-    return $companyNode;
-  },
-
-  createLinkNode: function(href, text) {
-    var $linkNode = $('<a />', {
-      target: '_blank',
-      href: href,
-      text: text
-    });
-    return $linkNode;
-  },
-
-  createImgAuthorFoto: function() {
-    var $authorFoto = $('<img />', {
-      'src': this.data.author.avatar
-    });
-    return $authorFoto;
+    this.createTemplate();
+    this.renderTemplate();
   },
 
   animateHide: function() {
@@ -517,12 +396,74 @@ TestimonialSlide.prototype = {
     return this.$domNode.height();
   },
 
-  getDomNode: function() {
-    return this.$domNode;
-  },
-
   remove: function() {
     this.$domNode.empty();
     this.$domNode.remove();
+  },
+
+  createTemplate: function() {
+    this.template = '' +
+      '<div class="testimonial_slide" style="width: {{slide.width}}px;">' +
+        '<div class="content">' +
+          '<div class="main" style="width: {{main.width}}px;">' +
+            '<div class="quote">' +
+              '<div class="text">' +
+                '<div class="quotation_mark left">' +
+                  '<img src="dist/img/quotation_mark.png">' +
+                '</div>' +
+                '<p>{{slide.quote}}</p>' +
+                '<div class="quotation_mark right">' +
+                  '<img src="dist/img/quotation_mark_inverted.png">' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="signature">' +
+              '<div class="author">' +
+                '&#x2015;<a target="_blank" href="{{slide.author.url}}">' +
+                  '{{slide.author.name}}' +
+                '</a>' +
+              '</div>' +
+              '<div class="company">' +
+                '<a target="_blank" href="{{slide.company.url}}">' +
+                  '{{slide.company.name}}' +
+                '</a>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="avatar">' +
+            '<div class="block">' +
+              '<div class="author">' +
+                '<img src="{{slide.author.avatar}}">' +
+              '</div>' +
+              '<div class="helper">' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+  },
+
+  renderTemplate: function() {
+    /* global Handlebars: false */
+    var template = Handlebars.compile(this.template);
+    var data = this.getDataForTemplate();
+    var result = template(data);
+    this.$domNode = $(result);
+  },
+
+  getDataForTemplate: function() {
+    var data = {
+      main: {
+        width: this.options.width - 180
+      }
+    };
+    data.slide = this.data;
+    data.slide.width = this.options.width - this.options.indents;
+    return data;
+  },
+
+  renderTo: function($parent) {
+    $parent.append(this.$domNode);
+    this.setHeightForBlockDiv();
   }
 };

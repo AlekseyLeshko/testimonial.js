@@ -148,26 +148,12 @@ Testimonial.prototype = {
     this.$slideList.push(slide);
   },
 
-  createInfrastructure: function() {
-    var indents = 500;
-    this.$slideListWrapper = $('<div />', {
-      'class': 'main_container'
-    });
-    var width = this.pluginOptions.width * 2 + indents;
-    this.$slideListWrapper.width(width);
-    this.$container.append(this.$slideListWrapper);
-    this.createButtonNext();
-  },
-
-  createButtonNext: function() {
-    var $buttonNext = $('<div />', {
-      'class': 'next_slide'
-    });
+  bindEvents: function() {
+    var $buttonNext = this.$container.find('.next_slide');
     var self = this;
     $buttonNext.click(function() {
       self.next();
     });
-    this.$container.append($buttonNext);
   },
 
   resizePluginContainer: function() {
@@ -193,12 +179,12 @@ Testimonial.prototype = {
   },
 
   slideRendering: function(slide, isShow) {
+    var $slideListWrapper = this.$container.find('.main_container');
+    slide.renderTo($slideListWrapper);
+
     if (!isShow) {
       slide.hideSlide();
     }
-    var $node = slide.getDomNode();
-    this.$slideListWrapper.append($node);
-    slide.setHeightForBlockDiv();
   },
 
   configContainer: function() {
@@ -206,13 +192,31 @@ Testimonial.prototype = {
     this.$container.width(this.pluginOptions.width);
   },
 
+  createTemplate: function() {
+    this.template = '' +
+      '<div class="main_container" style="width: {{width}}px;"></div>' +
+      '<div class="next_slide"></div>';
+  },
+
+  renderTemplate: function() {
+    /* global Handlebars: false */
+    var template = Handlebars.compile(this.template);
+    var data = {
+      width: this.pluginOptions.width * 2 + 500
+    };
+    var result = template(data);
+    this.$container.html(result);
+  },
+
   initSlideList: function() {
-    this.configContainer();
-    this.parseDomTree();
-    this.createSlides();
-    this.createInfrastructure();
-    this.slideListRendering();
-    this.resizePluginContainer();
+      this.parseDomTree();
+      this.configContainer();
+      this.createTemplate();
+      this.renderTemplate();
+      this.bindEvents();
+      this.createSlides();
+      this.slideListRendering();
+      this.resizePluginContainer();
   },
 
   initPlugin: function(options) {
