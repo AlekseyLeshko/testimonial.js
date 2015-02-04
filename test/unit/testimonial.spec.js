@@ -401,37 +401,45 @@ describe('Testimonial', function() {
     expect(Testimonial.prototype.slideRendering.calls.argsFor(0)).toEqual([expected, false]);
   });
 
-  it('should rendering slide', function() {
-    var $slideListWrapper = $('<div />');
-    Testimonial.prototype.$slideListWrapper = $slideListWrapper;
+  var MAIN_CONTAINER_NAME = 'main_container';
 
-    var slide = new TestimonialSlide();
-    var $node = $('<div />');
-    spyOn(slide, 'getDomNode').and.returnValue($node);
-    spyOn(slide, 'setHeightForBlockDiv');
+  describe('Slide rendering', function() {
+    var slide;
 
-    Testimonial.prototype.slideRendering(slide, false);
+    beforeEach(function() {
+      var $container = $('<div />');
+      var $slideListWrapper = $('<div />', {
+        class: MAIN_CONTAINER_NAME
+      });
+      Testimonial.prototype.$container = $container;
+    });
 
-    expect(slide.getDomNode).toHaveBeenCalled();
-    expect(Testimonial.prototype.$slideListWrapper.children().length).toEqual(1);
-    expect(slide.setHeightForBlockDiv).toHaveBeenCalled();
-  });
+    beforeEach(function() {
+      slide = new TestimonialSlide();
+      var $node = $('<div />');
+      spyOn(slide, 'getDomNode').and.returnValue($node);
+      spyOn(slide, 'setHeightForBlockDiv');
+    });
 
-  it('should rendering slide with hide slide', function() {
-    var $slideListWrapper = $('<div />');
-    Testimonial.prototype.$slideListWrapper = $slideListWrapper;
+    afterEach(function() {
+      expect(slide.getDomNode).toHaveBeenCalled();
+      var $mainContainer = Testimonial.prototype.$container.find(MAIN_CONTAINER_NAME);
+      var slideCount = $mainContainer.children().length;
+      expect(slideCount).toEqual(1);
+      expect(slide.setHeightForBlockDiv).toHaveBeenCalled();
+    });
 
-    var slide = new TestimonialSlide();
-    var $node = $('<div />');
-    spyOn(slide, 'getDomNode').and.returnValue($node);
-    spyOn(slide, 'hideSlide');
-    spyOn(slide, 'setHeightForBlockDiv');
+    it('should don\'t hide slide', function() {
+      Testimonial.prototype.slideRendering(slide, false);
+    });
 
-    Testimonial.prototype.slideRendering(slide, true);
+    it('should hide slide', function() {
+      spyOn(slide, 'hideSlide');
 
-    expect(slide.getDomNode).toHaveBeenCalled();
-    expect(Testimonial.prototype.$slideListWrapper.children().length).toEqual(1);
-    expect(slide.setHeightForBlockDiv).toHaveBeenCalled();
+      Testimonial.prototype.slideRendering(slide, true);
+
+      expect(slide.hideSlide).toHaveBeenCalled();
+    });
   });
 
   describe('Clean slide list', function() {

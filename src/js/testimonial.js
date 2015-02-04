@@ -197,7 +197,9 @@ Testimonial.prototype = {
       slide.hideSlide();
     }
     var $node = slide.getDomNode();
-    this.$slideListWrapper.append($node);
+
+    var $slideListWrapper = this.$container.find('.main_container');
+    $slideListWrapper.append($node);
     slide.setHeightForBlockDiv();
   },
 
