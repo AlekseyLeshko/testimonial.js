@@ -581,7 +581,7 @@ describe('Testimonial', function() {
 
   it('should need to remove two slide', function() {
     spyOn(Testimonial.prototype, 'cleanSlideList').and.callFake(function() {
-      Testimonial.prototype.$slideList.length -=1;
+      Testimonial.prototype.$slideList.length -= 1;
     });
     var value = 3;
     Testimonial.prototype.pluginOptions = {
@@ -642,5 +642,23 @@ describe('Testimonial', function() {
     Testimonial.prototype.createTemplate();
 
     expect(Testimonial.prototype.template).toBeDefined();
+  });
+
+  it('should render template', function() {
+    var width = 500;
+    var expected = width * 2 + 500;
+    var $container = $('<div />');
+    Testimonial.prototype.$container = $container;
+    Testimonial.prototype.pluginOptions = {
+      width: width
+    };
+
+    Testimonial.prototype.renderTemplate();
+
+    var count = Testimonial.prototype.$container.find('div').length;
+    var $mainContainer = Testimonial.prototype.$container.find('.main_container');
+    console.log(Testimonial.prototype.$container);
+    expect(count).toEqual(2);
+    expect($mainContainer.width()).toEqual(expected);
   });
 });

@@ -200,6 +200,15 @@ Testimonial.prototype = {
       '<div class="next_slide"></div>';
   },
 
+  renderTemplate: function() {
+    var template = Handlebars.compile(this.template);
+    var data = {
+      width: this.pluginOptions.width * 2 + 500
+    };
+    var result = template(data);
+    this.$container.html(result);
+  },
+
   initSlideList: function() {
       this.parseDomTree();
       this.configContainer();
