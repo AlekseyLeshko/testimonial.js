@@ -635,4 +635,12 @@ describe('Testimonial', function() {
     expect(Testimonial.prototype.$slideList.length).toEqual(1);
     expect(args).toEqual([$node, expected]);
   });
+
+  it('should create template', function() {
+    expect(Testimonial.prototype.template).toBeUndefined();
+
+    Testimonial.prototype.createTemplate();
+
+    expect(Testimonial.prototype.template).toBeDefined();
+  });
 });

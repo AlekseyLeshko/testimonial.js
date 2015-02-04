@@ -194,6 +194,12 @@ Testimonial.prototype = {
     this.$container.width(this.pluginOptions.width);
   },
 
+  createTemplate: function() {
+    this.template = '' +
+      '<div class="main_container" style="width: {{width}}px;"></div>' +
+      '<div class="next_slide"></div>';
+  },
+
   initSlideList: function() {
       this.parseDomTree();
       this.configContainer();
