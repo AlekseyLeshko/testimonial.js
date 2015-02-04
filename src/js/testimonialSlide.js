@@ -268,5 +268,19 @@ TestimonialSlide.prototype = {
     var data = this.getDataForTemplate();
     var result = template(data);
     this.$domNode = $(result);
+  },
+
+  getDataForTemplate: function() {
+    var data = {
+      main: {
+        width: this.options.width - 20 - 160
+      },
+      block: {
+        height: 154
+      }
+    };
+    data.slide = this.data;
+    data.slide.width = this.options.width - this.options.indents;
+    return data;
   }
 };

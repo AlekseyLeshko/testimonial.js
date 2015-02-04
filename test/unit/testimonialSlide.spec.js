@@ -37,17 +37,18 @@ describe('TestimonialSlide', function() {
     expect(res).toEqual(expected);
   });
 
-  it('should create options', function() {
-    var getDefaultOptionsStub = function() {
-     var defaultOptions = {
-        width: 700,
-        duration: 750,
-        distance: 250,
-        cssClass: 'testimonial_slide',
-        indents: 20
-      };
-      return defaultOptions;
+  var getDefaultOptionsStub = function() {
+   var defaultOptions = {
+      width: 700,
+      duration: 750,
+      distance: 250,
+      cssClass: 'testimonial_slide',
+      indents: 20
     };
+    return defaultOptions;
+  };
+
+  it('should create options', function() {
 
     spyOn(TestimonialSlide.prototype, 'getDefaultOptions').and.callFake(getDefaultOptionsStub);
 
@@ -416,5 +417,12 @@ describe('TestimonialSlide', function() {
     expect(TestimonialSlide.prototype.$domNode).toBeDefined();
     var html = TestimonialSlide.prototype.$domNode.html();
     expect(html).toEqual(value);
+  });
+
+  it('should return data for template', function() {
+    TestimonialSlide.prototype.options = getDefaultOptionsStub();
+    var data = TestimonialSlide.prototype.getDataForTemplate();
+
+    expect(data).toBeDefined();
   });
 });
