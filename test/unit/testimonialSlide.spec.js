@@ -71,177 +71,6 @@ describe('TestimonialSlide', function() {
     expect(TestimonialSlide.prototype.options).toEqual(expected);
   });
 
-  describe('uses createDivWithClass', function() {
-    beforeEach(function() {
-      /* global createDivWithClassStub: false */
-      spyOn(TestimonialSlide.prototype, 'createDivWithClass').and.callFake(createDivWithClassStub);
-    });
-
-    it('should create standard dom node', function() {
-      var indents = 20;
-      var width = 680;
-      var expected = width - indents;
-      TestimonialSlide.prototype.options = {
-        width: width,
-        indents: indents
-      };
-
-      TestimonialSlide.prototype.createStandardDomNode();
-
-      width = TestimonialSlide.prototype.$domNode.width();
-      expect(width).toEqual(expected);
-      expect(TestimonialSlide.prototype.$domNode).toBeDefined();
-      expect(TestimonialSlide.prototype.createDivWithClass).toHaveBeenCalled();
-    });
-
-    it('should createAvatarNode', function() {
-      spyOn(TestimonialSlide.prototype, 'createImgAuthorFoto').and.callFake(function() {
-        return $('<div />');
-      });
-
-      var $node = TestimonialSlide.prototype.createAvatarNode();
-
-      expect($node.prop('tagName')).toEqual('DIV');
-      expect($node.attr('class')).toEqual('avatar');
-      expect($node.find('.block').length).toEqual(1);
-      expect($node.find('.author').length).toEqual(1);
-      expect($node.find('.helper').length).toEqual(1);
-      expect(TestimonialSlide.prototype.createDivWithClass.calls.count()).toEqual(4);
-    });
-
-    it('should createMainNode', function() {
-      var width = 180;
-      var expected = width - 180;
-      TestimonialSlide.prototype.options = {
-        width: width
-      };
-      spyOn(TestimonialSlide.prototype, 'createQuoteNode').and.callFake(function() {
-        return $('<div />');
-      });
-      spyOn(TestimonialSlide.prototype, 'createSignatureNode').and.callFake(function() {
-        return $('<div />');
-      });
-      var $node = TestimonialSlide.prototype.createMainNode();
-
-      expect($node.width()).toEqual(expected);
-      expect(TestimonialSlide.prototype.createDivWithClass).toHaveBeenCalled();
-      expect(TestimonialSlide.prototype.createQuoteNode).toHaveBeenCalled();
-      expect(TestimonialSlide.prototype.createSignatureNode).toHaveBeenCalled();
-    });
-
-    it('should create quote node', function() {
-      spyOn(TestimonialSlide.prototype, 'createTextNode').and.callFake(function() {
-        return $('<div />');
-      });
-
-      var $res = TestimonialSlide.prototype.createQuoteNode();
-
-      expect(TestimonialSlide.prototype.createDivWithClass).toHaveBeenCalled();
-      expect(TestimonialSlide.prototype.createTextNode).toHaveBeenCalled();
-
-      expect($res.prop('tagName')).toEqual('DIV');
-      expect($res.attr('class')).toEqual('quote');
-      expect($res.children().length).toEqual(1);
-    });
-
-    it('should create text node', function() {
-      var quote = 'test';
-      TestimonialSlide.prototype.data = {
-        quote: quote
-      };
-      var $res = TestimonialSlide.prototype.createTextNode();
-
-      expect(TestimonialSlide.prototype.createDivWithClass.calls.count()).toEqual(3);
-      expect($res.prop('tagName')).toEqual('DIV');
-      expect($res.attr('class')).toEqual('text');
-      expect($res.text()).toEqual(quote);
-      expect($res.children().length).toEqual(3);
-    });
-
-    it('should create signature node', function() {
-      spyOn(TestimonialSlide.prototype, 'createAuthorNode');
-      spyOn(TestimonialSlide.prototype, 'createCompanyNode');
-
-      var $node = TestimonialSlide.prototype.createSignatureNode();
-
-      expect(TestimonialSlide.prototype.createDivWithClass).toHaveBeenCalled();
-      expect($node.prop('tagName')).toEqual('DIV');
-      expect($node.attr('class')).toEqual('signature');
-      expect(TestimonialSlide.prototype.createAuthorNode).toHaveBeenCalled();
-      expect(TestimonialSlide.prototype.createCompanyNode).toHaveBeenCalled();
-    });
-
-    it('should create author node', function() {
-      spyOn(TestimonialSlide.prototype, 'createLinkNode').and.returnValue($('<a />'));
-      var url = 'example.com';
-      var name = 'example';
-      var data = {
-        author: {
-          name: name,
-          url: url
-        }
-      };
-      TestimonialSlide.prototype.data = data;
-
-      var $node = TestimonialSlide.prototype.createAuthorNode();
-
-      expect(TestimonialSlide.prototype.createDivWithClass).toHaveBeenCalled();
-      expect($node.prop('tagName')).toEqual('DIV');
-      expect($node.attr('class')).toEqual('author');
-      expect($node.text()).toEqual('- ');
-      expect($node.find('a').length).toEqual(1);
-      expect(TestimonialSlide.prototype.createLinkNode).toHaveBeenCalledWith(url, name);
-    });
-
-    it('should create company node', function() {
-      spyOn(TestimonialSlide.prototype, 'createLinkNode').and.returnValue($('<a />'));
-      var url = 'example.com';
-      var name = 'example';
-      var data = {
-        company: {
-          name: name,
-          url: url
-        }
-      };
-      TestimonialSlide.prototype.data = data;
-
-      var $node = TestimonialSlide.prototype.createCompanyNode();
-
-      expect(TestimonialSlide.prototype.createDivWithClass).toHaveBeenCalled();
-      expect($node.prop('tagName')).toEqual('DIV');
-      expect($node.attr('class')).toEqual('company');
-      expect($node.find('a').length).toEqual(1);
-      expect(TestimonialSlide.prototype.createLinkNode).toHaveBeenCalledWith(url, name);
-    });
-  });
-
-  it('should create div with class name', function() {
-    var className = 'test';
-    var $div = TestimonialSlide.prototype.createDivWithClass(className);
-
-    expect($div.prop('tagName')).toEqual('DIV');
-    expect($div.attr('class')).toEqual(className);
-  });
-
-  it('should create link node', function() {
-    var text = 'text';
-    var href = 'example.com';
-    var $res = TestimonialSlide.prototype.createLinkNode(href, text);
-
-    expect($res.prop('tagName')).toEqual('A');
-    expect($res.text()).toEqual(text);
-    expect($res.attr('href')).toEqual(href);
-    expect($res.attr('target')).toEqual('_blank');
-  });
-
-  it('should get dom node', function() {
-    var expected = $('<div />');
-    TestimonialSlide.prototype.$domNode = expected;
-    var $domNode = TestimonialSlide.prototype.getDomNode();
-
-    expect($domNode.prop('tagName')).toEqual('DIV');
-  });
-
   it('should height', function() {
     var expected = 100;
     var node = $('<div />', {
@@ -311,20 +140,6 @@ describe('TestimonialSlide', function() {
     });
   });
 
-  it('should create img author foto', function() {
-    var avatar = 'example.com/image.jpg';
-    TestimonialSlide.prototype.data = {
-      author: {
-        avatar: avatar
-      }
-    };
-
-    var $node = TestimonialSlide.prototype.createImgAuthorFoto();
-
-    expect($node.prop('tagName')).toEqual('IMG');
-    expect($node.attr('src')).toEqual(avatar);
-  });
-
   it('should create slide', function() {
     spyOn(TestimonialSlide.prototype, 'createTemplate');
     spyOn(TestimonialSlide.prototype, 'renderTemplate');
@@ -381,19 +196,6 @@ describe('TestimonialSlide', function() {
     expect($node.find('.block').height()).toEqual(height);
   });
 
-  it('should createContentNode', function() {
-    /* global createDivWithClassStub: false */
-    spyOn(TestimonialSlide.prototype, 'createDivWithClass').and.callFake(createDivWithClassStub);
-    spyOn(TestimonialSlide.prototype, 'createMainNode');
-    spyOn(TestimonialSlide.prototype, 'createAvatarNode');
-
-    TestimonialSlide.prototype.createContentNode();
-
-    expect(TestimonialSlide.prototype.createDivWithClass).toHaveBeenCalled();
-    expect(TestimonialSlide.prototype.createMainNode).toHaveBeenCalled();
-    expect(TestimonialSlide.prototype.createAvatarNode).toHaveBeenCalled();
-  });
-
   it('should create template', function() {
     expect(TestimonialSlide.prototype.template).toBeUndefined();
 
@@ -421,7 +223,9 @@ describe('TestimonialSlide', function() {
 
   it('should return data for template', function() {
     TestimonialSlide.prototype.options = getDefaultOptionsStub();
-
+    TestimonialSlide.prototype.data = {
+      test: 'test'
+    };
     var data = TestimonialSlide.prototype.getDataForTemplate();
 
     expect(data).toBeDefined();
