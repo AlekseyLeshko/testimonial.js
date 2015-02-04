@@ -81,16 +81,24 @@ describe('Testimonial', function() {
     expect(Testimonial.prototype.$container.height()).toEqual(expected);
   });
 
-  it('should createButtonNext', function() {
-    spyOn(Testimonial.prototype, 'next');
-    Testimonial.prototype.$container = $('<div />');
+  var slideCSSClassName = {
+    buttonNext: '.next_slide'
+  };
 
-    Testimonial.prototype.createButtonNext();
-    var $obj = Testimonial.prototype.$container.find('div').first();
+  it('should bind event for button', function() {
+    var $container = $('<div />');
+    var $button = $('<div />', {
+      class: 'next_slide'
+    });
+    $container.append($button);
+    Testimonial.prototype.$container = $container;
+    spyOn(Testimonial.prototype, 'next');
+
+    Testimonial.prototype.bindEvents();
+
+    var $obj = Testimonial.prototype.$container.find(slideCSSClassName.buttonNext);
 
     $obj.click();
-    expect($obj.prop('tagName')).toEqual('DIV');
-    expect($obj.attr('class')).toEqual('next_slide');
     expect(Testimonial.prototype.next).toHaveBeenCalled();
   });
 

@@ -148,15 +148,12 @@ Testimonial.prototype = {
     this.$slideList.push(slide);
   },
 
-  createButtonNext: function() {
-    var $buttonNext = $('<div />', {
-      'class': 'next_slide'
-    });
+  bindEvents: function() {
+    var $buttonNext = this.$container.find('.next_slide');
     var self = this;
     $buttonNext.click(function() {
       self.next();
     });
-    this.$container.append($buttonNext);
   },
 
   resizePluginContainer: function() {
