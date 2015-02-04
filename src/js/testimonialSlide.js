@@ -260,5 +260,13 @@ TestimonialSlide.prototype = {
           '</div>' +
         '</div>' +
       '</div>';
+  },
+
+  renderTemplate: function() {
+    /* global Handlebars: false */
+    var template = Handlebars.compile(this.template);
+    var data = this.getDataForTemplate();
+    var result = template(data);
+    this.$domNode = $(result);
   }
 };

@@ -400,4 +400,21 @@ describe('TestimonialSlide', function() {
 
     expect(TestimonialSlide.prototype.template).toBeDefined();
   });
+
+  it('should render template', function() {
+    var value = 'test';
+    TestimonialSlide.prototype.template = '<div>{{test}}</div>';
+    spyOn(TestimonialSlide.prototype, 'getDataForTemplate').and.callFake(function() {
+      var data = {
+        test: value
+      };
+      return data;
+    });
+
+    TestimonialSlide.prototype.renderTemplate();
+
+    expect(TestimonialSlide.prototype.$domNode).toBeDefined();
+    var html = TestimonialSlide.prototype.$domNode.html();
+    expect(html).toEqual(value);
+  });
 });
