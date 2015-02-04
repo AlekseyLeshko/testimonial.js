@@ -393,7 +393,6 @@ describe('TestimonialSlide', function() {
     expect(TestimonialSlide.prototype.createAvatarNode).toHaveBeenCalled();
   });
 
-
   it('should create template', function() {
     expect(TestimonialSlide.prototype.template).toBeUndefined();
 

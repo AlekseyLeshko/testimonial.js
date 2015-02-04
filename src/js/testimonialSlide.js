@@ -218,5 +218,47 @@ TestimonialSlide.prototype = {
   remove: function() {
     this.$domNode.empty();
     this.$domNode.remove();
+  },
+
+  createTemplate: function() {
+    this.template = '' +
+      '<div class="testimonial_slide" style="width: {{slide.width}}px;">' +
+        '<div class="content">' +
+          '<div class="main" style="width: {{main.width}}px;">' +
+            '<div class="quote">' +
+              '<div class="text">' +
+                '<div class="quotation_mark left">' +
+                  '<img src="dist/img/quotation_mark.png">' +
+                '</div>' +
+                '<p>{{slide.quote}}</p>' +
+                '<div class="quotation_mark right">' +
+                  '<img src="dist/img/quotation_mark_inverted.png">' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="signature">' +
+              '<div class="author">' +
+                '&#x2015;<a target="_blank" href="{{slide.author.url}}">' +
+                  '{{slide.author.name}}' +
+                '</a>' +
+              '</div>' +
+              '<div class="company">' +
+                '<a target="_blank" href="{{slide.company.url}}">' +
+                  '{{slide.company.name}}' +
+                '</a>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="avatar">' +
+            '<div class="block" style="height: {{block.height}}px;">' +
+              '<div class="author">' +
+                '<img src="{{slide.author.avatar}}">' +
+              '</div>' +
+              '<div class="helper">' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
   }
 };
