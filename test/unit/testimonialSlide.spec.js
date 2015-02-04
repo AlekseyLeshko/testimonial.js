@@ -325,18 +325,13 @@ describe('TestimonialSlide', function() {
   });
 
   it('should create slide', function() {
-    spyOn(TestimonialSlide.prototype, 'createStandardDomNode').and.callFake(function() {
-      var $domNode = $('<div />');
-      TestimonialSlide.prototype.$domNode = $domNode;
-    });
-    spyOn(TestimonialSlide.prototype, 'createContentNode').and.returnValue($('<div />'));
+    spyOn(TestimonialSlide.prototype, 'createTemplate');
+    spyOn(TestimonialSlide.prototype, 'renderTemplate');
 
     TestimonialSlide.prototype.createSlide();
-    var $node = TestimonialSlide.prototype.$domNode;
 
-    expect($node.children().length).toEqual(1);
-    expect(TestimonialSlide.prototype.createStandardDomNode).toHaveBeenCalled();
-    expect(TestimonialSlide.prototype.createContentNode).toHaveBeenCalled();
+    expect(TestimonialSlide.prototype.createTemplate).toHaveBeenCalled();
+    expect(TestimonialSlide.prototype.renderTemplate).toHaveBeenCalled();
   });
 
   it('should slide not to be exist', function() {
@@ -396,5 +391,14 @@ describe('TestimonialSlide', function() {
     expect(TestimonialSlide.prototype.createDivWithClass).toHaveBeenCalled();
     expect(TestimonialSlide.prototype.createMainNode).toHaveBeenCalled();
     expect(TestimonialSlide.prototype.createAvatarNode).toHaveBeenCalled();
+  });
+
+
+  it('should create template', function() {
+    expect(TestimonialSlide.prototype.template).toBeUndefined();
+
+    TestimonialSlide.prototype.createTemplate();
+
+    expect(TestimonialSlide.prototype.template).toBeDefined();
   });
 });

@@ -47,8 +47,8 @@ TestimonialSlide.prototype = {
   },
 
   createSlide: function() {
-    this.createStandardDomNode();
-    this.$domNode.append(this.createContentNode());
+    this.createTemplate();
+    this.renderTemplate();
   },
 
   createContentNode: function() {
