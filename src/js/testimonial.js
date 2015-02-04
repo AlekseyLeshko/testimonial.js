@@ -148,17 +148,6 @@ Testimonial.prototype = {
     this.$slideList.push(slide);
   },
 
-  createInfrastructure: function() {
-    var indents = 500;
-    this.$slideListWrapper = $('<div />', {
-      'class': 'main_container'
-    });
-    var width = this.pluginOptions.width * 2 + indents;
-    this.$slideListWrapper.width(width);
-    this.$container.append(this.$slideListWrapper);
-    this.createButtonNext();
-  },
-
   createButtonNext: function() {
     var $buttonNext = $('<div />', {
       'class': 'next_slide'

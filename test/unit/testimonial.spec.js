@@ -94,23 +94,6 @@ describe('Testimonial', function() {
     expect(Testimonial.prototype.next).toHaveBeenCalled();
   });
 
-  it('should createInfrastructure', function() {
-    Testimonial.prototype.pluginOptions = {
-      width: 700
-    };
-    var expected = 1900;
-    spyOn(Testimonial.prototype, 'createButtonNext');
-    Testimonial.prototype.$container = $('<div />');
-
-    Testimonial.prototype.createInfrastructure();
-    var $obj = Testimonial.prototype.$slideListWrapper;
-
-    expect($obj.width()).toEqual(expected);
-    expect($obj.prop('tagName')).toEqual('DIV');
-    expect($obj.attr('class')).toEqual('main_container');
-    expect(Testimonial.prototype.createButtonNext).toHaveBeenCalled();
-  });
-
   it('should createSlides', function() {
     var arr = [1, 2, 3];
     Testimonial.prototype.dataList = arr;
