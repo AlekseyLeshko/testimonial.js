@@ -273,7 +273,7 @@ TestimonialSlide.prototype = {
   getDataForTemplate: function() {
     var data = {
       main: {
-        width: this.options.width - 20 - 160
+        width: this.options.width - 180
       },
       block: {
         height: 154
@@ -282,5 +282,10 @@ TestimonialSlide.prototype = {
     data.slide = this.data;
     data.slide.width = this.options.width - this.options.indents;
     return data;
+  },
+
+  renderTo: function($parent) {
+    $parent.append(this.$domNode);
+    this.setHeightForBlockDiv();
   }
 };

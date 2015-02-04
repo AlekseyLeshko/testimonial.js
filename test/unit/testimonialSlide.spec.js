@@ -421,8 +421,19 @@ describe('TestimonialSlide', function() {
 
   it('should return data for template', function() {
     TestimonialSlide.prototype.options = getDefaultOptionsStub();
+
     var data = TestimonialSlide.prototype.getDataForTemplate();
 
     expect(data).toBeDefined();
+  });
+
+  it('should return data for template', function() {
+    var $node = $('<div />');
+    var $container = $('<div />');
+    TestimonialSlide.prototype.$domNode = $node;
+
+    TestimonialSlide.prototype.renderTo($container);
+
+    expect($container.children().length).toEqual(1);
   });
 });
