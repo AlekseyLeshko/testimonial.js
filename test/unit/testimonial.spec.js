@@ -1,6 +1,12 @@
 'use strict';
 
 describe('Testimonial', function() {
+  beforeEach(function() {
+    spyOn(TestimonialSlide.prototype, 'createData');
+    spyOn(TestimonialSlide.prototype, 'createOptions');
+    spyOn(TestimonialSlide.prototype, 'createSlide');
+  });
+
   it('should indexing return 2', function() {
     Testimonial.prototype.$slideList = [1, 2 , 3];
     Testimonial.prototype.currentSlideIndex = 1;
