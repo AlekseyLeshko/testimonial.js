@@ -185,19 +185,23 @@ describe('Testimonial', function() {
   });
 
   it('should initSlideList', function() {
-    spyOn(Testimonial.prototype, 'configContainer');
     spyOn(Testimonial.prototype, 'parseDomTree');
+    spyOn(Testimonial.prototype, 'configContainer');
+    spyOn(Testimonial.prototype, 'createTemplate');
+    spyOn(Testimonial.prototype, 'renderTemplate');
+    spyOn(Testimonial.prototype, 'bindEvents');
     spyOn(Testimonial.prototype, 'createSlides');
-    spyOn(Testimonial.prototype, 'createInfrastructure');
     spyOn(Testimonial.prototype, 'slideListRendering');
     spyOn(Testimonial.prototype, 'resizePluginContainer');
 
     Testimonial.prototype.initSlideList();
 
-    expect(Testimonial.prototype.configContainer).toHaveBeenCalled();
     expect(Testimonial.prototype.parseDomTree).toHaveBeenCalled();
+    expect(Testimonial.prototype.configContainer).toHaveBeenCalled();
+    expect(Testimonial.prototype.createTemplate).toHaveBeenCalled();
+    expect(Testimonial.prototype.renderTemplate).toHaveBeenCalled();
+    expect(Testimonial.prototype.bindEvents).toHaveBeenCalled();
     expect(Testimonial.prototype.createSlides).toHaveBeenCalled();
-    expect(Testimonial.prototype.createInfrastructure).toHaveBeenCalled();
     expect(Testimonial.prototype.slideListRendering).toHaveBeenCalled();
     expect(Testimonial.prototype.resizePluginContainer).toHaveBeenCalled();
   });

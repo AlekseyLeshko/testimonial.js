@@ -195,12 +195,14 @@ Testimonial.prototype = {
   },
 
   initSlideList: function() {
-    this.configContainer();
-    this.parseDomTree();
-    this.createSlides();
-    this.createInfrastructure();
-    this.slideListRendering();
-    this.resizePluginContainer();
+      this.parseDomTree();
+      this.configContainer();
+      this.createTemplate();
+      this.renderTemplate();
+      this.bindEvents();
+      this.createSlides();
+      this.slideListRendering();
+      this.resizePluginContainer();
   },
 
   initPlugin: function(options) {
