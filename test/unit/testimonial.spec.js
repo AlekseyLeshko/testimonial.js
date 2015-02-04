@@ -268,7 +268,7 @@ describe('Testimonial', function() {
   });
 
   it('should createOptions', function() {
-    spyOn(Testimonial.prototype, 'getDefaultOptions').and.callThrough();
+    spyOn(Testimonial.prototype, 'getDefaultOptions').and.callFake(defaultTestimonialOptions);
     var timeout = 5;
     var options = {
       timeout: timeout
@@ -282,7 +282,7 @@ describe('Testimonial', function() {
 
   it('should createOptions with width', function() {
     var expected = 400;
-    spyOn(Testimonial.prototype, 'getDefaultOptions').and.callThrough();
+    spyOn(Testimonial.prototype, 'getDefaultOptions').and.callFake(defaultTestimonialOptions)
     var timeout = 5;
     var options = {
       timeout: timeout,
@@ -657,7 +657,6 @@ describe('Testimonial', function() {
 
     var count = Testimonial.prototype.$container.find('div').length;
     var $mainContainer = Testimonial.prototype.$container.find('.main_container');
-    console.log(Testimonial.prototype.$container);
     expect(count).toEqual(2);
     expect($mainContainer.width()).toEqual(expected);
   });
