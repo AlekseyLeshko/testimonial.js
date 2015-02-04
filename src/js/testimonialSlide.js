@@ -121,7 +121,7 @@ TestimonialSlide.prototype = {
             '</div>' +
           '</div>' +
           '<div class="avatar">' +
-            '<div class="block" style="height: {{block.height}}px;">' +
+            '<div class="block">' +
               '<div class="author">' +
                 '<img src="{{slide.author.avatar}}">' +
               '</div>' +
@@ -145,9 +145,6 @@ TestimonialSlide.prototype = {
     var data = {
       main: {
         width: this.options.width - 180
-      },
-      block: {
-        height: 154
       }
     };
     data.slide = this.data;
