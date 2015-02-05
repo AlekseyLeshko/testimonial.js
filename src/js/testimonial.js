@@ -22,10 +22,6 @@ Testimonial.prototype = {
   },
 
   next: function() {
-    if (this.timerId !== undefined) {
-      this.stop();
-    }
-
     this.cleanSlideList();
 
     var currentSlide = this.$slideList[this.currentSlideIndex];
@@ -40,7 +36,9 @@ Testimonial.prototype = {
       this.loadSlide();
     }
 
-    this.start();
+    if (this.timerId === undefined) {
+      this.start();
+    }
   },
 
   add: function(slideObj) {
