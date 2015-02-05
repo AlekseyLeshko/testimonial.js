@@ -142,7 +142,6 @@ describe('Testimonial', function() {
   });
 
   it('should initPlugin with autostart', function() {
-    spyOn(Testimonial.prototype, 'createOptions');
     spyOn(Testimonial.prototype, 'initSlideList');
 
     spyOn(Testimonial.prototype, 'start');
@@ -153,9 +152,8 @@ describe('Testimonial', function() {
       test: 'test'
     };
 
-    Testimonial.prototype.initPlugin(options);
+    Testimonial.prototype.initPlugin();
 
-    expect(Testimonial.prototype.createOptions).toHaveBeenCalledWith(options);
     expect(Testimonial.prototype.initSlideList).toHaveBeenCalled();
     expect(Testimonial.prototype.start).toHaveBeenCalled();
     expect(Testimonial.prototype.$slideList.length).toEqual(0);
@@ -165,7 +163,6 @@ describe('Testimonial', function() {
   });
 
   it('should initPlugin without autostart', function() {
-    spyOn(Testimonial.prototype, 'createOptions');
     spyOn(Testimonial.prototype, 'initSlideList');
 
     Testimonial.prototype.pluginOptions = {
@@ -177,7 +174,6 @@ describe('Testimonial', function() {
 
     Testimonial.prototype.initPlugin(options);
 
-    expect(Testimonial.prototype.createOptions).toHaveBeenCalledWith(options);
     expect(Testimonial.prototype.initSlideList).toHaveBeenCalled();
     expect(Testimonial.prototype.$slideList.length).toEqual(0);
     expect(Testimonial.prototype.dataList.length).toEqual(0);
@@ -237,6 +233,7 @@ describe('Testimonial', function() {
   });
 
   it('should create new Testimonial', function() {
+    spyOn(Testimonial.prototype, 'createOptions');
     spyOn(Testimonial.prototype, 'initPlugin');
     var $container = $('<div />');
     var options = {
@@ -245,8 +242,10 @@ describe('Testimonial', function() {
 
     var testimonial = new Testimonial($container, options);
 
+    expect(testimonial).toBeDefined();
     expect(testimonial.$container).toEqual($container);
-    expect(testimonial.initPlugin).toHaveBeenCalledWith(options);
+    expect(testimonial.createOptions).toHaveBeenCalledWith(options);
+    expect(testimonial.initPlugin).toHaveBeenCalledWith();
   });
 
   it('should rendering slide list', function() {

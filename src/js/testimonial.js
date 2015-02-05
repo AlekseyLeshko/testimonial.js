@@ -2,8 +2,9 @@
 
 var Testimonial = function($container, options) {
   this.$container = $container;
+  this.createOptions(options);
 
-  this.initPlugin(options);
+  this.initPlugin();
 };
 
 Testimonial.prototype = {
@@ -219,13 +220,12 @@ Testimonial.prototype = {
       this.resizePluginContainer();
   },
 
-  initPlugin: function(options) {
+  initPlugin: function() {
     this.$slideList = [];
     this.dataList = [];
     this.currentSlideIndex = 0;
     this.getSlide = null;
 
-    this.createOptions(options);
     this.initSlideList();
 
     if (this.pluginOptions.autostart) {
