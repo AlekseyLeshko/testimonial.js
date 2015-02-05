@@ -83,7 +83,9 @@ TestimonialSlide.prototype = {
   },
 
   height: function() {
-    return this.$domNode.height();
+    var height = this.node.clientHeight;
+    // var height = this.$domNode.height();
+    return height;
   },
 
   remove: function() {
@@ -93,7 +95,7 @@ TestimonialSlide.prototype = {
 
   createTemplate: function() {
     this.template = '' +
-      '<div class="testimonial_slide" style="width: {{slide.width}}px;">' +
+      // '<div class="testimonial_slide" style="width: {{slide.width}}px;">' +
         '<div class="content">' +
           '<div class="main" style="width: {{main.width}}px;">' +
             '<div class="quote">' +
@@ -129,8 +131,8 @@ TestimonialSlide.prototype = {
               '</div>' +
             '</div>' +
           '</div>' +
-        '</div>' +
-      '</div>';
+        '</div>';
+      // '</div>';
   },
 
   renderTemplate: function() {
@@ -138,6 +140,7 @@ TestimonialSlide.prototype = {
     var template = Handlebars.compile(this.template);
     var data = this.getDataForTemplate();
     var result = template(data);
+    this.html = result;
     this.$domNode = $(result);
   },
 
@@ -152,8 +155,17 @@ TestimonialSlide.prototype = {
     return data;
   },
 
-  renderTo: function($parent) {
-    $parent.append(this.$domNode);
-    this.setHeightForBlockDiv();
+  renderTo: function($parent, fragment) {
+    var div = document.createElement('div');
+    var width = this.options.width - this.options.indents;
+
+    div.setAttribute('class', 'testimonial_slide');
+    div.style.width = width + "px";
+
+    div.innerHTML = this.html;
+    this.node = div;
+    fragment.appendChild(div);
+    // $parent.append(this.$domNode);
+    // this.setHeightForBlockDiv();
   }
 };

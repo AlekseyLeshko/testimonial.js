@@ -33,7 +33,7 @@ Testimonial.prototype = {
 
     currentSlide.animateHide();
     nextSlide.animateShow();
-    this.resizePluginContainer();
+    // this.resizePluginContainer();
 
     if (this.currentSlideIndex <= this.pluginOptions.slideCount - 1) {
       this.loadSlide();
@@ -180,7 +180,8 @@ Testimonial.prototype = {
 
   slideRendering: function(slide, isShow) {
     var $slideListWrapper = this.$container.find('.main_container');
-    slide.renderTo($slideListWrapper);
+    slide.renderTo($slideListWrapper, this.fragment);
+    $slideListWrapper.append(this.fragment);
 
     if (!isShow) {
       slide.hideSlide();
@@ -224,6 +225,7 @@ Testimonial.prototype = {
     this.dataList = [];
     this.currentSlideIndex = 0;
     this.getSlide = null;
+    this.fragment = document.createDocumentFragment();
 
     this.createOptions(options);
     this.initSlideList();
