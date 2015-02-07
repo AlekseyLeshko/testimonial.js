@@ -23,7 +23,6 @@ Testimonial.prototype = {
 
   next: function() {
     this.cleanSlideArr();
-
     this.transitionAnimation();
 
     if (this.isNeedLoadSlide()) {
@@ -51,7 +50,6 @@ Testimonial.prototype = {
     this.slideArr = [];
     this.dataList = [];
     this.currentSlideIndex = 0;
-    this.getSlide = null;
 
     this.initSlideArr();
 
@@ -97,10 +95,9 @@ Testimonial.prototype = {
   },
 
   loadSlide: function() {
-    if (this.getSlide && typeof this.getSlide === 'function') {
-      var slide = this.getSlide();
+    if (this.options.getSlide && typeof this.options.getSlide === 'function') {
+      var slide = this.options.getSlide();
       this.add(slide);
-      return;
     }
   },
 
@@ -153,7 +150,8 @@ Testimonial.prototype = {
       timeout: 7000,
       autostart: true,
       indents: 20,
-      minWidth: 400
+      minWidth: 400,
+      getSlide: undefined
     };
     return defaultOptions;
   },
