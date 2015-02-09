@@ -54,10 +54,13 @@ TestimonialSlide.prototype = {
   animateHide: function() {
     var self = this;
 
-    this.$domNode.animate({
-        'margin-left': '+=' + this.options.distance + 'px',
-        opacity: '0'
-      },
+    var marginLeft = '+=' + this.options.distance + 'px';
+    var options = {
+      'margin-left': marginLeft,
+      opacity: '0'
+    };
+
+    this.$domNode.animate(options,
       this.options.duration,
       function() {
         self.hideSlide();
@@ -66,18 +69,22 @@ TestimonialSlide.prototype = {
   },
 
   animateShow: function() {
-    this.$domNode.show().animate({
-        'margin-left': '+=' + this.options.distance + 'px',
-        opacity: '1'
-      },
-      this.options.duration * 2);
+    var marginLeft = '+=' + this.options.distance + 'px';
+    var options = {
+      'margin-left': marginLeft,
+      opacity: '1'
+    };
+
+    var duration = this.options.duration * 2;
+    this.$domNode.show().animate(options, duration);
   },
 
   hideSlide: function() {
+    var marginLeft = '-' + this.options.distance + 'px';
     var css = {
       display: 'none',
       opacity: 0,
-      'margin-left': '-' + this.options.distance + 'px'
+      'margin-left': marginLeft
     };
     this.$domNode.css(css);
   },
@@ -142,9 +149,11 @@ TestimonialSlide.prototype = {
   },
 
   getDataForTemplate: function() {
+    var magicNumber = 180;
+    var width = this.options.width - magicNumber;
     var data = {
       main: {
-        width: this.options.width - 180
+        width: width
       }
     };
     data.slide = this.data;
