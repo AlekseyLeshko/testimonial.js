@@ -48,7 +48,6 @@ Testimonial.prototype = {
 
   initPlugin: function() {
     this.slideArr = [];
-    this.dataList = [];
     this.currentSlideIndex = 0;
 
     this.initSlideArr();
@@ -168,6 +167,11 @@ Testimonial.prototype = {
     }
   },
 
+  parseAndCreateSlide: function() {
+    var dataList = this.parseDomTree();
+    this.createSlides(dataList);
+  },
+
   parseDomTree: function() {
     var $nodeArr = this.$container.children();
     if ($nodeArr.length <= 0) {
@@ -176,12 +180,13 @@ Testimonial.prototype = {
     $nodeArr.remove();
     /* global Parser: false */
     var parser = new Parser($nodeArr);
-    this.dataList = parser.parse();
+    var dataList = parser.parse();
+    return dataList;
   },
 
-  createSlides: function() {
-    for (var i = 0; i < this.dataList.length; i++) {
-      var data = this.dataList[i];
+  createSlides: function(dataList) {
+    for (var i = 0; i < dataList.length; i++) {
+      var data = dataList[i];
       this.createAndAddSlide(data);
     }
   },
@@ -262,12 +267,13 @@ Testimonial.prototype = {
   },
 
   initSlideArr: function() {
-      this.parseDomTree();
       this.configContainer();
       this.createTemplate();
       this.renderTemplate();
       this.bindEvents();
-      this.createSlides();
+
+      this.parseAndCreateSlide();
+
       this.slideArrRendering();
       this.resizePluginContainer();
   }

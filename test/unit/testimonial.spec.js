@@ -105,17 +105,15 @@ describe('Testimonial', function() {
 
   it('should createSlides', function() {
     var arr = [1, 2, 3];
-    Testimonial.prototype.dataList = arr;
     spyOn(Testimonial.prototype, 'createAndAddSlide');
 
-    Testimonial.prototype.createSlides();
+    Testimonial.prototype.createSlides(arr);
 
     expect(Testimonial.prototype.createAndAddSlide).toHaveBeenCalled();
     expect(Testimonial.prototype.createAndAddSlide.calls.count()).toEqual(arr.length);
   });
 
   it('should parseDomTree', function() {
-    Testimonial.prototype.dataList = [];
     var arr = [1, 2, 3];
     spyOn(Parser.prototype, 'parse').and.returnValue(arr);
     var fileName = 'main.html';
@@ -124,22 +122,31 @@ describe('Testimonial', function() {
 
     var $container = $('.testimonial_slider');
     Testimonial.prototype.$container = $container;
-    Testimonial.prototype.parseDomTree();
+    var dataList = Testimonial.prototype.parseDomTree();
 
     expect(Testimonial.prototype.$container.children().length).toEqual(0);
-    expect(Testimonial.prototype.dataList).toEqual(arr);
+    expect(dataList).toEqual(arr);
     expect(Parser.prototype.parse).toHaveBeenCalled();
   });
 
   it('should parse empty div', function() {
-    Testimonial.prototype.dataList = [];
-
     var $container = $('<div />');
     Testimonial.prototype.$container = $container;
-    Testimonial.prototype.parseDomTree();
+    var dataList = Testimonial.prototype.parseDomTree();
 
     expect(Testimonial.prototype.$container.children().length).toEqual(0);
-    expect(Testimonial.prototype.dataList.length).toEqual(0);
+    expect(dataList).toBeUndefined();
+  });
+
+  it('should parse and create slide', function() {
+    var arr = [1, 2 ,3];
+    spyOn(Testimonial.prototype, 'parseDomTree').and.returnValue(arr);
+    spyOn(Testimonial.prototype, 'createSlides');
+
+    Testimonial.prototype.parseAndCreateSlide();
+
+    expect(Testimonial.prototype.parseDomTree).toHaveBeenCalled();
+    expect(Testimonial.prototype.createSlides).toHaveBeenCalledWith(arr);
   });
 
   it('should initPlugin with autostart', function() {
@@ -158,7 +165,6 @@ describe('Testimonial', function() {
     expect(Testimonial.prototype.initSlideArr).toHaveBeenCalled();
     expect(Testimonial.prototype.start).toHaveBeenCalled();
     expect(Testimonial.prototype.slideArr.length).toEqual(0);
-    expect(Testimonial.prototype.dataList.length).toEqual(0);
     expect(Testimonial.prototype.currentSlideIndex).toEqual(0);
   });
 
@@ -176,28 +182,25 @@ describe('Testimonial', function() {
 
     expect(Testimonial.prototype.initSlideArr).toHaveBeenCalled();
     expect(Testimonial.prototype.slideArr.length).toEqual(0);
-    expect(Testimonial.prototype.dataList.length).toEqual(0);
     expect(Testimonial.prototype.currentSlideIndex).toEqual(0);
   });
 
   it('should initSlideArr', function() {
-    spyOn(Testimonial.prototype, 'parseDomTree');
     spyOn(Testimonial.prototype, 'configContainer');
     spyOn(Testimonial.prototype, 'createTemplate');
     spyOn(Testimonial.prototype, 'renderTemplate');
     spyOn(Testimonial.prototype, 'bindEvents');
-    spyOn(Testimonial.prototype, 'createSlides');
+    spyOn(Testimonial.prototype, 'parseAndCreateSlide');
     spyOn(Testimonial.prototype, 'slideArrRendering');
     spyOn(Testimonial.prototype, 'resizePluginContainer');
 
     Testimonial.prototype.initSlideArr();
 
-    expect(Testimonial.prototype.parseDomTree).toHaveBeenCalled();
     expect(Testimonial.prototype.configContainer).toHaveBeenCalled();
     expect(Testimonial.prototype.createTemplate).toHaveBeenCalled();
     expect(Testimonial.prototype.renderTemplate).toHaveBeenCalled();
     expect(Testimonial.prototype.bindEvents).toHaveBeenCalled();
-    expect(Testimonial.prototype.createSlides).toHaveBeenCalled();
+    expect(Testimonial.prototype.parseAndCreateSlide).toHaveBeenCalled();
     expect(Testimonial.prototype.slideArrRendering).toHaveBeenCalled();
     expect(Testimonial.prototype.resizePluginContainer).toHaveBeenCalled();
   });
@@ -268,6 +271,7 @@ describe('Testimonial', function() {
 
   it('should createOptions', function() {
     spyOn(Testimonial.prototype, 'getDefaultOptions').and.callFake(defaultTestimonialOptions);
+    spyOn(Testimonial.prototype, 'setMinSizePlugin');
     var timeout = 5;
     var options = {
       timeout: timeout
@@ -277,22 +281,25 @@ describe('Testimonial', function() {
 
     expect(Testimonial.prototype.options.timeout).toEqual(timeout);
     expect(Testimonial.prototype.getDefaultOptions).toHaveBeenCalled();
+    expect(Testimonial.prototype.setMinSizePlugin).toHaveBeenCalled();
   });
 
   it('should createOptions with width', function() {
     var expected = 400;
     spyOn(Testimonial.prototype, 'getDefaultOptions').and.callFake(defaultTestimonialOptions)
+    spyOn(Testimonial.prototype, 'setMinSizePlugin');
     var timeout = 5;
     var options = {
       timeout: timeout,
-      width: 350
+      width: expected
     };
 
     Testimonial.prototype.createOptions(options);
 
-    expect(Testimonial.prototype.options.timeout).toEqual(timeout);
     expect(Testimonial.prototype.getDefaultOptions).toHaveBeenCalled();
+    expect(Testimonial.prototype.options.timeout).toEqual(timeout);
     expect(Testimonial.prototype.options.width).toEqual(expected);
+    expect(Testimonial.prototype.setMinSizePlugin).toHaveBeenCalled();
   });
 
   describe('Next method', function() {
