@@ -230,8 +230,8 @@ Testimonial.prototype = {
   },
 
   slideRendering: function(slide) {
-    var $slideArrRendering = this.$container.find('.main_container');
-    slide.renderTo($slideArrRendering);
+    var $slideArrContainer = this.$container.find('.main_container');
+    slide.renderTo($slideArrContainer);
 
     if (this.isNeedHideSlide(slide)) {
       slide.hideSlide();
@@ -250,10 +250,12 @@ Testimonial.prototype = {
   },
 
   renderTemplate: function() {
+    var magicNumber = 500;
     /* global Handlebars: false */
     var template = Handlebars.compile(this.template);
+    var width = this.options.width * 2 + magicNumber;
     var data = {
-      width: this.options.width * 2 + 500
+      width: width
     };
     var result = template(data);
     this.$container.html(result);
@@ -261,13 +263,10 @@ Testimonial.prototype = {
 
   initSlideArr: function() {
       this.parseAndCreateSlide();
-
       this.configContainer();
       this.createTemplate();
       this.renderTemplate();
       this.bindEvents();
-
-
       this.slideArrRendering();
       this.resizePluginContainer();
   }
