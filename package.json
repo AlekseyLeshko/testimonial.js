@@ -15,8 +15,9 @@
   "homepage": "https://github.com/AlekseyLeshko/testimonial.js",
   "private": true,
   "devDependencies": {
+    "handlebars": "^2.0.0",
     "jquery": "^2.1.3",
     "jsonlint": "^1.6.2",
-    "testimonial": "^1.0.1"
+    "testimonial": "^1.1.0"
   }
 }

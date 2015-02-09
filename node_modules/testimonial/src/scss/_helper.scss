@@ -1,0 +1,5 @@
+.border-radius-wrapper {
+  border: 2px solid #DDDDDD;
+  @include border-radius(50%);
+  box-shadow: 1px 3px 10px 1px #000000;
+}

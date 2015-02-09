@@ -12,6 +12,11 @@
   <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/theme-white-plum.bootstrap.min.css">
   <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/index.css">
   <link rel="stylesheet" href="node_modules/testimonial/dist/css/testimonial.min.css">
+  <style type="text/css">
+  .left {
+    top: -9px;
+  }
+  </style>
 </head>
   <body>
     <a id="githubRibbon" href="https://github.com/AlekseyLeshko/testimonial.js/" target="_blank">
@@ -36,7 +41,10 @@
               </a>
             </div>
             <div class="panel-body">
-              <ul>
+              <button class="btn btn-lg btn-default" onclick="testimonialMain.add(slideLoader());">
+                Add random slide
+              </button>
+<!--               <ul>
                 <li>
                   <a class="click-example-link" href="#simple_example">
                     Simple
@@ -70,60 +78,12 @@
                     With slideLoader
                   </a>
                 </li>
-              </ul>
+              </ul> -->
             </div>
           </div>
         </div>
         <div class="col-lg-5 col-lg-offset-1">
           <div id="testimonial_main" class="testimonial_slider border_for_testiomonial">
-            <div class="slide">
-              <div class="quote">
-                №1 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
-              </div>
-              <div class="author">
-                <a href="https://github.com/AlekseyLeshko">
-                  Aleksey Leshko
-                </a>
-                <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
-              </div>
-              <div class="company">
-                <a href="https://github.com/AlekseyLeshko/testimonial.js">
-                  GitHub Repo
-                </a>
-              </div>
-            </div>
-            <div class="slide">
-              <div class="author">
-                <a href="https://github.com/AlekseyLeshko">
-                  Aleksey Leshko
-                </a>
-                <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
-              </div>
-              <div class="quote">
-                №2 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
-              </div>
-              <div class="company">
-                <a href="https://github.com/AlekseyLeshko/testimonial.js">
-                  GitHub Repo
-                </a>
-              </div>
-            </div>
-            <div class="slide">
-              <div class="author">
-                <a href="https://github.com/AlekseyLeshko">
-                  Aleksey Leshko
-                </a>
-                <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
-              </div>
-              <div class="company">
-                <a href="https://github.com/AlekseyLeshko/testimonial.js">
-                  GitHub Repo
-                </a>
-              </div>
-              <div class="quote">
-                №3 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -236,478 +196,6 @@
           </div>
         </div>
       </div>
-      <div class="row" id="simple_example">
-        <div class="col-lg-12">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <a class="click-example-link" href="#simple_example">
-                Simple
-              </a>
-              <a type="button" class="btn btn-xs btn-primary click-example-link" href="#top">
-                Back to top
-              </a>
-            </div>
-            <div class="panel-body">
-              <div id="testimonial_simple" class="testimonial_slider border_for_testiomonial">
-                <div class="slide">
-                  <div class="quote">
-                    №1 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
-                  </div>
-                  <div class="author">
-                    <a href="https://github.com/AlekseyLeshko">
-                      Aleksey Leshko
-                    </a>
-                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
-                  </div>
-                  <div class="company">
-                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
-                      GitHub Repo
-                    </a>
-                  </div>
-                </div>
-                <div class="slide">
-                  <div class="author">
-                    <a href="https://github.com/AlekseyLeshko">
-                      Aleksey Leshko
-                    </a>
-                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
-                  </div>
-                  <div class="quote">
-                    №2 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
-                  </div>
-                  <div class="company">
-                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
-                      GitHub Repo
-                    </a>
-                  </div>
-                </div>
-                <div class="slide">
-                  <div class="author">
-                    <a href="https://github.com/AlekseyLeshko">
-                      Aleksey Leshko
-                    </a>
-                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
-                  </div>
-                  <div class="company">
-                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
-                      GitHub Repo
-                    </a>
-                  </div>
-                  <div class="quote">
-                    №3 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
-                  </div>
-                </div>
-              </div>
-              <pre>
-var $container = $('.testimonial_slider');
-var testimonial = new Testimonial($container);</pre>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row" id="custom_options_example">
-        <div class="col-lg-12">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <a class="click-example-link" href="#custom_options_example">
-                With custom options
-              </a>
-              <a type="button" class="btn btn-xs btn-primary click-example-link" href="#top">
-                Back to top
-              </a>
-            </div>
-            <div class="panel-body">
-              <div id="testimonial_custom_options" class="testimonial_slider border_for_testiomonial">
-                <div class="slide">
-                  <div class="quote">
-                    №1 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
-                  </div>
-                  <div class="author">
-                    <a href="https://github.com/AlekseyLeshko">
-                      Aleksey Leshko
-                    </a>
-                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
-                  </div>
-                  <div class="company">
-                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
-                      GitHub Repo
-                    </a>
-                  </div>
-                </div>
-                <div class="slide">
-                  <div class="author">
-                    <a href="https://github.com/AlekseyLeshko">
-                      Aleksey Leshko
-                    </a>
-                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
-                  </div>
-                  <div class="quote">
-                    №2 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
-                  </div>
-                  <div class="company">
-                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
-                      GitHub Repo
-                    </a>
-                  </div>
-                </div>
-                <div class="slide">
-                  <div class="author">
-                    <a href="https://github.com/AlekseyLeshko">
-                      Aleksey Leshko
-                    </a>
-                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
-                  </div>
-                  <div class="company">
-                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
-                      GitHub Repo
-                    </a>
-                  </div>
-                  <div class="quote">
-                    №3 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
-                  </div>
-                </div>
-              </div>
-              <pre>
-var options = {
-  timeout: 3684,
-  autostart: true,
-  slideCount: 3
-};
-var $container = $('.testimonial_slider');
-var testimonial = new Testimonial($container, options);</pre>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row" id="control_buttons_example">
-        <div class="col-lg-12">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <a class="click-example-link" href="#control_buttons_example">
-                With control buttons
-              </a>
-              <a type="button" class="btn btn-xs btn-primary click-example-link" href="#top">
-                Back to top
-              </a>
-            </div>
-            <div class="panel-body">
-              <div id="testimonial_control_buttons" class="testimonial_slider border_for_testiomonial">
-                <div class="slide">
-                  <div class="quote">
-                    №1 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
-                  </div>
-                  <div class="author">
-                    <a href="https://github.com/AlekseyLeshko">
-                      Aleksey Leshko
-                    </a>
-                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
-                  </div>
-                  <div class="company">
-                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
-                      GitHub Repo
-                    </a>
-                  </div>
-                </div>
-                <div class="slide">
-                  <div class="author">
-                    <a href="https://github.com/AlekseyLeshko">
-                      Aleksey Leshko
-                    </a>
-                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
-                  </div>
-                  <div class="quote">
-                    №2 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
-                  </div>
-                  <div class="company">
-                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
-                      GitHub Repo
-                    </a>
-                  </div>
-                </div>
-                <div class="slide">
-                  <div class="author">
-                    <a href="https://github.com/AlekseyLeshko">
-                      Aleksey Leshko
-                    </a>
-                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
-                  </div>
-                  <div class="company">
-                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
-                      GitHub Repo
-                    </a>
-                  </div>
-                  <div class="quote">
-                    №3 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
-                  </div>
-                </div>
-              </div>
-              <div>
-                <input type="button" class="btn btn-default" value="start" onclick="testimonialControlButtons.start();">
-                <input type="button" class="btn btn-default" value="stop" onclick="testimonialControlButtons.stop();">
-              </div>
-              <pre>
-var $container = $('.testimonial_slider');
-var testimonial = new Testimonial($container);
-testimonial.stop();
-testimonial.start();</pre>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row" id="add_slide_example">
-        <div class="col-lg-12">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <a class="click-example-link" href="#add_slide_example">
-                Add slide via JS
-              </a>
-              <a type="button" class="btn btn-xs btn-primary click-example-link" href="#top">
-                Back to top
-              </a>
-            </div>
-            <div class="panel-body">
-              <div id="testimonial_add_slide" class="testimonial_slider border_for_testiomonial">
-                <div class="slide">
-                  <div class="quote">
-                    №1 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
-                  </div>
-                  <div class="author">
-                    <a href="https://github.com/AlekseyLeshko">
-                      Aleksey Leshko
-                    </a>
-                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
-                  </div>
-                  <div class="company">
-                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
-                      GitHub Repo
-                    </a>
-                  </div>
-                </div>
-                <div class="slide">
-                  <div class="author">
-                    <a href="https://github.com/AlekseyLeshko">
-                      Aleksey Leshko
-                    </a>
-                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
-                  </div>
-                  <div class="quote">
-                    №2 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
-                  </div>
-                  <div class="company">
-                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
-                      GitHub Repo
-                    </a>
-                  </div>
-                </div>
-                <div class="slide">
-                  <div class="author">
-                    <a href="https://github.com/AlekseyLeshko">
-                      Aleksey Leshko
-                    </a>
-                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
-                  </div>
-                  <div class="company">
-                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
-                      GitHub Repo
-                    </a>
-                  </div>
-                  <div class="quote">
-                    №3 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
-                  </div>
-                </div>
-              </div>
-              <div class="form-horizontal">
-                <div class="form-group">
-                  <label for="json_input" class="col-lg-2 control-label">Slide</label>
-                  <div class="col-lg-10">
-                    <textarea id="json_input" class="form-control" rows="12" placeholder="Enter JSON"></textarea>
-                    <input id="add_slide_button" type="button" class="btn btn-default" value="Add slide" onclick="testimonialAddSlide.add(slideAddSlide);">
-                  </div>
-                </div>
-              </div>
-              <pre>var $container = $('.testimonial_slider');
-var testimonial = new Testimonial($container);
-testimonial.pluginOptions.slideCount = 5;
-var slide = {
-  author: {
-    name: 'name',
-    url: 'url',
-    avatar: 'avatarUrl'
-  },
-  company: {
-    name: 'name',
-    url: 'url'
-  },
-  quote: 'quote'
-};
-testimonial.add(slide);
-                </pre>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row" id="update_url_example">
-        <div class="col-lg-12">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <a class="click-example-link" href="#update_url_example">
-                With updateUrl
-              </a>
-              <a type="button" class="btn btn-xs btn-primary click-example-link" href="#top">
-                Back to top
-              </a>
-            </div>
-            <div class="panel-body">
-              <div id="testimonial_update_url" class="testimonial_slider border_for_testiomonial">
-                <div class="slide">
-                  <div class="quote">
-                    №1 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
-                  </div>
-                  <div class="author">
-                    <a href="https://github.com/AlekseyLeshko">
-                      Aleksey Leshko
-                    </a>
-                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
-                  </div>
-                  <div class="company">
-                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
-                      GitHub Repo
-                    </a>
-                  </div>
-                </div>
-                <div class="slide">
-                  <div class="author">
-                    <a href="https://github.com/AlekseyLeshko">
-                      Aleksey Leshko
-                    </a>
-                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
-                  </div>
-                  <div class="quote">
-                    №2 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
-                  </div>
-                  <div class="company">
-                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
-                      GitHub Repo
-                    </a>
-                  </div>
-                </div>
-                <div class="slide">
-                  <div class="author">
-                    <a href="https://github.com/AlekseyLeshko">
-                      Aleksey Leshko
-                    </a>
-                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
-                  </div>
-                  <div class="company">
-                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
-                      GitHub Repo
-                    </a>
-                  </div>
-                  <div class="quote">
-                    №3 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
-                  </div>
-                </div>
-              </div>
-              <div>
-                <p>
-                  Slide count: <input id="slideCount2" type="text" name="slideCount" value="10">
-                  <input type="button" class="btn btn-default" value="Enter" onclick="testimonialUpdateUrl.pluginOptions.slideCount = parseInt($('#slideCount2').val())">
-                </p>
-                <input type="button" class="btn btn-default" value="Clean updateDataUrl" onclick="testimonialUpdateUrl.updateDataUrl = undefined;">
-                <input type="button" class="btn btn-default" value="Set updateDataUrl" onclick="testimonialUpdateUrl.updateDataUrl = updateDataUrl">
-              </div>
-              <pre>
-var updateUrl = 'http://example.com/slide/random';
-
-var $container = $('.testimonial_slider');
-var testimonial = new Testimonial($container); testimonial.updateDataUrl = updateUrl;</pre>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row" id="slide_loader_example">
-        <div class="col-lg-12">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <a class="click-example-link" href="#slide_loader_example">
-                With slideLoader
-              </a>
-              <a type="button" class="btn btn-xs btn-primary click-example-link" href="#top">
-                Back to top
-              </a>
-            </div>
-            <div class="panel-body">
-              <div id="testimonial_slide_loader" class="testimonial_slider border_for_testiomonial">
-                <div class="slide">
-                  <div class="quote">
-                    №1 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
-                  </div>
-                  <div class="author">
-                    <a href="https://github.com/AlekseyLeshko">
-                      Aleksey Leshko
-                    </a>
-                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
-                  </div>
-                  <div class="company">
-                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
-                      GitHub Repo
-                    </a>
-                  </div>
-                </div>
-                <div class="slide">
-                  <div class="author">
-                    <a href="https://github.com/AlekseyLeshko">
-                      Aleksey Leshko
-                    </a>
-                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
-                  </div>
-                  <div class="quote">
-                    №2 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
-                  </div>
-                  <div class="company">
-                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
-                      GitHub Repo
-                    </a>
-                  </div>
-                </div>
-                <div class="slide">
-                  <div class="author">
-                    <a href="https://github.com/AlekseyLeshko">
-                      Aleksey Leshko
-                    </a>
-                    <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
-                  </div>
-                  <div class="company">
-                    <a href="https://github.com/AlekseyLeshko/testimonial.js">
-                      GitHub Repo
-                    </a>
-                  </div>
-                  <div class="quote">
-                    №3 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
-                  </div>
-                </div>
-              </div>
-              <div>
-                <p>
-                  Slide count: <input id="slideCount3" type="text" name="slideCount" value="10">
-                  <input type="button" class="btn btn-default" value="Enter" onclick="testimonialSlideLoader.pluginOptions.slideCount = parseInt($('#slideCount3').val())">
-                </p>
-                <input type="button" class="btn btn-default" value="Clean slideLoader" onclick="testimonialSlideLoader.slideLoader = undefined;">
-                <input type="button" class="btn btn-default" value="Set slideLoader" onclick="testimonialSlideLoader.slideLoader = slideLoader">
-              </div>
-              <pre>
-function slideLoader() {
-  var slide = getRandomSlide();
-  return slide;
-};
-
-var $container = $('.testimonial_slider');
-var testimonial = new Testimonial($container);
-testimonial.slideLoader = slideLoader;</pre>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
     <div id="footer" class="container text-center">
       <hr>
@@ -729,6 +217,7 @@ testimonial.slideLoader = slideLoader;</pre>
         </div>
     </div>
   <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="node_modules/handlebars/dist/handlebars.min.js"></script>
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -738,7 +227,7 @@ testimonial.slideLoader = slideLoader;</pre>
     ga('require', 'displayfeatures');
     ga('send','pageview', location.pathname + location.search + location.hash);
   </script>
-  <script src="node_modules/testimonial/dist/js/testimonial.min.js"></script>
+  <script src="node_modules/testimonial/dist/js/testimonial.js"></script>
   <script src="node_modules/jsonlint/lib/jsonlint.js"></script>
   <script src="javascripts/helper.js"></script>
   <script src="javascripts/examples.js"></script>

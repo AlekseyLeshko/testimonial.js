@@ -1,0 +1,32 @@
+$main-container-margin: 10px;
+
+.testimonial_slider {
+  width: $base-width;
+  height: $base-height;
+  min-width: $base-width;
+  overflow: hidden;
+  position: relative;
+  .main_container {
+    width: $base-width;
+    float: left;
+    margin: $main-container-margin;
+  }
+  .next_slide {
+    min-width: 50px;
+    width: 50px;
+    height: 100%;
+    right: 0;
+    position: absolute;
+    background-color: #fff;
+    opacity: 0;
+    cursor: pointer;
+    background-image: url("../img/arrow_right.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    &:hover {
+      opacity: 0.35;
+      -moz-opacity: 0.35;
+      filter: alpha(opacity = 35);
+    }
+  }
+}
