@@ -212,18 +212,11 @@ Testimonial.prototype = {
     if (this.slideArr.length <= 0) {
       return;
     }
-    var indents = 20;
-    var slideHeight = this.slideArr[this.currentSlideIndex].height();
-
-    this.$container.height(slideHeight + indents);
+    var height = this.getCurrentSlide().height() + this.options.indents;
+    this.$container.height(height);
   },
 
   indexing: function() {
-    if (this.slideArr.length === 0) {
-      this.currentSlideIndex = 0;
-      return;
-    }
-
     this.currentSlideIndex++;
     if (this.currentSlideIndex === this.slideArr.length) {
       this.currentSlideIndex = 0;
@@ -267,12 +260,13 @@ Testimonial.prototype = {
   },
 
   initSlideArr: function() {
+      this.parseAndCreateSlide();
+
       this.configContainer();
       this.createTemplate();
       this.renderTemplate();
       this.bindEvents();
 
-      this.parseAndCreateSlide();
 
       this.slideArrRendering();
       this.resizePluginContainer();

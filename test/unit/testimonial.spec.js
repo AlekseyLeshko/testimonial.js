@@ -17,15 +17,6 @@ describe('Testimonial', function() {
     expect(res).toEqual(2);
   });
 
-  it('should indexing return 0', function() {
-    Testimonial.prototype.slideArr = [];
-
-    Testimonial.prototype.indexing();
-
-    var res = Testimonial.prototype.currentSlideIndex;
-    expect(res).toEqual(0);
-  });
-
   it('should indexing zeroed currentSlideIndex', function() {
     Testimonial.prototype.slideArr = [1, 2 , 3];
     Testimonial.prototype.currentSlideIndex = 2;
@@ -52,14 +43,18 @@ describe('Testimonial', function() {
   });
 
   it('should resizePluginContainer', function() {
-    var indents = 20;
     var height = 100;
+    var indents = 20;
     var expected = height + indents;
-    var obj = $('<div />', {
+
+    var node = $('<div />', {
       height: height
     });
+    spyOn(Testimonial.prototype, 'getCurrentSlide').and.returnValue(node);
+    Testimonial.prototype.options = {
+      indents: indents
+    };
     Testimonial.prototype.$container = $('<div />');
-    Testimonial.prototype.slideArr = [obj, $('<div />')];
     Testimonial.prototype.currentSlideIndex = 0;
 
     Testimonial.prototype.resizePluginContainer();
@@ -69,13 +64,8 @@ describe('Testimonial', function() {
 
   it('should resizePluginContainer with empty slide list', function() {
     var expected = 0;
-    var height = 100;
-    var obj = $('<div />', {
-      height: height
-    });
     Testimonial.prototype.$container = $('<div />');
     Testimonial.prototype.slideArr = [];
-    Testimonial.prototype.currentSlideIndex = 0;
 
     Testimonial.prototype.resizePluginContainer();
 
