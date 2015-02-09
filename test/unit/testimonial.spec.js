@@ -454,13 +454,16 @@ describe('Testimonial', function() {
 
   it('should loadSlide without getSlide not add slide', function() {
     spyOn(Testimonial.prototype, 'add');
+    spyOn(Testimonial.prototype, 'isFunction').and.returnValue(false);
 
     Testimonial.prototype.loadSlide();
 
+    expect(Testimonial.prototype.isFunction).toHaveBeenCalledWith(undefined);
     expect(Testimonial.prototype.add).not.toHaveBeenCalled();
   });
 
   it('should load slide with getSlide', function() {
+    spyOn(Testimonial.prototype, 'isFunction').and.returnValue(true);
     var expected = {
       quote: 'quote'
     };
@@ -473,8 +476,26 @@ describe('Testimonial', function() {
 
     Testimonial.prototype.loadSlide();
 
+    expect(Testimonial.prototype.isFunction).toHaveBeenCalledWith(Testimonial.prototype.options.getSlide);
     expect(Testimonial.prototype.options.getSlide).toHaveBeenCalled();
     expect(Testimonial.prototype.add).toHaveBeenCalledWith(expected);
+  });
+
+  it('should is function', function() {
+    var fun = function() {
+    };
+
+    var res = Testimonial.prototype.isFunction(fun);
+
+    expect(res).toBeTruthy();
+  });
+
+  it('should is not function', function() {
+    var fun = 'not function';
+
+    var res = Testimonial.prototype.isFunction(fun);
+
+    expect(res).toBeFalsy();
   });
 
   describe('whetherToRemoveSlide', function() {

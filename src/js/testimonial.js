@@ -94,8 +94,13 @@ Testimonial.prototype = {
     return answer;
   },
 
+  isFunction: function(functionToCheck) {
+    var getType = {};
+    return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+  },
+
   loadSlide: function() {
-    if (this.options.getSlide && typeof this.options.getSlide === 'function') {
+    if (this.isFunction(this.options.getSlide)) {
       var slide = this.options.getSlide();
       this.add(slide);
     }
