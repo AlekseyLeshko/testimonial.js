@@ -1,0 +1,88 @@
+$slide-width: $base-width - $main-container-margin * 2;
+$avatar-width: 150px;
+
+.testimonial_slide {
+  width: $slide-width;
+  min-width: $slide-width;
+  float: left;
+  .content {
+    width: 100%;
+    height: 100%;
+    float: left;
+    .main {
+      width: $slide-width - $avatar-width;
+      float: left;
+      .quote {
+        width: 100%;
+        float: left;
+        .text {
+          width: 96%;
+          float: left;
+          margin-right: 25px;
+          margin-top: $avatar-width / 10;
+          position: relative;
+          .quotation_mark {
+            width: 22px;
+            height: 17px;
+            position: relative;
+            img {
+              background-position-x: initial;
+              background-position-y: initial;
+              background-size: initial;
+              background-repeat-x: no-repeat;
+              background-repeat-y: no-repeat;
+              background-attachment: initial;
+              background-origin: initial;
+              background-clip: initial;
+              background-color: initial;
+            }
+          }
+          .quotation_mark.left {
+            float: left;
+            top: 9px;
+            right: 2px;
+          }
+          .quotation_mark.right {
+            float: right;
+            bottom: 26px;
+            left: 8px;
+          }
+        }
+      }
+      .signature {
+        float: right;
+        position: relative;
+        right: 34px;
+      }
+    }
+    .avatar {
+      width: $avatar-width;
+      float: left;
+      .block {
+        min-height: $avatar-width;
+        text-align: center;
+        .author {
+          width: 146px;
+          height: 146px;
+          min-height: 146px;
+          min-width: 146px;
+          display: -moz-inline-box;
+          display: inline-block;
+          vertical-align: middle;
+          zoom: 1;
+          img {
+            @extend  .border-radius-wrapper;
+          }
+        }
+        .helper {
+          width: 0px;
+          height: 100%;
+          display: -moz-inline-box;
+          display: inline-block;
+          vertical-align: middle;
+          zoom: 1;
+        }
+      }
+    }
+  }
+}

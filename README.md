@@ -16,8 +16,7 @@
 
 [Site with examples](http://alekseyleshko.github.io/testimonial.js/)
 
-## Install 
-
+## Install
 #### with [npm](https://www.npmjs.org/)
 ```
 npm i -D testimonial
@@ -39,6 +38,7 @@ var testimonial = new Testimonial($container);
 ```js
 var $container = $('.testimonial_slider');
 var options = {
+    width: 645,
     timeout: 7000,
     autostart: true,
     slideCount: 3
@@ -48,12 +48,13 @@ var testimonial = new Testimonial($container, options);
 
 #### Slider API
 ```js
+var slideObj = {...};
 var $container = $('.testimonial_slider');
 var testimonial = new Testimonial($container, options);
 testimonial.stop();
 testimonial.start();
 testimonial.next();
-testimonial.add({...});
+testimonial.add(slideObj);
 ```
 
 #### Slider with ajax slide load
@@ -62,10 +63,16 @@ function getSlide() {
   var slide = getRandomSlide();
   return slide;
 };
+var options = {
+    width: 645,
+    timeout: 7000,
+    autostart: true,
+    slideCount: 3,
+    getSlide: getSlide
+};
 
 var $container = $('.testimonial_slider');
-var testimonial = new Testimonial($container);
-testimonial.getSlide = getSlide;
+var testimonial = new Testimonial($container, options);
 ```
 
 ## [Examples](http://alekseyleshko.github.io/testimonial.js/)
@@ -81,10 +88,11 @@ testimonial.getSlide = getSlide;
 * quote
 
 ## Options
-- __timeout__, type: Number, default: 700
-- __autostart__, type: Boolean, default: true
+- __width__, type: Number, default: 700
 - __slideCount__, type: Number, default: 3
-- __getSlide__, type: Function, default: null
+- __timeout__, type: Number, default: 7000
+- __autostart__, type: Boolean, default: true
+- __getSlide__, type: Function, default: undefined
 
 ## Build project
 ```

@@ -35,95 +35,32 @@ TestimonialSlide.prototype = {
       width: 700,
       duration: 750,
       distance: 250,
-      cssClass: 'testimonial_slide'
+      cssClass: 'testimonial_slide',
+      indents: 20
     };
     return defaultOptions;
   },
 
+  setHeightForBlockDiv: function() {
+    var height = this.$domNode.height();
+    this.$domNode.find('.block').height(height);
+  },
+
   createSlide: function() {
-    this.createStandardDomNode();
-    this.$domNode.append(this.createQuoteNode());
-    this.$domNode.append(this.createImgAuthorFoto());
-  },
-
-  createStandardDomNode: function() {
-    this.$domNode = $('<div />', {
-      'class': this.options.cssClass
-    });
-    this.$domNode.width(this.options.width);
-  },
-
-  createQuoteNode: function() {
-    var $quoteNode = $('<div />', {
-      'class': 'quote'
-    });
-
-    $quoteNode.append(this.createDivWithClass('quotation_mark'));
-    $quoteNode.append(this.createTextNode());
-    $quoteNode.append(this.createDivWithClass('quotation_mark_inverted'));
-    $quoteNode.append(this.createSignatureNode());
-    return $quoteNode;
-  },
-
-  createTextNode: function() {
-    var $text = this.createDivWithClass('text');
-    $text.text(this.data.quote);
-    return $text;
-  },
-
-  createDivWithClass: function(className) {
-    var $div = $('<div />', {
-      'class': className
-    });
-    return $div;
-  },
-
-  createSignatureNode: function() {
-    var $signatureNode = this.createDivWithClass('signature');
-    $signatureNode.append(this.createAuthorNode());
-    $signatureNode.append(this.createCompanyNode());
-    return $signatureNode;
-  },
-
-  createAuthorNode: function() {
-    var $authorNode = this.createDivWithClass('author');
-    $authorNode.text('- ');
-    var $link = this.createLinkNode(this.data.author.url, this.data.author.name);
-    $authorNode.append($link);
-    return $authorNode;
-  },
-
-  createCompanyNode: function() {
-    var $companyNode = this.createDivWithClass('company');
-    var $link = this.createLinkNode(this.data.company.url, this.data.company.name);
-    $companyNode.append($link);
-    return $companyNode;
-  },
-
-  createLinkNode: function(href, text) {
-    var $linkNode = $('<a />', {
-      target: '_blank',
-      href: href,
-      text: text
-    });
-    return $linkNode;
-  },
-
-  createImgAuthorFoto: function() {
-    var $authorFoto = $('<img />', {
-      'class': 'author_foto',
-      'src': this.data.author.avatar
-    });
-    return $authorFoto;
+    this.createTemplate();
+    this.renderTemplate();
   },
 
   animateHide: function() {
     var self = this;
 
-    this.$domNode.animate({
-        'margin-left': '+=' + this.options.distance + 'px',
-        opacity: '0'
-      },
+    var marginLeft = '+=' + this.options.distance + 'px';
+    var options = {
+      'margin-left': marginLeft,
+      opacity: '0'
+    };
+
+    this.$domNode.animate(options,
       this.options.duration,
       function() {
         self.hideSlide();
@@ -132,18 +69,22 @@ TestimonialSlide.prototype = {
   },
 
   animateShow: function() {
-    this.$domNode.show().animate({
-        'margin-left': '+=' + this.options.distance + 'px',
-        opacity: '1'
-      },
-      this.options.duration * 2);
+    var marginLeft = '+=' + this.options.distance + 'px';
+    var options = {
+      'margin-left': marginLeft,
+      opacity: '1'
+    };
+
+    var duration = this.options.duration * 2;
+    this.$domNode.show().animate(options, duration);
   },
 
   hideSlide: function() {
+    var marginLeft = '-' + this.options.distance + 'px';
     var css = {
       display: 'none',
       opacity: 0,
-      'margin-left': '-' + this.options.distance + 'px'
+      'margin-left': marginLeft
     };
     this.$domNode.css(css);
   },
@@ -152,12 +93,76 @@ TestimonialSlide.prototype = {
     return this.$domNode.height();
   },
 
-  getDomNode: function() {
-    return this.$domNode;
-  },
-
   remove: function() {
     this.$domNode.empty();
     this.$domNode.remove();
+  },
+
+  createTemplate: function() {
+    this.template = '' +
+      '<div class="testimonial_slide" style="width: {{slide.width}}px;">' +
+        '<div class="content">' +
+          '<div class="main" style="width: {{main.width}}px;">' +
+            '<div class="quote">' +
+              '<div class="text">' +
+                '<div class="quotation_mark left">' +
+                  '<img src="dist/img/quotation_mark.png">' +
+                '</div>' +
+                '<p>{{slide.quote}}</p>' +
+                '<div class="quotation_mark right">' +
+                  '<img src="dist/img/quotation_mark_inverted.png">' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="signature">' +
+              '<div class="author">' +
+                '&#x2015;<a target="_blank" href="{{slide.author.url}}">' +
+                  '{{slide.author.name}}' +
+                '</a>' +
+              '</div>' +
+              '<div class="company">' +
+                '<a target="_blank" href="{{slide.company.url}}">' +
+                  '{{slide.company.name}}' +
+                '</a>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="avatar">' +
+            '<div class="block">' +
+              '<div class="author">' +
+                '<img src="{{slide.author.avatar}}">' +
+              '</div>' +
+              '<div class="helper">' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+  },
+
+  renderTemplate: function() {
+    /* global Handlebars: false */
+    var template = Handlebars.compile(this.template);
+    var data = this.getDataForTemplate();
+    var result = template(data);
+    this.$domNode = $(result);
+  },
+
+  getDataForTemplate: function() {
+    var magicNumber = 180;
+    var width = this.options.width - magicNumber;
+    var data = {
+      main: {
+        width: width
+      }
+    };
+    data.slide = this.data;
+    data.slide.width = this.options.width - this.options.indents;
+    return data;
+  },
+
+  renderTo: function($parent) {
+    $parent.append(this.$domNode);
+    this.setHeightForBlockDiv();
   }
 };

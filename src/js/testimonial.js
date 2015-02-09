@@ -2,8 +2,9 @@
 
 var Testimonial = function($container, options) {
   this.$container = $container;
+  this.createOptions(options);
 
-  this.initPlugin(options);
+  this.initPlugin();
 };
 
 Testimonial.prototype = {
@@ -12,7 +13,7 @@ Testimonial.prototype = {
     this.timerId = setInterval(function() {
         self.next();
       },
-      this.pluginOptions.timeout);
+      this.options.timeout);
   },
 
   stop: function() {
@@ -21,43 +22,96 @@ Testimonial.prototype = {
   },
 
   next: function() {
-    if (this.timerId !== undefined) {
-      this.stop();
-    }
+    this.cleanSlideArr();
+    this.transitionAnimation();
 
-    this.cleanSlideList();
-
-    var currentSlide = this.$slideList[this.currentSlideIndex];
-    this.indexing();
-    var nextSlide = this.$slideList[this.currentSlideIndex];
-
-    currentSlide.animateHide();
-    nextSlide.animateShow();
-    this.resizePluginContainer();
-
-    if (this.currentSlideIndex <= this.pluginOptions.slideCount - 1) {
+    if (this.isNeedLoadSlide()) {
       this.loadSlide();
     }
 
-    this.start();
+    if (this.isNeedStartSlider()) {
+      this.start();
+    }
   },
 
   add: function(slideObj) {
     this.createAndAddSlide(slideObj);
-
-    var slide = this.$slideList[this.$slideList.length - 1];
-    this.slideRendering(slide, false);
+    var slide = this.getLastSlide();
+    this.slideRendering(slide);
   },
 
-  loadSlide: function() {
-    if (this.getSlide && typeof this.getSlide === 'function') {
-      var slide = this.getSlide();
-      this.add(slide);
-      return;
+  createOptions: function(options) {
+    var defaultOptions = this.getDefaultOptions();
+    this.options = $.extend(defaultOptions, options);
+    this.setMinSizePlugin();
+  },
+
+  initPlugin: function() {
+    this.slideArr = [];
+    this.currentSlideIndex = 0;
+
+    this.initSlideArr();
+
+    if (this.options.autostart) {
+      this.start();
     }
   },
 
-  cleanSlideList: function() {
+  getCurrentSlide: function() {
+    var slide = this.slideArr[this.currentSlideIndex];
+    return slide;
+  },
+
+  getNextSlide: function() {
+    this.indexing();
+    var slide = this.getCurrentSlide();
+    return slide;
+  },
+
+  getLastSlide: function() {
+    var index = this.slideArr.length - 1;
+    var slide = this.slideArr[index];
+    return slide;
+  },
+
+  transitionAnimation: function() {
+    var currentSlide = this.getCurrentSlide();
+    var nextSlide = this.getNextSlide();
+
+    currentSlide.animateHide();
+    nextSlide.animateShow();
+    this.resizePluginContainer();
+  },
+
+  isNeedLoadSlide: function () {
+    var answer = this.currentSlideIndex <= this.options.slideCount - 1;
+    return answer;
+  },
+
+  isNeedStartSlider: function() {
+    var answer = this.timerId === undefined;
+    return answer;
+  },
+
+  isFunction: function(functionToCheck) {
+    var getType = {};
+    return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+  },
+
+  loadSlide: function() {
+    if (this.isFunction(this.options.getSlide)) {
+      var slide = this.options.getSlide();
+      this.add(slide);
+    }
+  },
+
+  setMinSizePlugin: function() {
+    if (this.options.width < this.options.minWidth) {
+      this.options.width = this.options.minWidth;
+    }
+  },
+
+  cleanSlideArr: function() {
     if (this.whetherToRemoveSlide()) {
       var index = 1;
       if (this.currentSlideIndex !== 0) {
@@ -70,31 +124,26 @@ Testimonial.prototype = {
   },
 
   whetherToRemoveSlide: function() {
-    var res = this.$slideList.length > this.pluginOptions.slideCount;
+    var res = this.slideArr.length > this.options.slideCount;
     return res;
   },
 
   removeSlide: function(index) {
-    this.$slideList[index].remove();
-    var a = this.$slideList.splice(index, 1);
+    this.slideArr[index].remove();
+    var a = this.slideArr.splice(index, 1);
     delete a[0];
   },
 
   getSlideCount: function() {
-    return this.pluginOptions.slideCount;
+    return this.options.slideCount;
   },
 
   setSlideCount: function(value) {
-    this.pluginOptions.slideCount = value;
+    this.options.slideCount = value;
 
-    while (this.whetherToRemoveSlide() === true) {
-      this.cleanSlideList();
+    while (this.whetherToRemoveSlide()) {
+      this.cleanSlideArr();
     }
-  },
-
-  createOptions: function(options) {
-    var defaultOptions = this.getDefaultOptions();
-    this.pluginOptions = $.extend(defaultOptions, options);
   },
 
   getDefaultOptions: function() {
@@ -103,17 +152,24 @@ Testimonial.prototype = {
       width: 700,
       slideCount: 3,
       timeout: 7000,
-      autostart: true
+      autostart: true,
+      indents: 20,
+      minWidth: 400,
+      getSlide: undefined
     };
     return defaultOptions;
   },
 
-  slideListRendering: function() {
-    for (var i = 0; i < this.$slideList.length; i++) {
-      var slide = this.$slideList[i];
-      var isShow = i === this.currentSlideIndex;
-      this.slideRendering(slide, isShow);
+  slideArrRendering: function() {
+    for (var i = 0; i < this.slideArr.length; i++) {
+      var slide = this.slideArr[i];
+      this.slideRendering(slide);
     }
+  },
+
+  parseAndCreateSlide: function() {
+    var dataList = this.parseDomTree();
+    this.createSlides(dataList);
   },
 
   parseDomTree: function() {
@@ -124,102 +180,94 @@ Testimonial.prototype = {
     $nodeArr.remove();
     /* global Parser: false */
     var parser = new Parser($nodeArr);
-    this.dataList = parser.parse();
+    var dataList = parser.parse();
+    return dataList;
   },
 
-  createSlides: function() {
-    for (var i = 0; i < this.dataList.length; i++) {
-      var data = this.dataList[i];
+  createSlides: function(dataList) {
+    for (var i = 0; i < dataList.length; i++) {
+      var data = dataList[i];
       this.createAndAddSlide(data);
     }
   },
 
   createAndAddSlide: function(data) {
     var options = {
-      width: this.pluginOptions.width
+      width: this.options.width
     };
     /* global TestimonialSlide: false */
     var slide = new TestimonialSlide(data, options);
-    this.$slideList.push(slide);
+    this.slideArr.push(slide);
   },
 
-  createInfrastructure: function() {
-    var indents = 500;
-    this.$slideListWrapper = $('<div />', {
-      'class': 'main_container'
-    });
-    var width = this.pluginOptions.width * 2 + indents;
-    this.$slideListWrapper.width(width);
-    this.$container.append(this.$slideListWrapper);
-    this.createButtonNext();
-  },
-
-  createButtonNext: function() {
-    var $buttonNext = $('<div />', {
-      'class': 'next_slide'
-    });
+  bindEvents: function() {
+    var $buttonNext = this.$container.find('.next_slide');
     var self = this;
     $buttonNext.click(function() {
       self.next();
     });
-    this.$container.append($buttonNext);
   },
 
   resizePluginContainer: function() {
-    if (this.$slideList.length <= 0) {
+    if (this.slideArr.length <= 0) {
       return;
     }
-    var indents = 20;
-    var slideHeight = this.$slideList[this.currentSlideIndex].height();
-
-    this.$container.height(slideHeight + indents);
+    var height = this.getCurrentSlide().height() + this.options.indents;
+    this.$container.height(height);
   },
 
   indexing: function() {
-    if (this.$slideList.length === 0) {
-      this.currentSlideIndex = 0;
-      return;
-    }
-
     this.currentSlideIndex++;
-    if (this.currentSlideIndex === this.$slideList.length) {
+    if (this.currentSlideIndex === this.slideArr.length) {
       this.currentSlideIndex = 0;
     }
   },
 
-  slideRendering: function(slide, isShow) {
-    if (!isShow) {
+  isNeedHideSlide: function(slide) {
+    var index = this.slideArr.indexOf(slide);
+    var answer = index !== this.currentSlideIndex;
+    return answer;
+  },
+
+  slideRendering: function(slide) {
+    var $slideArrContainer = this.$container.find('.main_container');
+    slide.renderTo($slideArrContainer);
+
+    if (this.isNeedHideSlide(slide)) {
       slide.hideSlide();
     }
-    var $node = slide.getDomNode();
-    this.$slideListWrapper.append($node);
   },
 
   configContainer: function() {
-    this.$container.height(this.pluginOptions.height);
-    this.$container.width(this.pluginOptions.width);
+    this.$container.height(this.options.height);
+    this.$container.width(this.options.width);
   },
 
-  initSlideList: function() {
-    this.configContainer();
-    this.parseDomTree();
-    this.createSlides();
-    this.createInfrastructure();
-    this.slideListRendering();
-    this.resizePluginContainer();
+  createTemplate: function() {
+    this.template = '' +
+      '<div class="main_container" style="width: {{width}}px;"></div>' +
+      '<div class="next_slide"></div>';
   },
 
-  initPlugin: function(options) {
-    this.$slideList = [];
-    this.dataList = [];
-    this.currentSlideIndex = 0;
-    this.getSlide = null;
+  renderTemplate: function() {
+    var magicNumber = 500;
+    /* global Handlebars: false */
+    var template = Handlebars.compile(this.template);
+    var width = this.options.width * 2 + magicNumber;
+    var data = {
+      width: width
+    };
+    var result = template(data);
+    this.$container.html(result);
+  },
 
-    this.createOptions(options);
-    this.initSlideList();
-
-    if (this.pluginOptions.autostart) {
-      this.start();
-    }
+  initSlideArr: function() {
+      this.parseAndCreateSlide();
+      this.configContainer();
+      this.createTemplate();
+      this.renderTemplate();
+      this.bindEvents();
+      this.slideArrRendering();
+      this.resizePluginContainer();
   }
 };
