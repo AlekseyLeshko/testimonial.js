@@ -33,8 +33,8 @@ function checkTextarea(textareaSelector) {
 
   var data = $textarea.val();
   try {
-    slideAddSlide = jsonlint.parse(data);
-    if (slideAddSlide) {
+    slideMainSlide = jsonlint.parse(data);
+    if (slideMainSlide) {
       var $container = $textarea.parent().parent();
       $container.removeClass(errorClass);
       $addSlideButton.prop('disabled', false);
@@ -44,6 +44,28 @@ function checkTextarea(textareaSelector) {
     $container.addClass(errorClass);
     $addSlideButton.prop('disabled', true);
   }
+}
+
+function setRandomSlide() {
+  var slide = getRandomSlide();
+  setJson(slide, selectorMainSlide);
+}
+
+function getRandomInt(min, max) {
+  var number = Math.floor(Math.random() * (max - min + 1)) + min;
+  return number;
+}
+
+function getRandomSlide() {
+  var min = 0;
+  var max = slideArr.length - 1;
+  var number = getRandomInt(min, max);
+  var slide = slideArr[number];
+  return slide;
+}
+
+function addSlide() {
+
 }
 
 function getQuote() {
@@ -59,12 +81,30 @@ function slideLoader() {
   return slide;
 }
 
-function getRandomSlide() {
-  var slide = getDefaultSlide();
-  var quote = 'Random slide: ' + Math.random().toString(36);
-  slide.quote = quote;
-  return slide;
+function nextButton() {
+  var options = {
+    'background-color': '#7a62d3',
+    opacity: 0.7
+  };
+  var $button = $('.next_slide');
+  $button.css(options);
+  testimonialMain.next();
+
+  options = {
+    opacity: 0
+  };
+
+  $button.animate(options, 1000, function() {
+    $button.removeAttr('style');
+  });
 }
+
+// function getRandomSlide() {
+//   var slide = getDefaultSlide();
+//   var quote = 'Random slide: ' + Math.random().toString(36);
+//   slide.quote = quote;
+//   return slide;
+// }
 
 var slideArr = [{
     author: {
