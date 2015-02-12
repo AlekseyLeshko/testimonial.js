@@ -347,12 +347,14 @@ describe('Testimonial', function() {
     spyOn(Testimonial.prototype, 'createAndAddSlide');
     spyOn(Testimonial.prototype, 'getLastSlide').and.returnValue(slide);
     spyOn(Testimonial.prototype, 'slideRendering');
+    spyOn(Testimonial.prototype, 'resizePluginContainer');
 
     Testimonial.prototype.add(slideObj);
 
     expect(Testimonial.prototype.createAndAddSlide).toHaveBeenCalledWith(slideObj);
     expect(Testimonial.prototype.getLastSlide).toHaveBeenCalled();
     expect(Testimonial.prototype.slideRendering).toHaveBeenCalledWith(slide);
+    expect(Testimonial.prototype.resizePluginContainer).toHaveBeenCalled();
   });
 
   describe('Slide rendering', function() {

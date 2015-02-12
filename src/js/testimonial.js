@@ -38,6 +38,7 @@ Testimonial.prototype = {
     this.createAndAddSlide(slideObj);
     var slide = this.getLastSlide();
     this.slideRendering(slide);
+    this.resizePluginContainer();
   },
 
   createOptions: function(options) {
