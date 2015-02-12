@@ -11,6 +11,7 @@ $avatar-width: 150px;
     float: left;
     .text {
       width: $slide-width - $avatar-width;
+      margin-top: $slide-width / 10;
       float: left;
       .quote {
         padding-right: 15px;
