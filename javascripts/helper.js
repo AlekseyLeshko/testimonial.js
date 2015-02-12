@@ -48,6 +48,7 @@ function checkTextarea(textareaSelector) {
 
 function setRandomSlide() {
   var slide = getRandomSlide();
+  slideMainSlide = slide;
   setJson(slide, selectorMainSlide);
 }
 
