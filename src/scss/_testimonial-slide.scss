@@ -63,6 +63,10 @@ $avatar-width: 150px;
           vertical-align: middle;
           zoom: 1;
           img {
+            max-width: 146px;
+            max-height: 146px;
+            height: auto;
+            width: auto;
             @extend  .border-radius-wrapper;
           }
         }
