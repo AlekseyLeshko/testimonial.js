@@ -1,6 +1,6 @@
 /**
   * testimonial - JS testimonial slider with AJAX
-  * @version v1.1.0
+  * @version v1.1.1
   * @link http://alekseyleshko.github.io/testimonial.js/
   * @license MIT (https://github.com/AlekseyLeshko/testimonial.js/blob/master/LICENSE)
 */
@@ -112,6 +112,7 @@ Testimonial.prototype = {
     this.createAndAddSlide(slideObj);
     var slide = this.getLastSlide();
     this.slideRendering(slide);
+    this.resizePluginContainer();
   },
 
   createOptions: function(options) {
@@ -249,7 +250,7 @@ Testimonial.prototype = {
   parseDomTree: function() {
     var $nodeArr = this.$container.children();
     if ($nodeArr.length <= 0) {
-      return;
+      return [];
     }
     $nodeArr.remove();
     /* global Parser: false */
@@ -286,7 +287,8 @@ Testimonial.prototype = {
     if (this.slideArr.length <= 0) {
       return;
     }
-    var height = this.getCurrentSlide().height() + this.options.indents;
+    var currentSlide = this.getCurrentSlide();
+    var height = currentSlide.height() + this.options.indents;
     this.$container.height(height);
   },
 
@@ -313,7 +315,7 @@ Testimonial.prototype = {
   },
 
   configContainer: function() {
-    this.$container.height(this.options.height);
+    // this.$container.height(this.options.height);
     this.$container.width(this.options.width);
   },
 
@@ -450,16 +452,14 @@ TestimonialSlide.prototype = {
     this.template = '' +
       '<div class="testimonial_slide" style="width: {{slide.width}}px;">' +
         '<div class="content">' +
-          '<div class="main" style="width: {{main.width}}px;">' +
+          '<div class="text" style="width: {{main.width}}px;">' +
             '<div class="quote">' +
-              '<div class="text">' +
-                '<div class="quotation_mark left">' +
-                  '<img src="dist/img/quotation_mark.png">' +
-                '</div>' +
-                '<p>{{slide.quote}}</p>' +
-                '<div class="quotation_mark right">' +
-                  '<img src="dist/img/quotation_mark_inverted.png">' +
-                '</div>' +
+              '<div class="quotation_mark left">' +
+                '<img src="dist/img/quotation_mark.png">' +
+              '</div>' +
+              '{{slide.quote}}' +
+              '<div class="quotation_mark right">' +
+                '<img src="dist/img/quotation_mark_inverted.png">' +
               '</div>' +
             '</div>' +
             '<div class="signature">' +

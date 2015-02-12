@@ -38,6 +38,7 @@ Testimonial.prototype = {
     this.createAndAddSlide(slideObj);
     var slide = this.getLastSlide();
     this.slideRendering(slide);
+    this.resizePluginContainer();
   },
 
   createOptions: function(options) {
@@ -175,7 +176,7 @@ Testimonial.prototype = {
   parseDomTree: function() {
     var $nodeArr = this.$container.children();
     if ($nodeArr.length <= 0) {
-      return;
+      return [];
     }
     $nodeArr.remove();
     /* global Parser: false */
@@ -212,7 +213,8 @@ Testimonial.prototype = {
     if (this.slideArr.length <= 0) {
       return;
     }
-    var height = this.getCurrentSlide().height() + this.options.indents;
+    var currentSlide = this.getCurrentSlide();
+    var height = currentSlide.height() + this.options.indents;
     this.$container.height(height);
   },
 
@@ -239,7 +241,7 @@ Testimonial.prototype = {
   },
 
   configContainer: function() {
-    this.$container.height(this.options.height);
+    // this.$container.height(this.options.height);
     this.$container.width(this.options.width);
   },
 
