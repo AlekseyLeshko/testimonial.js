@@ -213,7 +213,8 @@ Testimonial.prototype = {
     if (this.slideArr.length <= 0) {
       return;
     }
-    var height = this.getCurrentSlide().height() + this.options.indents;
+    var currentSlide = this.getCurrentSlide();
+    var height = currentSlide.height() + this.options.indents;
     this.$container.height(height);
   },
 
@@ -240,7 +241,7 @@ Testimonial.prototype = {
   },
 
   configContainer: function() {
-    this.$container.height(this.options.height);
+    // this.$container.height(this.options.height);
     this.$container.width(this.options.width);
   },
 

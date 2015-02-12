@@ -597,7 +597,7 @@ describe('Testimonial', function() {
     Testimonial.prototype.configContainer();
 
     var $container = Testimonial.prototype.$container;
-    expect($container.height()).toEqual(height);
+    expect($container.height()).toEqual(0);
     expect($container.width()).toEqual(width);
   });
 
