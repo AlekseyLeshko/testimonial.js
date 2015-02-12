@@ -175,7 +175,7 @@ Testimonial.prototype = {
   parseDomTree: function() {
     var $nodeArr = this.$container.children();
     if ($nodeArr.length <= 0) {
-      return;
+      return [];
     }
     $nodeArr.remove();
     /* global Parser: false */

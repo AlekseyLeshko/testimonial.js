@@ -125,7 +125,7 @@ describe('Testimonial', function() {
     var dataList = Testimonial.prototype.parseDomTree();
 
     expect(Testimonial.prototype.$container.children().length).toEqual(0);
-    expect(dataList).toBeUndefined();
+    expect(dataList.length).toEqual(0);
   });
 
   it('should parse and create slide', function() {
