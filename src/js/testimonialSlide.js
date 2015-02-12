@@ -102,16 +102,14 @@ TestimonialSlide.prototype = {
     this.template = '' +
       '<div class="testimonial_slide" style="width: {{slide.width}}px;">' +
         '<div class="content">' +
-          '<div class="main" style="width: {{main.width}}px;">' +
+          '<div class="text" style="width: {{main.width}}px;">' +
             '<div class="quote">' +
-              '<div class="text">' +
-                '<div class="quotation_mark left">' +
-                  '<img src="dist/img/quotation_mark.png">' +
-                '</div>' +
-                '<p>{{slide.quote}}</p>' +
-                '<div class="quotation_mark right">' +
-                  '<img src="dist/img/quotation_mark_inverted.png">' +
-                '</div>' +
+              '<div class="quotation_mark left">' +
+                '<img src="dist/img/quotation_mark.png">' +
+              '</div>' +
+              '{{slide.quote}}' +
+              '<div class="quotation_mark right">' +
+                '<img src="dist/img/quotation_mark_inverted.png">' +
               '</div>' +
             '</div>' +
             '<div class="signature">' +
