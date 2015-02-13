@@ -114,7 +114,7 @@ TestimonialSlide.prototype = {
             '</div>' +
             '<div class="signature">' +
               '<div class="author">' +
-                '&#x2015;<a target="_blank" href="{{slide.author.url}}">' +
+                '&#x2015;&nbsp;<a target="_blank" href="{{slide.author.url}}">' +
                   '{{slide.author.name}}' +
                 '</a>' +
               '</div>' +

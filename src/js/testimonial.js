@@ -22,6 +22,7 @@ Testimonial.prototype = {
   },
 
   next: function() {
+    this.stop();
     this.cleanSlideArr();
     this.transitionAnimation();
 
