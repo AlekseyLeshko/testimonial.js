@@ -9,44 +9,37 @@ $avatar-width: 150px;
     width: 100%;
     height: 100%;
     float: left;
-    .main {
+    .text {
       width: $slide-width - $avatar-width;
+      margin-top: $slide-width / 10;
       float: left;
       .quote {
-        width: 100%;
+        padding-right: 15px;
         float: left;
-        .text {
-          width: 96%;
+        .quotation_mark {
+          width: 22px;
+          height: 17px;
+          img {
+            background-position-x: initial;
+            background-position-y: initial;
+            background-size: initial;
+            background-repeat-x: no-repeat;
+            background-repeat-y: no-repeat;
+            background-attachment: initial;
+            background-origin: initial;
+            background-clip: initial;
+            background-color: initial;
+          }
+        }
+        .quotation_mark.left {
           float: left;
-          margin-right: 25px;
-          margin-top: $avatar-width / 10;
-          position: relative;
-          .quotation_mark {
-            width: 22px;
-            height: 17px;
-            position: relative;
-            img {
-              background-position-x: initial;
-              background-position-y: initial;
-              background-size: initial;
-              background-repeat-x: no-repeat;
-              background-repeat-y: no-repeat;
-              background-attachment: initial;
-              background-origin: initial;
-              background-clip: initial;
-              background-color: initial;
-            }
-          }
-          .quotation_mark.left {
-            float: left;
-            top: 9px;
-            right: 2px;
-          }
-          .quotation_mark.right {
-            float: right;
-            bottom: 26px;
-            left: 8px;
-          }
+          margin-right: 2px;
+          margin-top: -6px;
+        }
+        .quotation_mark.right {
+          float: right;
+          margin-top: 7px;
+          margin-right: 5px;
         }
       }
       .signature {
@@ -71,6 +64,10 @@ $avatar-width: 150px;
           vertical-align: middle;
           zoom: 1;
           img {
+            max-width: 146px;
+            max-height: 146px;
+            height: auto;
+            width: auto;
             @extend  .border-radius-wrapper;
           }
         }
