@@ -105,11 +105,9 @@ TestimonialSlide.prototype = {
           '<div class="text" style="width: {{main.width}}px;">' +
             '<div class="quote">' +
               '<div class="quotation_mark left">' +
-                '<img src="dist/img/quotation_mark.png">' +
               '</div>' +
               '{{slide.quote}}' +
               '<div class="quotation_mark right">' +
-                '<img src="dist/img/quotation_mark_inverted.png">' +
               '</div>' +
             '</div>' +
             '<div class="signature">' +

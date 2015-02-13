@@ -32,11 +32,13 @@ $avatar-width: 150px;
           }
         }
         .quotation_mark.left {
+          background-image: url("../img/quotation_mark.png");
           float: left;
           margin-right: 2px;
           margin-top: -6px;
         }
         .quotation_mark.right {
+          background-image: url("../img/quotation_mark_inverted.png");
           float: right;
           margin-top: 7px;
           margin-right: 5px;
