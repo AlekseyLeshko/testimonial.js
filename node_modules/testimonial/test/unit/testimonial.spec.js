@@ -37,7 +37,7 @@ describe('Testimonial', function() {
     expect(options.timeout).toEqual(7000);
     expect(options.slideCount).toEqual(3);
     expect(options.autostart).toBeTruthy();
-    expect(options.indents).toEqual(20);
+    expect(options.indents).toEqual(25);
     expect(options.minWidth).toEqual(400);
     expect(options.getSlide).toBeUndefined();
   });
