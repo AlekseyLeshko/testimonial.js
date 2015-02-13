@@ -294,13 +294,17 @@ describe('Testimonial', function() {
 
   describe('Next method', function() {
     beforeEach(function() {
+      spyOn(Testimonial.prototype, 'stop');
       spyOn(Testimonial.prototype, 'cleanSlideArr');
       spyOn(Testimonial.prototype, 'transitionAnimation');
     });
 
     afterEach(function() {
+      expect(Testimonial.prototype.stop).toHaveBeenCalled();
       expect(Testimonial.prototype.cleanSlideArr).toHaveBeenCalled();
       expect(Testimonial.prototype.transitionAnimation).toHaveBeenCalled();
+      expect(Testimonial.prototype.isNeedLoadSlide).toHaveBeenCalled();
+      expect(Testimonial.prototype.isNeedStartSlider).toHaveBeenCalled();
     });
 
     it('should next', function() {
@@ -309,8 +313,6 @@ describe('Testimonial', function() {
 
       Testimonial.prototype.next();
 
-      expect(Testimonial.prototype.isNeedLoadSlide).toHaveBeenCalled();
-      expect(Testimonial.prototype.isNeedStartSlider).toHaveBeenCalled();
     });
 
     it('should next with load slide', function() {
@@ -320,8 +322,6 @@ describe('Testimonial', function() {
 
       Testimonial.prototype.next();
 
-      expect(Testimonial.prototype.isNeedLoadSlide).toHaveBeenCalled();
-      expect(Testimonial.prototype.isNeedStartSlider).toHaveBeenCalled();
       expect(Testimonial.prototype.loadSlide).toHaveBeenCalled();
     });
 
@@ -332,8 +332,6 @@ describe('Testimonial', function() {
 
       Testimonial.prototype.next();
 
-      expect(Testimonial.prototype.isNeedLoadSlide).toHaveBeenCalled();
-      expect(Testimonial.prototype.isNeedStartSlider).toHaveBeenCalled();
       expect(Testimonial.prototype.start).toHaveBeenCalled();
     });
   });
