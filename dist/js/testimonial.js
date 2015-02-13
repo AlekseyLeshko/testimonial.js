@@ -1,6 +1,6 @@
 /**
   * testimonial - JS testimonial slider with AJAX
-  * @version v1.1.1
+  * @version v1.1.2
   * @link http://alekseyleshko.github.io/testimonial.js/
   * @license MIT (https://github.com/AlekseyLeshko/testimonial.js/blob/master/LICENSE)
 */
@@ -96,6 +96,7 @@ Testimonial.prototype = {
   },
 
   next: function() {
+    this.stop();
     this.cleanSlideArr();
     this.transitionAnimation();
 
@@ -464,7 +465,7 @@ TestimonialSlide.prototype = {
             '</div>' +
             '<div class="signature">' +
               '<div class="author">' +
-                '&#x2015;<a target="_blank" href="{{slide.author.url}}">' +
+                '&#x2015;&nbsp;<a target="_blank" href="{{slide.author.url}}">' +
                   '{{slide.author.name}}' +
                 '</a>' +
               '</div>' +
