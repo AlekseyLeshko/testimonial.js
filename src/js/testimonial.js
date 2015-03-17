@@ -247,21 +247,19 @@ Testimonial.prototype = {
   },
 
   createTemplate: function() {
-    this.template = '' +
-      '<div class="main_container" style="width: {{width}}px;"></div>' +
-      '<div class="next_slide"></div>';
+    this.template = [
+      '<div class="main_container" style="width: ',
+      'px"></div>',
+      '<div class="next_slide"></div>'
+    ];
   },
 
   renderTemplate: function() {
     var magicNumber = 500;
-    /* global Handlebars: false */
-    var template = Handlebars.compile(this.template);
     var width = this.options.width * 2 + magicNumber;
-    var data = {
-      width: width
-    };
-    var result = template(data);
-    this.$container.html(result);
+    this.template.splice(1, 0, width);
+    var html = this.template.join('');
+    this.$container.html(html);
   },
 
   initSlideArr: function() {

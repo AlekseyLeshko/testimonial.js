@@ -626,6 +626,7 @@ describe('Testimonial', function() {
     Testimonial.prototype.createTemplate();
 
     expect(Testimonial.prototype.template).toBeDefined();
+    expect(Testimonial.prototype.template.length).toEqual(3);
   });
 
   it('should render template', function() {
