@@ -206,10 +206,24 @@ describe('TestimonialSlide', function() {
 
   it('should render template', function() {
     var value = 'test';
-    TestimonialSlide.prototype.template = '<div>{{test}}</div>';
+    TestimonialSlide.prototype.template = ['<div>','','','','','','','','</div'];
     spyOn(TestimonialSlide.prototype, 'getDataForTemplate').and.callFake(function() {
       var data = {
-        test: value
+        'main': {
+          'width':520
+        },
+        'slide': {
+          'author': {
+            'name': 'C.A. R. Hoare',
+            'url': 'http://www.example.com',
+            'avatar': './img/C.A. R. Hoare.jpg'},
+            'company': {
+              'name' :'Example Ltd.',
+              'url': 'http://www.example.com'
+            },
+            'quote': 'There are two ways of constructing a software design. One way is to make it so simple that there are obviously no deficiencies. And the other way is to make it so complicated that there are no obvious deficiencies',
+            'width': 680
+          }
       };
       return data;
     });
@@ -217,8 +231,7 @@ describe('TestimonialSlide', function() {
     TestimonialSlide.prototype.renderTemplate();
 
     expect(TestimonialSlide.prototype.$domNode).toBeDefined();
-    var html = TestimonialSlide.prototype.$domNode.html();
-    expect(html).toEqual(value);
+    expect(TestimonialSlide.prototype.template.length).toEqual(17);
   });
 
   it('should return data for template', function() {
