@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Testimonial.js example</title>
+  <link rel="stylesheet" href="../dist/css/testimonial.min.css">
+</head>
+
+<body>
+  <div id="testimonial-slider" class="testimonial_slider">
+  </div>
+
+  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="../node_modules/handlebars/dist/handlebars.min.js"></script>
+  <script src="../dist/js/testimonial.js"></script>
+  <script src="./js/slideArr.js"></script>
+
+  <script>
+    $(window).load(function() {
+      var testimonial = new Testimonial($('#testimonial-slider'));
+
+      testimonial.add(slideArr[0]);
+      testimonial.add(slideArr[2]);
+      testimonial.add(slideArr[4]);
+    });
+  </script>
+</body>
+
+</html>
