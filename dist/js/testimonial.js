@@ -321,21 +321,19 @@ Testimonial.prototype = {
   },
 
   createTemplate: function() {
-    this.template = '' +
-      '<div class="main_container" style="width: {{width}}px;"></div>' +
-      '<div class="next_slide"></div>';
+    this.template = [
+      '<div class="main_container" style="width: ',
+      'px"></div>',
+      '<div class="next_slide"></div>'
+    ];
   },
 
   renderTemplate: function() {
     var magicNumber = 500;
-    /* global Handlebars: false */
-    var template = Handlebars.compile(this.template);
     var width = this.options.width * 2 + magicNumber;
-    var data = {
-      width: width
-    };
-    var result = template(data);
-    this.$container.html(result);
+    this.template.splice(1, 0, width);
+    var html = this.template.join('');
+    this.$container.html(html);
   },
 
   initSlideArr: function() {
@@ -450,49 +448,35 @@ TestimonialSlide.prototype = {
   },
 
   createTemplate: function() {
-    this.template = '' +
-      '<div class="testimonial_slide" style="width: {{slide.width}}px;">' +
-        '<div class="content">' +
-          '<div class="text" style="width: {{main.width}}px;">' +
-            '<div class="quote">' +
-              '<div class="quotation_mark left">' +
-              '</div>' +
-              '{{slide.quote}}' +
-              '<div class="quotation_mark right">' +
-              '</div>' +
-            '</div>' +
-            '<div class="signature">' +
-              '<div class="author">' +
-                '&#x2015;&nbsp;<a target="_blank" href="{{slide.author.url}}">' +
-                  '{{slide.author.name}}' +
-                '</a>' +
-              '</div>' +
-              '<div class="company">' +
-                '<a target="_blank" href="{{slide.company.url}}">' +
-                  '{{slide.company.name}}' +
-                '</a>' +
-              '</div>' +
-            '</div>' +
-          '</div>' +
-          '<div class="avatar">' +
-            '<div class="block">' +
-              '<div class="author">' +
-                '<img src="{{slide.author.avatar}}">' +
-              '</div>' +
-              '<div class="helper">' +
-              '</div>' +
-            '</div>' +
-          '</div>' +
-        '</div>' +
-      '</div>';
+    var str = '<div class="quotation_mark right"></div></div><div class="signature"><div class="author">';
+    str += '&#x2015;&nbsp;<a target="_blank" href="';
+
+    this.template = [
+      '<div class="testimonial_slide" style="width: ',
+      'px;"><div class="content"><div class="text" style="width: ',
+      'px;"><div class="quote"><div class="quotation_mark left"></div>',
+      str,
+      '">',
+      '</a></div><div class="company"><a target="_blank" href="',
+      '">',
+      '</a></div></div></div><div class="avatar"><div class="block"><div class="author"><img src="',
+      '"></div><div class="helper"></div></div></div></div></div>'
+    ];
   },
 
   renderTemplate: function() {
-    /* global Handlebars: false */
-    var template = Handlebars.compile(this.template);
     var data = this.getDataForTemplate();
-    var result = template(data);
-    this.$domNode = $(result);
+    this.template.splice(1, 0, data.slide.width);
+    this.template.splice(3, 0, data.main.width);
+    this.template.splice(5, 0, data.slide.quote);
+    this.template.splice(7, 0, data.slide.author.url);
+    this.template.splice(9, 0, data.slide.author.name);
+    this.template.splice(11, 0, data.slide.company.url);
+    this.template.splice(13, 0, data.slide.company.name);
+    this.template.splice(15, 0, data.slide.author.avatar);
+
+    var html = this.template.join('');
+    this.$domNode = $(html);
   },
 
   getDataForTemplate: function() {
