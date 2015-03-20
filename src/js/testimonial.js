@@ -1,7 +1,7 @@
 'use strict';
 
-var Testimonial = function($container, options) {
-  this.$container = $container;
+var Testimonial = function(selector, options) {
+  this.setContainer(selector);
   this.createOptions(options);
 
   this.initPlugin();
@@ -42,10 +42,34 @@ Testimonial.prototype = {
     this.resizePluginContainer();
   },
 
+  setContainer: function(selector) {
+    var element = document.querySelectorAll(selector)[0];
+
+    this.container = element;
+  },
+
   createOptions: function(options) {
     var defaultOptions = this.getDefaultOptions();
-    this.options = $.extend(defaultOptions, options);
+    this.options = this.extend(defaultOptions, options);
     this.setMinSizePlugin();
+  },
+
+  extend: function(out) {
+    out = out || {};
+
+    for (var i = 1; i < arguments.length; i++) {
+      if (!arguments[i]) {
+        continue;
+      }
+
+      for (var key in arguments[i]) {
+        if (arguments[i].hasOwnProperty(key)) {
+          out[key] = arguments[i][key];
+        }
+      }
+    }
+
+    return out;
   },
 
   initPlugin: function() {
@@ -175,6 +199,7 @@ Testimonial.prototype = {
   },
 
   parseDomTree: function() {
+    this.$container = $(this.container);
     var $nodeArr = this.$container.children();
     if ($nodeArr.length <= 0) {
       return [];
@@ -203,11 +228,15 @@ Testimonial.prototype = {
   },
 
   bindEvents: function() {
-    var $buttonNext = this.$container.find('.next_slide');
+    var buttonNext = this.container.querySelectorAll('.next_slide')[0];
     var self = this;
-    $buttonNext.click(function() {
+    buttonNext.onclick = function() {
       self.next();
-    });
+    };
+
+    // buttonNext.addEventListener('click', function() {
+    //   self.next();
+    // });
   },
 
   resizePluginContainer: function() {
@@ -233,8 +262,8 @@ Testimonial.prototype = {
   },
 
   slideRendering: function(slide) {
-    var $slideArrContainer = this.$container.find('.main_container');
-    slide.renderTo($slideArrContainer);
+    var slideArrContainer = this.container.querySelectorAll('.main_container')[0];
+    slide.renderTo(slideArrContainer);
 
     if (this.isNeedHideSlide(slide)) {
       slide.hideSlide();
@@ -242,8 +271,8 @@ Testimonial.prototype = {
   },
 
   configContainer: function() {
-    // this.$container.height(this.options.height);
-    this.$container.width(this.options.width);
+    // this.container.style.height  = this.options.height + 'px';
+    this.container.style.width  = this.options.width + 'px';
   },
 
   createTemplate: function() {
