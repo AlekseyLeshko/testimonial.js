@@ -9,6 +9,22 @@
 
 <body>
   <div id="testimonial-slider" class="testimonial_slider">
+    <div class="slide">
+      <div class="quote">
+        №1 The plugin is written using js and css. Uses the library jquery. Plugin is run, there are tests and generally very good plugin!
+      </div>
+      <div class="author">
+        <a href="https://github.com/AlekseyLeshko">
+          Aleksey Leshko
+        </a>
+        <img class="avatar" src="http://2.gravatar.com/avatar/027ed55733da6f7037335e0af0c46591?s=146">
+      </div>
+      <div class="company">
+        <a href="https://github.com/AlekseyLeshko/testimonial.js">
+          GitHub Repo
+        </a>
+      </div>
+    </div>
   </div>
 
   <script src="../node_modules/jquery/dist/jquery.min.js"></script>
@@ -19,7 +35,7 @@
     var testimonial;
 
     $(window).load(function() {
-      testimonial = new Testimonial($('#testimonial-slider'));
+      testimonial = new Testimonial('#testimonial-slider');
 
       testimonial.add(slideArr[0]);
       testimonial.add(slideArr[2]);
