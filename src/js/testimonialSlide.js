@@ -143,7 +143,8 @@ TestimonialSlide.prototype = {
     return data;
   },
 
-  renderTo: function($parent) {
+  renderTo: function(parent) {
+    var $parent = $(parent);
     $parent.append(this.$domNode);
     this.setHeightForBlockDiv();
   }

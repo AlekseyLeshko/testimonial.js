@@ -1,6 +1,8 @@
 'use strict';
 
-var Parser = function($nodeList) {
+var Parser = function(nodeList) {
+
+  var $nodeList = $(nodeList);
   this.$nodeList = $nodeList;
   this.dataList = [];
 };

@@ -199,14 +199,13 @@ Testimonial.prototype = {
   },
 
   parseDomTree: function() {
-    this.$container = $(this.container);
-    var $nodeArr = this.$container.children();
-    if ($nodeArr.length <= 0) {
+    var nodeArr = this.extend({}, this.container.children);
+    this.container.innerHTML = '';
+    if (nodeArr.length <= 0) {
       return [];
     }
-    $nodeArr.remove();
     /* global Parser: false */
-    var parser = new Parser($nodeArr);
+    var parser = new Parser(nodeArr);
     var dataList = parser.parse();
     return dataList;
   },
@@ -233,10 +232,6 @@ Testimonial.prototype = {
     buttonNext.onclick = function() {
       self.next();
     };
-
-    // buttonNext.addEventListener('click', function() {
-    //   self.next();
-    // });
   },
 
   resizePluginContainer: function() {
@@ -245,7 +240,7 @@ Testimonial.prototype = {
     }
     var currentSlide = this.getCurrentSlide();
     var height = currentSlide.height() + this.options.indents;
-    this.$container.height(height);
+    this.container.style.cssText = 'height:' + height +'px;';
   },
 
   indexing: function() {
@@ -288,7 +283,7 @@ Testimonial.prototype = {
     var width = this.options.width * 2 + magicNumber;
     this.template.splice(1, 0, width);
     var html = this.template.join('');
-    this.$container.html(html);
+    this.container.innerHTML = html;
   },
 
   initSlideArr: function() {
