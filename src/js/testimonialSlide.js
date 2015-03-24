@@ -21,13 +21,14 @@ TestimonialSlide.prototype = {
       },
       quote: ''
     };
-    var resultData = $.extend(emptydata, data);
+    /* global Util: false */
+    var resultData = Util.extend(emptydata, data);
     return resultData;
   },
 
   createOptions: function(options) {
     var defaultOptions = this.getDefaultOptions();
-    this.options = $.extend({}, defaultOptions, options);
+    this.options = Util.extend({}, defaultOptions, options);
   },
 
   getDefaultOptions: function() {
@@ -42,8 +43,8 @@ TestimonialSlide.prototype = {
   },
 
   setHeightForBlockDiv: function() {
-    var height = this.$domNode.height();
-    this.$domNode.find('.block').height(height);
+    var height = this.node.style.height;
+    this.node.querySelectorAll('.block')[0].style.height = height;
   },
 
   createSlide: function() {
@@ -52,50 +53,25 @@ TestimonialSlide.prototype = {
   },
 
   animateHide: function() {
-    var self = this;
-
-    var marginLeft = '+=' + this.options.distance + 'px';
-    var options = {
-      'margin-left': marginLeft,
-      opacity: '0'
-    };
-
-    this.$domNode.animate(options,
-      this.options.duration,
-      function() {
-        self.hideSlide();
-      }
-    );
+    this.hideSlide();
   },
 
   animateShow: function() {
-    var marginLeft = '+=' + this.options.distance + 'px';
-    var options = {
-      'margin-left': marginLeft,
-      opacity: '1'
-    };
-
-    var duration = this.options.duration * 2;
-    this.$domNode.show().animate(options, duration);
+    this.node.style.display = '';
   },
 
   hideSlide: function() {
-    var marginLeft = '-' + this.options.distance + 'px';
-    var css = {
-      display: 'none',
-      opacity: 0,
-      'margin-left': marginLeft
-    };
-    this.$domNode.css(css);
+    this.node.style.display = 'none';
   },
 
   height: function() {
-    return this.$domNode.height();
+    var height = this.node.offsetHeight;
+    return height;
   },
 
   remove: function() {
-    this.$domNode.empty();
-    this.$domNode.remove();
+    this.node.parentNode.removeChild(this.node);
+    delete this.node;
   },
 
   createTemplate: function() {
@@ -103,31 +79,34 @@ TestimonialSlide.prototype = {
     str += '&#x2015;&nbsp;<a target="_blank" href="';
 
     this.template = [
-      '<div class="testimonial_slide" style="width: ',
-      'px;"><div class="content"><div class="text" style="width: ',
+      '<div class="content"><div class="text" style="width: ',
       'px;"><div class="quote"><div class="quotation_mark left"></div>',
       str,
       '">',
       '</a></div><div class="company"><a target="_blank" href="',
       '">',
       '</a></div></div></div><div class="avatar"><div class="block"><div class="author"><img src="',
-      '"></div><div class="helper"></div></div></div></div></div>'
+      '"></div><div class="helper"></div></div></div></div>'
     ];
   },
 
   renderTemplate: function() {
     var data = this.getDataForTemplate();
-    this.template.splice(1, 0, data.slide.width);
-    this.template.splice(3, 0, data.main.width);
-    this.template.splice(5, 0, data.slide.quote);
-    this.template.splice(7, 0, data.slide.author.url);
-    this.template.splice(9, 0, data.slide.author.name);
-    this.template.splice(11, 0, data.slide.company.url);
-    this.template.splice(13, 0, data.slide.company.name);
-    this.template.splice(15, 0, data.slide.author.avatar);
-
+    this.template.splice(1, 0, data.main.width);
+    this.template.splice(3, 0, data.slide.quote);
+    this.template.splice(5, 0, data.slide.author.url);
+    this.template.splice(7, 0, data.slide.author.name);
+    this.template.splice(9, 0, data.slide.company.url);
+    this.template.splice(11, 0, data.slide.company.name);
+    this.template.splice(13, 0, data.slide.author.avatar);
     var html = this.template.join('');
-    this.$domNode = $(html);
+
+    var node = document.createElement('div');
+    node.className = 'testimonial_slide';
+    node.style.width = data.slide.width +'px';
+    node.innerHTML = html;
+
+    this.node = node;
   },
 
   getDataForTemplate: function() {
@@ -144,8 +123,7 @@ TestimonialSlide.prototype = {
   },
 
   renderTo: function(parent) {
-    var $parent = $(parent);
-    $parent.append(this.$domNode);
+    parent.appendChild(this.node);
     this.setHeightForBlockDiv();
   }
 };

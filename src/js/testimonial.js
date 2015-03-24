@@ -50,26 +50,9 @@ Testimonial.prototype = {
 
   createOptions: function(options) {
     var defaultOptions = this.getDefaultOptions();
-    this.options = this.extend(defaultOptions, options);
+    /* global Util: false */
+    this.options = Util.extend(defaultOptions, options);
     this.setMinSizePlugin();
-  },
-
-  extend: function(out) {
-    out = out || {};
-
-    for (var i = 1; i < arguments.length; i++) {
-      if (!arguments[i]) {
-        continue;
-      }
-
-      for (var key in arguments[i]) {
-        if (arguments[i].hasOwnProperty(key)) {
-          out[key] = arguments[i][key];
-        }
-      }
-    }
-
-    return out;
   },
 
   initPlugin: function() {
@@ -199,7 +182,7 @@ Testimonial.prototype = {
   },
 
   parseDomTree: function() {
-    var nodeArr = this.extend({}, this.container.children);
+    var nodeArr = Util.extend({}, this.container.children);
     this.container.innerHTML = '';
     if (nodeArr.length <= 0) {
       return [];
@@ -240,7 +223,7 @@ Testimonial.prototype = {
     }
     var currentSlide = this.getCurrentSlide();
     var height = currentSlide.height() + this.options.indents;
-    this.container.style.cssText = 'height:' + height +'px;';
+    this.container.style.height = height + 'px';
   },
 
   indexing: function() {
@@ -266,8 +249,8 @@ Testimonial.prototype = {
   },
 
   configContainer: function() {
-    // this.container.style.height  = this.options.height + 'px';
-    this.container.style.width  = this.options.width + 'px';
+    this.container.style.height = this.options.height + 'px';
+    this.container.style.width = this.options.width + 'px';
   },
 
   createTemplate: function() {

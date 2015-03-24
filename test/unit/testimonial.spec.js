@@ -86,6 +86,7 @@ describe('Testimonial', function() {
 
     it('should parseDomTree', function() {
       var arr = [1, 2, 3];
+      spyOn(Util, 'extend').and.returnValue(arr);
       spyOn(Parser.prototype, 'parse').and.returnValue(arr);
       var fileName = 'main.html';
       jasmine.getFixtures().fixturesPath = 'base/test/fixtures';
@@ -95,14 +96,19 @@ describe('Testimonial', function() {
 
       var dataList = Testimonial.prototype.parseDomTree();
 
+      expect(Util.extend).toHaveBeenCalled();
       expect(Testimonial.prototype.container.children.length).toEqual(0);
       expect(dataList).toEqual(arr);
       expect(Parser.prototype.parse).toHaveBeenCalled();
     });
 
     it('should parse empty div', function() {
+      var arr = [];
+      spyOn(Util, 'extend').and.returnValue(arr);
+
       var dataList = Testimonial.prototype.parseDomTree();
 
+      expect(Util.extend).toHaveBeenCalled();
       expect(dataList.length).toEqual(0);
       expect(Testimonial.prototype.container.children.length).toEqual(0);
       expect(Testimonial.prototype.container.innerHTML).toEqual('');
@@ -330,50 +336,15 @@ describe('Testimonial', function() {
     var options = {
       test: 'test'
     };
-    spyOn(Testimonial.prototype, 'extend').and.returnValue(options);
+    spyOn(Util, 'extend').and.returnValue(options);
     spyOn(Testimonial.prototype, 'setMinSizePlugin');
 
     Testimonial.prototype.createOptions(options);
 
     expect(Testimonial.prototype.options).toEqual(options);
     expect(Testimonial.prototype.getDefaultOptions).toHaveBeenCalled();
-    expect(Testimonial.prototype.extend).toHaveBeenCalledWith(emptyObj, options);
+    expect(Util.extend).toHaveBeenCalledWith(emptyObj, options);
     expect(Testimonial.prototype.setMinSizePlugin).toHaveBeenCalled();
-  });
-
-  it('should extend', function() {
-    var defaultOptions = defaultTestimonialOptions();
-    var timeout = 5;
-    var options = {
-      timeout: timeout
-    };
-
-    var outOptions = Testimonial.prototype.extend(defaultOptions, options);
-
-    expect(outOptions.timeout).toEqual(timeout);
-    expect(defaultOptions.slideCount).toEqual(defaultOptions.slideCount);
-  });
-
-  it('should extend does not work in both directions', function() {
-    var defaultOptions = defaultTestimonialOptions();
-    var options = {
-      timeout: 5
-    };
-
-    var outOptions = Testimonial.prototype.extend(options, defaultOptions);
-
-    expect(outOptions.timeout).toEqual(defaultOptions.timeout);
-    expect(defaultOptions.slideCount).toEqual(defaultOptions.slideCount);
-  });
-
-  it('should extend bad args', function() {
-    Object.prototype.bar = 'bar';
-
-    var obj = {};
-    var outOptions = Testimonial.prototype.extend('', null, obj);
-
-    expect(outOptions).toEqual({});
-    delete Object.prototype.bar;
   });
 
   describe('Next method', function() {
@@ -680,8 +651,7 @@ describe('Testimonial', function() {
     Testimonial.prototype.configContainer();
 
     var container = Testimonial.prototype.container;
-    // expect(container.style.height).toEqual(height + 'px');
-    expect(container.style.height).toEqual('');
+    expect(container.style.height).toEqual(height + 'px');
     expect(container.style.width).toEqual(width + 'px');
   });
 
