@@ -1,41 +1,42 @@
 'use strict';
 
 var Parser = function(nodeList) {
-
-  var $nodeList = $(nodeList);
-  this.$nodeList = $nodeList;
+  this.nodeList = nodeList;
   this.dataList = [];
 };
 
 Parser.prototype = {
   parse: function() {
-    for (var i = 0; i < this.$nodeList.length; i++) {
-      var $node = $(this.$nodeList[i]);
-      var data = this.parseNode($node);
+    for (var i = 0; i < this.nodeList.length; i++) {
+      var node = this.nodeList[i];
+      var data = this.parseNode(node);
       this.dataList.push(data);
     }
 
     return this.dataList;
   },
 
-  parseNode: function($node) {
+  parseNode: function(node) {
     var data = {};
 
-    var $authorNode = $node.children('.author');
-    data.author = this.parseAuthorNode($authorNode);
+    var authorNode = node.querySelector('.author');
+    data.author = this.parseAuthorNode(authorNode);
 
-    var $companyNode = $node.children('.company');
-    data.company = this.parseCompanyNode($companyNode);
+    var companyNode = node.querySelector('.company');
+    data.company = this.parseCompanyNode(companyNode);
 
-    data.quote = $node.children('.quote').text().trim();
+    var quote = node.querySelector('.quote');
+    var text = quote.innerHTML.trim();
+    data.quote = text;
     return data;
   },
 
-  parseAuthorNode: function($node) {
-    var $nameNode = $node.children('a');
-    var name = $nameNode.text().trim();
-    var url = this.getAttrHrefOrDefault($nameNode);
-    var avatar = $node.children('.avatar').attr('src');
+  parseAuthorNode: function(node) {
+    var nameNode = node.querySelector('a');
+    var name = nameNode.innerHTML.trim();
+    var url = this.getAttrHrefOrDefault(nameNode);
+    var avatarNode = node.querySelector('.avatar');
+    var avatar = avatarNode.getAttribute('src');
 
     var author = {
       name: name,
@@ -46,10 +47,10 @@ Parser.prototype = {
     return author;
   },
 
-  parseCompanyNode: function($node) {
-    var $companyNode = $node.children('a');
-    var name = $companyNode.text().trim();
-    var url = this.getAttrHrefOrDefault($companyNode);
+  parseCompanyNode: function(node) {
+    var companyNode = node.querySelector('a');
+    var name = companyNode.innerHTML.trim();
+    var url = this.getAttrHrefOrDefault(companyNode);
 
     var company = {
       name: name,
@@ -59,9 +60,9 @@ Parser.prototype = {
     return company;
   },
 
-  getAttrHrefOrDefault: function($node) {
-    var href = $node.attr('href');
-    if (href === undefined) {
+  getAttrHrefOrDefault: function(node) {
+    var href = node.getAttribute('href');
+    if (!href) {
       href = '#';
     }
     return href;
