@@ -27,20 +27,14 @@
     </div>
   </div>
 
-  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
   <script src="../dist/js/testimonial.js"></script>
   <script src="./js/slideArr.js"></script>
 
   <script>
-    var testimonial;
-
-    $(window).load(function() {
-      testimonial = new Testimonial('#testimonial-slider');
-
-      testimonial.add(slideArr[0]);
-      testimonial.add(slideArr[2]);
-      testimonial.add(slideArr[4]);
-    });
+    var testimonial = new Testimonial('#testimonial-slider');
+    testimonial.add(slideArr[0]);
+    testimonial.add(slideArr[2]);
+    testimonial.stop();
   </script>
 </body>
 
