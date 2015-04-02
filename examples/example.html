@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <title>Testimonial.js example</title>
   <link rel="stylesheet" href="../dist/css/testimonial.min.css">
+  <link rel="stylesheet" href="../node_modules/animate.css/animate.css">
 </head>
 
 <body>
@@ -31,7 +32,11 @@
   <script src="./js/slideArr.js"></script>
 
   <script>
-    var testimonial = new Testimonial('#testimonial-slider');
+    var testimonial;
+    var options = {
+      width: 385
+    };
+    testimonial = new Testimonial('#testimonial-slider');
     testimonial.add(slideArr[0]);
     testimonial.add(slideArr[2]);
     testimonial.stop();
