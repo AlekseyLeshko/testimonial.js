@@ -25,9 +25,9 @@
   "engines": {
     "node": ">=0.8"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
+    "animate.css": "^3.2.5",
     "coveralls": "^2.11.2",
     "gulp": "^3.8.11",
     "gulp-concat": "^2.5.2",
