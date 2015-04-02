@@ -53,11 +53,51 @@ TestimonialSlide.prototype = {
   },
 
   animateHide: function() {
-    this.hideSlide();
+    this.node.style['z-index'] = 2;
+
+    var className = 'fadeOutRight';
+    if (this.node.classList) {
+      this.node.classList.add(className);
+    }
+    else {
+      this.node.className += ' ' + className;
+    }
+    var self = this;
+    setTimeout(function() {
+      var className = 'fadeOutRight';
+      if (self.node.classList) {
+        self.node.classList.remove(className);
+      }
+      else {
+        self.node.className = self.node.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+      }
+      self.hideSlide();
+    }, 1000);
   },
 
   animateShow: function() {
-    this.node.style.display = '';
+    this.node.style['z-index'] = 1;
+    var self = this;
+    setTimeout(function() {
+      var className = 'fadeInLeft';
+      if (self.node.classList) {
+        self.node.classList.add(className);
+        self.node.style.display = '';
+      }
+      else {
+        self.node.className += ' ' + className;
+      }
+
+      setTimeout(function() {
+        var className = 'fadeInLeft';
+        if (self.node.classList) {
+          self.node.classList.remove(className);
+        }
+        else {
+          self.node.className = self.node.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+        }
+      }, 1000);
+    }, 100);
   },
 
   hideSlide: function() {
@@ -102,7 +142,7 @@ TestimonialSlide.prototype = {
     var html = this.template.join('');
 
     var node = document.createElement('div');
-    node.className = 'testimonial_slide';
+    node.className = 'testimonial_slide animated';
     node.style.width = data.slide.width +'px';
     node.innerHTML = html;
 

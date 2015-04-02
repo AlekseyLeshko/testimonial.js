@@ -23,6 +23,7 @@ $main-container-margin: 10px;
     background-image: url("../img/arrow_right.png");
     background-repeat: no-repeat;
     background-position: center center;
+    z-index: 5;
     &:hover {
       opacity: 0.35;
       -moz-opacity: 0.35;

@@ -89,7 +89,10 @@ Testimonial.prototype = {
 
     currentSlide.animateHide();
     nextSlide.animateShow();
-    this.resizePluginContainer();
+    var self = this;
+    setTimeout(function() {
+      self.resizePluginContainer();
+    }, 101);
   },
 
   isNeedLoadSlide: function () {
