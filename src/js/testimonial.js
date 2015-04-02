@@ -1,7 +1,7 @@
 'use strict';
 
-var Testimonial = function($container, options) {
-  this.$container = $container;
+var Testimonial = function(selector, options) {
+  this.setContainer(selector);
   this.createOptions(options);
 
   this.initPlugin();
@@ -42,9 +42,16 @@ Testimonial.prototype = {
     this.resizePluginContainer();
   },
 
+  setContainer: function(selector) {
+    var element = document.querySelectorAll(selector)[0];
+
+    this.container = element;
+  },
+
   createOptions: function(options) {
     var defaultOptions = this.getDefaultOptions();
-    this.options = $.extend(defaultOptions, options);
+    /* global Util: false */
+    this.options = Util.extend(defaultOptions, options);
     this.setMinSizePlugin();
   },
 
@@ -175,13 +182,13 @@ Testimonial.prototype = {
   },
 
   parseDomTree: function() {
-    var $nodeArr = this.$container.children();
-    if ($nodeArr.length <= 0) {
+    var nodeArr = Util.extend({}, this.container.children);
+    this.container.innerHTML = '';
+    if (nodeArr.length <= 0) {
       return [];
     }
-    $nodeArr.remove();
     /* global Parser: false */
-    var parser = new Parser($nodeArr);
+    var parser = new Parser(nodeArr);
     var dataList = parser.parse();
     return dataList;
   },
@@ -203,11 +210,11 @@ Testimonial.prototype = {
   },
 
   bindEvents: function() {
-    var $buttonNext = this.$container.find('.next_slide');
+    var buttonNext = this.container.querySelectorAll('.next_slide')[0];
     var self = this;
-    $buttonNext.click(function() {
+    buttonNext.onclick = function() {
       self.next();
-    });
+    };
   },
 
   resizePluginContainer: function() {
@@ -216,7 +223,7 @@ Testimonial.prototype = {
     }
     var currentSlide = this.getCurrentSlide();
     var height = currentSlide.height() + this.options.indents;
-    this.$container.height(height);
+    this.container.style.height = height + 'px';
   },
 
   indexing: function() {
@@ -233,8 +240,8 @@ Testimonial.prototype = {
   },
 
   slideRendering: function(slide) {
-    var $slideArrContainer = this.$container.find('.main_container');
-    slide.renderTo($slideArrContainer);
+    var slideArrContainer = this.container.querySelectorAll('.main_container')[0];
+    slide.renderTo(slideArrContainer);
 
     if (this.isNeedHideSlide(slide)) {
       slide.hideSlide();
@@ -242,8 +249,8 @@ Testimonial.prototype = {
   },
 
   configContainer: function() {
-    // this.$container.height(this.options.height);
-    this.$container.width(this.options.width);
+    this.container.style.height = this.options.height + 'px';
+    this.container.style.width = this.options.width + 'px';
   },
 
   createTemplate: function() {
@@ -259,7 +266,7 @@ Testimonial.prototype = {
     var width = this.options.width * 2 + magicNumber;
     this.template.splice(1, 0, width);
     var html = this.template.join('');
-    this.$container.html(html);
+    this.container.innerHTML = html;
   },
 
   initSlideArr: function() {

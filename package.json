@@ -20,13 +20,12 @@
     "slider",
     "testimonial",
     "plugin",
-    "jquery"
+    "no dependencies"
   ],
   "engines": {
     "node": ">=0.8"
   },
   "dependencies": {
-    "jquery": ">=1.6.0"
   },
   "devDependencies": {
     "coveralls": "^2.11.2",
