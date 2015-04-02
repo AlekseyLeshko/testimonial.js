@@ -721,7 +721,7 @@ describe('Testimonial', function() {
     expect(res).toEqual(expectedObj);
   });
 
-  it('should transition animation', function() {
+  it('should transition animation', function(done) {
     var currentSlide = new TestimonialSlide();
     var nextSLide = new TestimonialSlide();
     spyOn(currentSlide, 'animateHide');
@@ -736,7 +736,10 @@ describe('Testimonial', function() {
     expect(Testimonial.prototype.getNextSlide).toHaveBeenCalled();
     expect(currentSlide.animateHide).toHaveBeenCalled();
     expect(nextSLide.animateShow).toHaveBeenCalled();
-    expect(Testimonial.prototype.resizePluginContainer).toHaveBeenCalled();
+    setTimeout(function() {
+      expect(Testimonial.prototype.resizePluginContainer).toHaveBeenCalled();
+      done();
+    }, 101);
   });
 
   it('should need load slide', function() {
