@@ -53,55 +53,44 @@ TestimonialSlide.prototype = {
   },
 
   animateHide: function() {
-    this.node.style['z-index'] = 2;
-
     var className = 'fadeOutRight';
-    if (this.node.classList) {
-      this.node.classList.add(className);
-    }
-    else {
-      this.node.className += ' ' + className;
-    }
+    this.node.style['z-index'] = 2;
+    this.addCssClass(className);
+
     var self = this;
     setTimeout(function() {
-      var className = 'fadeOutRight';
-      if (self.node.classList) {
-        self.node.classList.remove(className);
-      }
-      else {
-        self.node.className = self.node.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
-      }
+      self.removeCssClass(className);
       self.hideSlide();
     }, 1000);
   },
 
   animateShow: function() {
+    var className = 'fadeInLeft';
     this.node.style['z-index'] = 1;
+
     var self = this;
     setTimeout(function() {
-      var className = 'fadeInLeft';
-      if (self.node.classList) {
-        self.node.classList.add(className);
-        self.node.style.display = '';
-      }
-      else {
-        self.node.className += ' ' + className;
-      }
+      self.addCssClass(className);
+      self.node.style.display = '';
 
       setTimeout(function() {
-        var className = 'fadeInLeft';
-        if (self.node.classList) {
-          self.node.classList.remove(className);
-        }
-        else {
-          self.node.className = self.node.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
-        }
+        self.removeCssClass(className);
       }, 1000);
     }, 100);
   },
 
   hideSlide: function() {
     this.node.style.display = 'none';
+  },
+
+  addCssClass: function(className) {
+    // http://youmightnotneedjquery.com/#add_class
+    this.node.classList.add(className);
+  },
+
+  removeCssClass: function(className) {
+    // http://youmightnotneedjquery.com/#remove_class
+    this.node.classList.remove(className);
   },
 
   height: function() {
