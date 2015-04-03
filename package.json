@@ -1,8 +1,7 @@
 {
   "name": "testimonial",
-  "version": "1.1.3",
+  "version": "2.0.0",
   "description": "JS testimonial slider with AJAX",
-  "main": "./js/testimonial.js",
   "homepage": "http://alekseyleshko.github.io/testimonial.js/",
   "author": "Aleksey Leshko (https://github.com/AlekseyLeshko)",
   "contributors": [
@@ -20,7 +19,8 @@
     "slider",
     "testimonial",
     "plugin",
-    "no dependencies"
+    "no dependencies",
+    "vanilla-js"
   ],
   "engines": {
     "node": ">=0.8"
@@ -68,6 +68,7 @@
   "analyze": true,
   "license": "MIT (https://github.com/AlekseyLeshko/testimonial.js/blob/master/LICENSE)",
   "directories": {
+    "lib": "src",
     "example": "examples",
     "test": "test"
   }
