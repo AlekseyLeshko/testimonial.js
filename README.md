@@ -30,27 +30,24 @@ bower install testimonial --save-dev
 ## Usage
 #### Slider simple use
 ```js
-var $container = $('.testimonial_slider');
-var testimonial = new Testimonial($container);
+var testimonial = new Testimonial('#testimonial-slider');
 ```
 
 #### Slider with custom options
 ```js
-var $container = $('.testimonial_slider');
 var options = {
     width: 645,
     timeout: 7000,
     autostart: true,
     slideCount: 3
 };
-var testimonial = new Testimonial($container, options);
+var testimonial = new Testimonial('#testimonial-slider', options);
 ```
 
 #### Slider API
 ```js
 var slideObj = {...};
-var $container = $('.testimonial_slider');
-var testimonial = new Testimonial($container, options);
+var testimonial = new Testimonial('#testimonial-slider');
 testimonial.stop();
 testimonial.start();
 testimonial.next();
@@ -71,8 +68,7 @@ var options = {
     getSlide: getSlide
 };
 
-var $container = $('.testimonial_slider');
-var testimonial = new Testimonial($container, options);
+var testimonial = new Testimonial('#testimonial-slider', options);
 ```
 
 ## [Examples](http://alekseyleshko.github.io/testimonial.js/)
