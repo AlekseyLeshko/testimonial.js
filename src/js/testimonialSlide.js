@@ -53,15 +53,44 @@ TestimonialSlide.prototype = {
   },
 
   animateHide: function() {
-    this.hideSlide();
+    var className = 'fadeOutRight';
+    this.node.style['z-index'] = 2;
+    this.addCssClass(className);
+
+    var self = this;
+    setTimeout(function() {
+      self.removeCssClass(className);
+      self.hideSlide();
+    }, 1000);
   },
 
   animateShow: function() {
-    this.node.style.display = '';
+    var className = 'fadeInLeft';
+    this.node.style['z-index'] = 1;
+
+    var self = this;
+    setTimeout(function() {
+      self.addCssClass(className);
+      self.node.style.display = '';
+
+      setTimeout(function() {
+        self.removeCssClass(className);
+      }, 1000);
+    }, 100);
   },
 
   hideSlide: function() {
     this.node.style.display = 'none';
+  },
+
+  addCssClass: function(className) {
+    // http://youmightnotneedjquery.com/#add_class
+    this.node.classList.add(className);
+  },
+
+  removeCssClass: function(className) {
+    // http://youmightnotneedjquery.com/#remove_class
+    this.node.classList.remove(className);
   },
 
   height: function() {
@@ -102,7 +131,7 @@ TestimonialSlide.prototype = {
     var html = this.template.join('');
 
     var node = document.createElement('div');
-    node.className = 'testimonial_slide';
+    node.className = 'testimonial_slide animated';
     node.style.width = data.slide.width +'px';
     node.innerHTML = html;
 

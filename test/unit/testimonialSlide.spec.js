@@ -82,6 +82,37 @@ describe('TestimonialSlide', function() {
     expect(height).toEqual(expected);
   });
 
+  describe('css classes', function() {
+    var node;
+    var mainClassName;
+
+    beforeEach(function() {
+      node = document.createElement('div');
+      mainClassName = 'main-class';
+      node.classList.add(mainClassName);
+
+      TestimonialSlide.prototype.node = node;
+    });
+
+    it('should add class', function() {
+      var className = 'test';
+
+      TestimonialSlide.prototype.addCssClass(className);
+
+      var str = mainClassName + ' ' + className;
+      expect(TestimonialSlide.prototype.node.className).toEqual(str);
+    });
+
+    it('should remove class', function() {
+      var className = 'test';
+      node.classList.add(className);
+
+      TestimonialSlide.prototype.removeCssClass(className);
+
+      expect(TestimonialSlide.prototype.node.className).toEqual(mainClassName);
+    });
+  });
+
   describe('animation', function() {
     var options;
     var node;
@@ -107,20 +138,40 @@ describe('TestimonialSlide', function() {
     });
 
     it('should animate show', function(done) {
+      var className = 'fadeInLeft';
+      spyOn(TestimonialSlide.prototype, 'addCssClass');
+      spyOn(TestimonialSlide.prototype, 'removeCssClass');
+
       TestimonialSlide.prototype.animateShow();
 
+      expect(TestimonialSlide.prototype.node.style['z-index']).toEqual('1');
+
       setTimeout(function() {
+        expect(TestimonialSlide.prototype.addCssClass).toHaveBeenCalledWith(className);
         expect(TestimonialSlide.prototype.node.style.display).toEqual('');
-        done();
-      }, delay);
+
+        setTimeout(function() {
+          expect(TestimonialSlide.prototype.removeCssClass).toHaveBeenCalledWith(className);
+
+          done();
+        }, 1001);
+      }, 101);
     });
 
-    it('should animate hide', function() {
+    it('should animate hide', function(done) {
+      var className = 'fadeOutRight';
+      spyOn(TestimonialSlide.prototype, 'addCssClass');
+      spyOn(TestimonialSlide.prototype, 'removeCssClass');
       spyOn(TestimonialSlide.prototype, 'hideSlide');
 
       TestimonialSlide.prototype.animateHide();
 
-      expect(TestimonialSlide.prototype.hideSlide).toHaveBeenCalled();
+      expect(TestimonialSlide.prototype.addCssClass).toHaveBeenCalledWith(className);
+      setTimeout(function() {
+          expect(TestimonialSlide.prototype.removeCssClass).toHaveBeenCalledWith(className);
+          expect(TestimonialSlide.prototype.hideSlide).toHaveBeenCalled();
+          done();
+        }, 1001);
     });
   });
 
