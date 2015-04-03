@@ -1,45 +1,48 @@
 /**
   * testimonial - JS testimonial slider with AJAX
-  * @version v1.1.3
+  * @version v2.0.0
   * @link http://alekseyleshko.github.io/testimonial.js/
   * @license MIT (https://github.com/AlekseyLeshko/testimonial.js/blob/master/LICENSE)
 */
 'use strict';
 
-var Parser = function($nodeList) {
-  this.$nodeList = $nodeList;
+var Parser = function(nodeList) {
+  this.nodeList = nodeList;
   this.dataList = [];
 };
 
 Parser.prototype = {
   parse: function() {
-    for (var i = 0; i < this.$nodeList.length; i++) {
-      var $node = $(this.$nodeList[i]);
-      var data = this.parseNode($node);
+    for (var i = 0; i < this.nodeList.length; i++) {
+      var node = this.nodeList[i];
+      var data = this.parseNode(node);
       this.dataList.push(data);
     }
 
     return this.dataList;
   },
 
-  parseNode: function($node) {
+  parseNode: function(node) {
     var data = {};
 
-    var $authorNode = $node.children('.author');
-    data.author = this.parseAuthorNode($authorNode);
+    var authorNode = node.querySelector('.author');
+    data.author = this.parseAuthorNode(authorNode);
 
-    var $companyNode = $node.children('.company');
-    data.company = this.parseCompanyNode($companyNode);
+    var companyNode = node.querySelector('.company');
+    data.company = this.parseCompanyNode(companyNode);
 
-    data.quote = $node.children('.quote').text().trim();
+    var quote = node.querySelector('.quote');
+    var text = quote.innerHTML.trim();
+    data.quote = text;
     return data;
   },
 
-  parseAuthorNode: function($node) {
-    var $nameNode = $node.children('a');
-    var name = $nameNode.text().trim();
-    var url = this.getAttrHrefOrDefault($nameNode);
-    var avatar = $node.children('.avatar').attr('src');
+  parseAuthorNode: function(node) {
+    var nameNode = node.querySelector('a');
+    var name = nameNode.innerHTML.trim();
+    var url = this.getAttrHrefOrDefault(nameNode);
+    var avatarNode = node.querySelector('.avatar');
+    var avatar = avatarNode.getAttribute('src');
 
     var author = {
       name: name,
@@ -50,10 +53,10 @@ Parser.prototype = {
     return author;
   },
 
-  parseCompanyNode: function($node) {
-    var $companyNode = $node.children('a');
-    var name = $companyNode.text().trim();
-    var url = this.getAttrHrefOrDefault($companyNode);
+  parseCompanyNode: function(node) {
+    var companyNode = node.querySelector('a');
+    var name = companyNode.innerHTML.trim();
+    var url = this.getAttrHrefOrDefault(companyNode);
 
     var company = {
       name: name,
@@ -63,9 +66,9 @@ Parser.prototype = {
     return company;
   },
 
-  getAttrHrefOrDefault: function($node) {
-    var href = $node.attr('href');
-    if (href === undefined) {
+  getAttrHrefOrDefault: function(node) {
+    var href = node.getAttribute('href');
+    if (!href) {
       href = '#';
     }
     return href;
@@ -74,8 +77,8 @@ Parser.prototype = {
 
 'use strict';
 
-var Testimonial = function($container, options) {
-  this.$container = $container;
+var Testimonial = function(selector, options) {
+  this.setContainer(selector);
   this.createOptions(options);
 
   this.initPlugin();
@@ -116,9 +119,16 @@ Testimonial.prototype = {
     this.resizePluginContainer();
   },
 
+  setContainer: function(selector) {
+    var element = document.querySelectorAll(selector)[0];
+
+    this.container = element;
+  },
+
   createOptions: function(options) {
     var defaultOptions = this.getDefaultOptions();
-    this.options = $.extend(defaultOptions, options);
+    /* global Util: false */
+    this.options = Util.extend(defaultOptions, options);
     this.setMinSizePlugin();
   },
 
@@ -156,7 +166,10 @@ Testimonial.prototype = {
 
     currentSlide.animateHide();
     nextSlide.animateShow();
-    this.resizePluginContainer();
+    var self = this;
+    setTimeout(function() {
+      self.resizePluginContainer();
+    }, 101);
   },
 
   isNeedLoadSlide: function () {
@@ -249,13 +262,13 @@ Testimonial.prototype = {
   },
 
   parseDomTree: function() {
-    var $nodeArr = this.$container.children();
-    if ($nodeArr.length <= 0) {
+    var nodeArr = Util.extend({}, this.container.children);
+    this.container.innerHTML = '';
+    if (nodeArr.length <= 0) {
       return [];
     }
-    $nodeArr.remove();
     /* global Parser: false */
-    var parser = new Parser($nodeArr);
+    var parser = new Parser(nodeArr);
     var dataList = parser.parse();
     return dataList;
   },
@@ -277,11 +290,11 @@ Testimonial.prototype = {
   },
 
   bindEvents: function() {
-    var $buttonNext = this.$container.find('.next_slide');
+    var buttonNext = this.container.querySelectorAll('.next_slide')[0];
     var self = this;
-    $buttonNext.click(function() {
+    buttonNext.onclick = function() {
       self.next();
-    });
+    };
   },
 
   resizePluginContainer: function() {
@@ -290,7 +303,7 @@ Testimonial.prototype = {
     }
     var currentSlide = this.getCurrentSlide();
     var height = currentSlide.height() + this.options.indents;
-    this.$container.height(height);
+    this.container.style.height = height + 'px';
   },
 
   indexing: function() {
@@ -307,8 +320,8 @@ Testimonial.prototype = {
   },
 
   slideRendering: function(slide) {
-    var $slideArrContainer = this.$container.find('.main_container');
-    slide.renderTo($slideArrContainer);
+    var slideArrContainer = this.container.querySelectorAll('.main_container')[0];
+    slide.renderTo(slideArrContainer);
 
     if (this.isNeedHideSlide(slide)) {
       slide.hideSlide();
@@ -316,26 +329,24 @@ Testimonial.prototype = {
   },
 
   configContainer: function() {
-    // this.$container.height(this.options.height);
-    this.$container.width(this.options.width);
+    this.container.style.height = this.options.height + 'px';
+    this.container.style.width = this.options.width + 'px';
   },
 
   createTemplate: function() {
-    this.template = '' +
-      '<div class="main_container" style="width: {{width}}px;"></div>' +
-      '<div class="next_slide"></div>';
+    this.template = [
+      '<div class="main_container" style="width: ',
+      'px"></div>',
+      '<div class="next_slide"></div>'
+    ];
   },
 
   renderTemplate: function() {
     var magicNumber = 500;
-    /* global Handlebars: false */
-    var template = Handlebars.compile(this.template);
     var width = this.options.width * 2 + magicNumber;
-    var data = {
-      width: width
-    };
-    var result = template(data);
-    this.$container.html(result);
+    this.template.splice(1, 0, width);
+    var html = this.template.join('');
+    this.container.innerHTML = html;
   },
 
   initSlideArr: function() {
@@ -372,13 +383,14 @@ TestimonialSlide.prototype = {
       },
       quote: ''
     };
-    var resultData = $.extend(emptydata, data);
+    /* global Util: false */
+    var resultData = Util.extend(emptydata, data);
     return resultData;
   },
 
   createOptions: function(options) {
     var defaultOptions = this.getDefaultOptions();
-    this.options = $.extend({}, defaultOptions, options);
+    this.options = Util.extend({}, defaultOptions, options);
   },
 
   getDefaultOptions: function() {
@@ -393,8 +405,8 @@ TestimonialSlide.prototype = {
   },
 
   setHeightForBlockDiv: function() {
-    var height = this.$domNode.height();
-    this.$domNode.find('.block').height(height);
+    var height = this.node.style.height;
+    this.node.querySelectorAll('.block')[0].style.height = height;
   },
 
   createSlide: function() {
@@ -403,96 +415,89 @@ TestimonialSlide.prototype = {
   },
 
   animateHide: function() {
+    var className = 'fadeOutRight';
+    this.node.style['z-index'] = 2;
+    this.addCssClass(className);
+
     var self = this;
-
-    var marginLeft = '+=' + this.options.distance + 'px';
-    var options = {
-      'margin-left': marginLeft,
-      opacity: '0'
-    };
-
-    this.$domNode.animate(options,
-      this.options.duration,
-      function() {
-        self.hideSlide();
-      }
-    );
+    setTimeout(function() {
+      self.removeCssClass(className);
+      self.hideSlide();
+    }, 1000);
   },
 
   animateShow: function() {
-    var marginLeft = '+=' + this.options.distance + 'px';
-    var options = {
-      'margin-left': marginLeft,
-      opacity: '1'
-    };
+    var className = 'fadeInLeft';
+    this.node.style['z-index'] = 1;
 
-    var duration = this.options.duration * 2;
-    this.$domNode.show().animate(options, duration);
+    var self = this;
+    setTimeout(function() {
+      self.addCssClass(className);
+      self.node.style.display = '';
+
+      setTimeout(function() {
+        self.removeCssClass(className);
+      }, 1000);
+    }, 100);
   },
 
   hideSlide: function() {
-    var marginLeft = '-' + this.options.distance + 'px';
-    var css = {
-      display: 'none',
-      opacity: 0,
-      'margin-left': marginLeft
-    };
-    this.$domNode.css(css);
+    this.node.style.display = 'none';
+  },
+
+  addCssClass: function(className) {
+    // http://youmightnotneedjquery.com/#add_class
+    this.node.classList.add(className);
+  },
+
+  removeCssClass: function(className) {
+    // http://youmightnotneedjquery.com/#remove_class
+    this.node.classList.remove(className);
   },
 
   height: function() {
-    return this.$domNode.height();
+    var height = this.node.offsetHeight;
+    return height;
   },
 
   remove: function() {
-    this.$domNode.empty();
-    this.$domNode.remove();
+    this.node.parentNode.removeChild(this.node);
+    delete this.node;
   },
 
   createTemplate: function() {
-    this.template = '' +
-      '<div class="testimonial_slide" style="width: {{slide.width}}px;">' +
-        '<div class="content">' +
-          '<div class="text" style="width: {{main.width}}px;">' +
-            '<div class="quote">' +
-              '<div class="quotation_mark left">' +
-              '</div>' +
-              '{{slide.quote}}' +
-              '<div class="quotation_mark right">' +
-              '</div>' +
-            '</div>' +
-            '<div class="signature">' +
-              '<div class="author">' +
-                '&#x2015;&nbsp;<a target="_blank" href="{{slide.author.url}}">' +
-                  '{{slide.author.name}}' +
-                '</a>' +
-              '</div>' +
-              '<div class="company">' +
-                '<a target="_blank" href="{{slide.company.url}}">' +
-                  '{{slide.company.name}}' +
-                '</a>' +
-              '</div>' +
-            '</div>' +
-          '</div>' +
-          '<div class="avatar">' +
-            '<div class="block">' +
-              '<div class="author">' +
-                '<img src="{{slide.author.avatar}}">' +
-              '</div>' +
-              '<div class="helper">' +
-              '</div>' +
-            '</div>' +
-          '</div>' +
-        '</div>' +
-      '</div>';
+    var str = '<div class="quotation_mark right"></div></div><div class="signature"><div class="author">';
+    str += '&#x2015;&nbsp;<a target="_blank" href="';
+
+    this.template = [
+      '<div class="content"><div class="text" style="width: ',
+      'px;"><div class="quote"><div class="quotation_mark left"></div>',
+      str,
+      '">',
+      '</a></div><div class="company"><a target="_blank" href="',
+      '">',
+      '</a></div></div></div><div class="avatar"><div class="block"><div class="author"><img src="',
+      '"></div><div class="helper"></div></div></div></div>'
+    ];
   },
 
   renderTemplate: function() {
-    /* global Handlebars: false */
-    var template = Handlebars.compile(this.template);
     var data = this.getDataForTemplate();
-    var result = template(data);
-    this.$domNode = $(result);
+    this.template.splice(1, 0, data.main.width);
+    this.template.splice(3, 0, data.slide.quote);
+    this.template.splice(5, 0, data.slide.author.url);
+    this.template.splice(7, 0, data.slide.author.name);
+    this.template.splice(9, 0, data.slide.company.url);
+    this.template.splice(11, 0, data.slide.company.name);
+    this.template.splice(13, 0, data.slide.author.avatar);
+    var html = this.template.join('');
+
+    var node = document.createElement('div');
+    node.className = 'testimonial_slide animated';
+    node.style.width = data.slide.width +'px';
+    node.innerHTML = html;
+
+    this.node = node;
   },
 
   getDataForTemplate: function() {
@@ -508,8 +513,32 @@ TestimonialSlide.prototype = {
     return data;
   },
 
-  renderTo: function($parent) {
-    $parent.append(this.$domNode);
+  renderTo: function(parent) {
+    parent.appendChild(this.node);
     this.setHeightForBlockDiv();
   }
+};
+
+'use strict';
+
+var extend = function(out) {
+  out = out || {};
+
+  for (var i = 1; i < arguments.length; i++) {
+    if (!arguments[i]) {
+      continue;
+    }
+
+    for (var key in arguments[i]) {
+      if (arguments[i].hasOwnProperty(key)) {
+        out[key] = arguments[i][key];
+      }
+    }
+  }
+
+  return out;
+};
+
+var Util = {
+  extend: extend
 };

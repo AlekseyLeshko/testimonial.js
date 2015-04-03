@@ -5,6 +5,7 @@ $avatar-width: 150px;
   width: $slide-width;
   min-width: $slide-width;
   float: left;
+  position: absolute;
   .content {
     width: 100%;
     height: 100%;

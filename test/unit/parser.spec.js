@@ -1,42 +1,41 @@
 'use strict';
 
 describe('Parser', function() {
-  var arr = [1 , 2, 3];
-  var parser;
-
-  beforeEach(function() {
-    parser = new Parser(arr);
-  });
-
   it('should create members: nodeList and dataList', function() {
-    expect(parser.$nodeList.length).toEqual(arr.length);
+    var arr = [1 , 2, 3];
+
+    var parser = new Parser(arr);
+
+    expect(parser.nodeList.length).toEqual(arr.length);
     expect(parser.dataList.length).toEqual(0);
   });
 
   it('should parse method return data list', function() {
-    spyOn(parser, 'parseNode');
+    spyOn(Parser.prototype, 'parseNode');
+    var arr = [1 , 2];
+    Parser.prototype.nodeList = arr;
+    Parser.prototype.dataList = [];
 
-    var nodes = parser.parse();
+    var nodes = Parser.prototype.parse();
 
     expect(nodes.length).toEqual(arr.length);
-    expect(parser.parseNode.calls.count()).toEqual(arr.length);
+    expect(Parser.prototype.parseNode.calls.count()).toEqual(arr.length);
   });
 
   it('should getAttrHrefOrDefault method return #', function() {
-    var node = $('<div />');
+    var node = document.createElement('div');
 
-    var href = parser.getAttrHrefOrDefault(node);
+    var href = Parser.prototype.getAttrHrefOrDefault(node);
 
     expect(href).toEqual('#');
   });
 
   it('should getAttrHrefOrDefault method return current href', function() {
     var expected = 'href';
-    var node = $('<div />', {
-      href: expected
-    });
+    var node = document.createElement('div');
+    node.setAttribute('href', expected);
 
-    var href = parser.getAttrHrefOrDefault(node);
+    var href = Parser.prototype.getAttrHrefOrDefault(node);
 
     expect(href).toEqual(expected);
   });
@@ -50,26 +49,30 @@ describe('Parser', function() {
     });
 
     it('should parseNode method return data with quote', function() {
-      spyOn(parser, 'parseAuthorNode').and.returnValue({});
-      spyOn(parser, 'parseCompanyNode').and.returnValue({});
+      spyOn(Parser.prototype, 'parseAuthorNode').and.returnValue({});
+      spyOn(Parser.prototype, 'parseCompanyNode').and.returnValue({});
 
       var $list = $('.testimonial_slider .slide');
-      var $node = $list.first();
+      var quote = $list.first().children('.quote').text().trim();
+      var node = $list[0];
 
-      var data = parser.parseNode($node);
+      var data = Parser.prototype.parseNode(node);
 
-      expect(data.author).toBeDefined();
-      expect(data.company).toBeDefined();
-      expect(data.quote).toBeTruthy();
-      expect(parser.parseAuthorNode).toHaveBeenCalled();
-      expect(parser.parseCompanyNode).toHaveBeenCalled();
+      expect(Parser.prototype.parseAuthorNode).toHaveBeenCalled();
+      expect(Parser.prototype.parseCompanyNode).toHaveBeenCalled();
+      expect(data.author).toEqual({});
+      expect(data.company).toEqual({});
+      expect(data.quote).toEqual(quote);
     });
 
     it('should parse author node', function() {
-      var $list = $('.testimonial_slider .slide .author');
-      var $node = $list.first();
+      var url = 'test url';
+      spyOn(Parser.prototype, 'getAttrHrefOrDefault').and.returnValue(url);
 
-      var author = parser.parseAuthorNode($node);
+      var $list = $('.testimonial_slider .slide .author');
+      var node = $list[0];
+
+      var author = Parser.prototype.parseAuthorNode(node);
 
       expect(author.name).toBeTruthy();
       expect(author.url).toBeTruthy();
@@ -77,10 +80,13 @@ describe('Parser', function() {
     });
 
     it('should parse company node', function() {
-      var $list = $('.testimonial_slider .slide .company');
-      var $node = $list.first();
+      var url = 'test url';
+      spyOn(Parser.prototype, 'getAttrHrefOrDefault').and.returnValue(url);
 
-      var company = parser.parseCompanyNode($node);
+      var $list = $('.testimonial_slider .slide .company');
+      var node = $list[0];
+
+      var company = Parser.prototype.parseCompanyNode(node);
 
       expect(company.name).toBeTruthy();
       expect(company.url).toBeTruthy();

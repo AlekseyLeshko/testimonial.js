@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 $base-width: 400px;
 $base-height: 175px;
 
@@ -5,3 +7,4 @@ $base-height: 175px;
 @import 'helper';
 @import 'testimonial-slider';
 @import 'testimonial-slide';
+@import 'animation';

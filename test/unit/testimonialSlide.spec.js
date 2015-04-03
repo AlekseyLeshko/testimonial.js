@@ -19,22 +19,18 @@ describe('TestimonialSlide', function() {
   });
 
   it('should create data', function() {
-    var data = {};
     var expected = {
-      author: {
-        name: '',
-        url: '',
-        avatar: ''
-      },
-      company: {
-        name: '',
-        url: ''
-      },
-      quote: ''
+      test: 'test'
     };
+    spyOn(Util, 'extend').and.returnValue(expected);
+    var data = {};
+
     var res = TestimonialSlide.prototype.createData(data);
 
     expect(res).toEqual(expected);
+    expect(Util.extend).toHaveBeenCalled();
+    var args = Util.extend.calls.argsFor(0);
+    expect(args[1]).toEqual(data);
   });
 
   var getDefaultOptionsStub = function() {
@@ -49,37 +45,72 @@ describe('TestimonialSlide', function() {
   };
 
   it('should create options', function() {
-
-    spyOn(TestimonialSlide.prototype, 'getDefaultOptions').and.callFake(getDefaultOptionsStub);
-
-    var expected = {
-      width: 900,
-      duration: 750,
-      distance: 250,
-      cssClass: 'testimonial_slide',
-      indents: 20
+    var obj1 = {
+      x: 1
+    };
+    var obj2 = {
+      x: 2
     };
     var options = {
-      width: 900,
-      duration: 750,
-      cssClass: 'testimonial_slide'
+      test: 'test'
     };
+    spyOn(TestimonialSlide.prototype, 'getDefaultOptions').and.returnValue(obj1);
+    spyOn(Util, 'extend').and.returnValue(options);
 
-    TestimonialSlide.prototype.createOptions(options);
+
+    TestimonialSlide.prototype.createOptions(obj2);
 
     expect(TestimonialSlide.prototype.getDefaultOptions).toHaveBeenCalled();
-    expect(TestimonialSlide.prototype.options).toEqual(expected);
+    expect(Util.extend).toHaveBeenCalled();
+    var args = Util.extend.calls.argsFor(0);
+    expect(args[1]).toEqual(obj1);
+    expect(args[2]).toEqual(obj2);
+    expect(TestimonialSlide.prototype.options).toEqual(options);
   });
 
   it('should height', function() {
     var expected = 100;
-    var node = $('<div />', {
+    var $node = $('<div />', {
       height: expected
     });
-    TestimonialSlide.prototype.$domNode = node;
+    var fixture = setFixtures('<div class="post">foo</div>')
+    fixture.append($node);
+    TestimonialSlide.prototype.node = $node[0];
+
     var height = TestimonialSlide.prototype.height();
 
     expect(height).toEqual(expected);
+  });
+
+  describe('css classes', function() {
+    var node;
+    var mainClassName;
+
+    beforeEach(function() {
+      node = document.createElement('div');
+      mainClassName = 'main-class';
+      node.classList.add(mainClassName);
+
+      TestimonialSlide.prototype.node = node;
+    });
+
+    it('should add class', function() {
+      var className = 'test';
+
+      TestimonialSlide.prototype.addCssClass(className);
+
+      var str = mainClassName + ' ' + className;
+      expect(TestimonialSlide.prototype.node.className).toEqual(str);
+    });
+
+    it('should remove class', function() {
+      var className = 'test';
+      node.classList.add(className);
+
+      TestimonialSlide.prototype.removeCssClass(className);
+
+      expect(TestimonialSlide.prototype.node.className).toEqual(mainClassName);
+    });
   });
 
   describe('animation', function() {
@@ -94,49 +125,53 @@ describe('TestimonialSlide', function() {
       marginLeft = options.distance + 'px';
       delay = options.duration * 2 + 10;
 
-      node = $('<div />');
-      TestimonialSlide.prototype.$domNode = node;
+      node = document.createElement('div');
+      TestimonialSlide.prototype.node = node;
       TestimonialSlide.prototype.options = options;
       TestimonialSlide.prototype.options.duration = 2;
     });
 
     it('should hide slide', function() {
-      var marginLeft = '-' + options.distance + 'px';
-
       TestimonialSlide.prototype.hideSlide();
 
-      var $res = TestimonialSlide.prototype.$domNode;
-      expect($res.css('display')).toEqual('none');
-      expect($res.css('opacity')).toEqual('0');
-      expect($res.css('margin-left')).toEqual(marginLeft);
+      expect(TestimonialSlide.prototype.node.style.display).toEqual('none');
     });
 
     it('should animate show', function(done) {
+      var className = 'fadeInLeft';
+      spyOn(TestimonialSlide.prototype, 'addCssClass');
+      spyOn(TestimonialSlide.prototype, 'removeCssClass');
+
       TestimonialSlide.prototype.animateShow();
 
+      expect(TestimonialSlide.prototype.node.style['z-index']).toEqual('1');
+
       setTimeout(function() {
-        var $res = TestimonialSlide.prototype.$domNode;
-        expect($res.css('display')).toEqual('block');
-        expect($res.css('opacity')).toEqual('1');
-        expect($res.css('margin-left')).toEqual(marginLeft);
-        done();
-      }, delay);
+        expect(TestimonialSlide.prototype.addCssClass).toHaveBeenCalledWith(className);
+        expect(TestimonialSlide.prototype.node.style.display).toEqual('');
+
+        setTimeout(function() {
+          expect(TestimonialSlide.prototype.removeCssClass).toHaveBeenCalledWith(className);
+
+          done();
+        }, 1001);
+      }, 101);
     });
 
     it('should animate hide', function(done) {
+      var className = 'fadeOutRight';
+      spyOn(TestimonialSlide.prototype, 'addCssClass');
+      spyOn(TestimonialSlide.prototype, 'removeCssClass');
       spyOn(TestimonialSlide.prototype, 'hideSlide');
 
       TestimonialSlide.prototype.animateHide();
 
+      expect(TestimonialSlide.prototype.addCssClass).toHaveBeenCalledWith(className);
       setTimeout(function() {
-        var $res = TestimonialSlide.prototype.$domNode;
-        expect($res.css('display')).toEqual('');
-        expect($res.css('opacity')).toEqual('0');
-        expect($res.css('margin-left')).toEqual(marginLeft);
-
-        expect(TestimonialSlide.prototype.hideSlide).toHaveBeenCalled();
-        done();
-      }, delay);
+          expect(TestimonialSlide.prototype.removeCssClass).toHaveBeenCalledWith(className);
+          expect(TestimonialSlide.prototype.hideSlide).toHaveBeenCalled();
+          done();
+        }, 1001);
     });
   });
 
@@ -151,18 +186,16 @@ describe('TestimonialSlide', function() {
   });
 
   it('should slide not to be exist', function() {
-    var $node = $('<div />');
+    var node = document.createElement('div');
+    var parent = document.createElement('div');
+    parent.appendChild(node);
 
-    TestimonialSlide.prototype.$domNode = $node;
-    spyOn($node, 'empty').and.callThrough();
-    spyOn($node, 'remove').and.callThrough();
+    TestimonialSlide.prototype.node = node;
 
     TestimonialSlide.prototype.remove();
 
-    expect($node.empty).toHaveBeenCalled();
-    expect($node.remove).toHaveBeenCalled();
-    var res = $(TestimonialSlide.prototype.$domNode).is(':empty');
-    expect(res).toBeTruthy();
+    expect(parent.children.length).toEqual(0);
+    expect(TestimonialSlide.prototype.node).toBeUndefined();
   });
 
   it('should getDefaultOptions', function() {
@@ -189,11 +222,11 @@ describe('TestimonialSlide', function() {
     });
     $node.height(height);
     $node.append($blockNode);
-    TestimonialSlide.prototype.$domNode = $node;
+    TestimonialSlide.prototype.node = $node[0];
 
     TestimonialSlide.prototype.setHeightForBlockDiv();
 
-    expect($node.find('.block').height()).toEqual(height);
+    expect($(TestimonialSlide.prototype.node).find('.block').height()).toEqual(height);
   });
 
   it('should create template', function() {
@@ -206,19 +239,34 @@ describe('TestimonialSlide', function() {
 
   it('should render template', function() {
     var value = 'test';
-    TestimonialSlide.prototype.template = '<div>{{test}}</div>';
+    TestimonialSlide.prototype.template = ['','','','','','','','',''];
+    var width = 680;
     spyOn(TestimonialSlide.prototype, 'getDataForTemplate').and.callFake(function() {
       var data = {
-        test: value
+        'main': {
+          'width': 520
+        },
+        'slide': {
+          'author': {
+            'name': 'C.A. R. Hoare',
+            'url': 'http://www.example.com',
+            'avatar': './img/C.A. R. Hoare.jpg'},
+            'company': {
+              'name' :'Example Ltd.',
+              'url': 'http://www.example.com'
+            },
+            'quote': 'There are two ways of constructing a software design. One way is to make it so simple that there are obviously no deficiencies. And the other way is to make it so complicated that there are no obvious deficiencies',
+            'width': width
+          }
       };
       return data;
     });
 
     TestimonialSlide.prototype.renderTemplate();
 
-    expect(TestimonialSlide.prototype.$domNode).toBeDefined();
-    var html = TestimonialSlide.prototype.$domNode.html();
-    expect(html).toEqual(value);
+    expect(TestimonialSlide.prototype.node).toBeDefined();
+    expect(TestimonialSlide.prototype.node.style.width).toEqual(width + 'px');
+    expect(TestimonialSlide.prototype.template.length).toEqual(16);
   });
 
   it('should return data for template', function() {
@@ -232,12 +280,20 @@ describe('TestimonialSlide', function() {
   });
 
   it('should return data for template', function() {
-    var $node = $('<div />');
-    var $container = $('<div />');
-    TestimonialSlide.prototype.$domNode = $node;
+    spyOn(TestimonialSlide.prototype, 'setHeightForBlockDiv');
 
-    TestimonialSlide.prototype.renderTo($container);
+    var node = document.createElement('div');
+    var id = 'node';
+    node.id = id;
+    var container = document.createElement('div');
+    TestimonialSlide.prototype.node = node;
 
-    expect($container.children().length).toEqual(1);
+    TestimonialSlide.prototype.renderTo(container);
+
+    expect(TestimonialSlide.prototype.setHeightForBlockDiv).toHaveBeenCalled();
+    expect(container.children.length).toEqual(1);
+    var el = container.querySelectorAll('#' + id)[0];
+    expect(el).toBeDefined();
+    expect(el.id).toEqual(id);
   });
 });
