@@ -11,7 +11,7 @@
 
   <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/theme-white-plum.bootstrap.min.css">
   <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/index.css">
-  <link rel="stylesheet" href="node_modules/testimonial/dist/css/testimonial.min.css">
+  <link rel="stylesheet" href="stylesheets/testimonial.min.css">
 </head>
   <body>
     <a id="githubRibbon" href="https://github.com/AlekseyLeshko/testimonial.js/" target="_blank">
@@ -20,7 +20,7 @@
     <div class="container">
       <div class="jumbotron" id="top">
         <h1>Testimonial.js</h1>
-        <p>JS testimonial slider with AJAX</p>
+        <p>JS testimonial slider with AJAX and without dependencies</p>
         <p>
           <iframe src="https://ghbtns.com/github-btn.html?user=AlekseyLeshko&repo=testimonial.js&type=star&count=true&size=large" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
           <iframe src="https://ghbtns.com/github-btn.html?user=AlekseyLeshko&repo=testimonial.js&type=fork&count=true&size=large" frameborder="0" scrolling="0" width="158px" height="30px"></iframe>
@@ -28,143 +28,23 @@
         </p>
       </div>
       <div class="row">
-        <div class="col-lg-4" id="add-slide">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <a class="click-example-link" href="#add-slide">
-                Add Slide
-              </a>
-            </div>
-            <div class="panel-body">
-              <textarea id="json_input" class="form-control" rows="12" placeholder="Enter JSON"></textarea>
-              <input id="add_slide_button" type="button" class="btn btn-default" value="Add slide to end" onclick="testimonialMain.add(slideMainSlide);">
-              <input id="generate_slide_button" type="button" class="btn btn-default" value="Set random slide" onclick="setRandomSlide();">
-            </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+          <div id="testimonial-main" class="testimonial_slider border_for_testiomonial">
           </div>
         </div>
-        <div class="col-lg-5 col-lg-offset-1">
-          <div id="testimonial_main" class="testimonial_slider border_for_testiomonial">
-          </div>
-        </div>
-        <div class="col-lg-5 col-lg-offset-1">
-          <div class="panel panel-default">
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="panel panel-default text-center">
             <div class="panel-heading">
               <a class="click-example-link" href="#api">
                 Slider API
               </a>
             </div>
             <div class="panel-body">
-              <input id="stop_slider_button" type="button" class="btn btn-default" value="Stop" onclick="testimonialMain.stop();">
-              <input id="start_slider_button" type="button" class="btn btn-default" value="Start" onclick="testimonialMain.start();">
-              <input id="next_slider_button" type="button" class="btn btn-default" value="Next" onclick="nextButton();">
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row" id="info">
-        <div class="col-lg-12">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <a class="click-example-link" href="#info">
-                Info
-              </a>
-            </div>
-            <div class="panel-body">
-              <div id="repo-badges">
-                <p>
-                  <a href="http://badge.fury.io/js/testimonial">
-                    <img src="https://badge.fury.io/js/testimonial.svg" alt="npm version" height="18">
-                  </a>
-                  <a href="http://badge.fury.io/gh/AlekseyLeshko%2Ftestimonial.js">
-                    <img src="https://badge.fury.io/gh/AlekseyLeshko%2Ftestimonial.js.svg" alt="GitHub version" height="18">
-                  </a>
-                  <a href="http://badge.fury.io/bo/testimonial">
-                    <img src="https://badge.fury.io/bo/testimonial.svg" alt="Bower version" height="18">
-                  </a>
-                </p>
-                <p>
-                  <a href="https://travis-ci.org/AlekseyLeshko/testimonial.js">
-                    <img src="https://travis-ci.org/AlekseyLeshko/testimonial.js.svg?branch=master">
-                  </a>
-                  <a href="https://codeclimate.com/github/AlekseyLeshko/testimonial.js">
-                    <img src="https://codeclimate.com/github/AlekseyLeshko/testimonial.js/badges/gpa.svg" />
-                  </a>
-                  <a href="https://codeclimate.com/github/AlekseyLeshko/testimonial.js">
-                    <img src="https://codeclimate.com/github/AlekseyLeshko/testimonial.js/badges/coverage.svg" />
-                  </a>
-                  <a href="https://david-dm.org/AlekseyLeshko/testimonial.js" title="Dependency status">
-                    <img src="https://david-dm.org/AlekseyLeshko/testimonial.js.svg"/>
-                  </a>
-                  <a href="https://david-dm.org/AlekseyLeshko/testimonial.js#info=devDependencies" title="devDependency status">
-                    <img src="https://david-dm.org/AlekseyLeshko/testimonial.js/dev-status.svg"/>
-                  </a>
-                </p>
-                <p>
-                  <a href="https://nodei.co/npm/testimonial/">
-                    <img src="https://nodei.co/npm/testimonial.png?downloads=true&downloadRank=true&stars=true">
-                  </a>
-                </p>
-              </div>
-              <br>
-              <h2>This slider has everything you need to easily and quickly show all reviews about you.</h2>
-              <hr>
-              <p class="lead">Very fast start</p>
-              <p>
-                <ul>
-                  <li>Install plugin via npm or bower</li>
-                  <li>Include plugin files in your app</li>
-                </ul>
-              </p>
-              <p class="lead">JS methods to control for the widget</p>
-              <p>
-                The slider has a concise and simple methods:
-                <ol>
-                  <li>Start</li>
-                  <li>Stop</li>
-                  <li>Next</li>
-                  <li>Add</li>
-                </ol>
-              </p>
-              <p class="lead">Minimalist and comfortable structure of the slide</p>
-              <p>
-                <ul>
-                  <li>
-                    author
-                    <ul>
-                      <li>name</li>
-                      <li>url</li>
-                      <li>avatar(url)</li>
-                    </ul>
-                  </li>
-                  <li>
-                    company
-                    <ul>
-                      <li>name</li>
-                      <li>url</li>
-                    </ul>
-                  </li>
-                  <li>quote</li>
-                </ul>
-              </p>
-              <p class="lead">Project use best practices</p>
-              <p>
-                <ul>
-                  <li>Clean code base</li>
-                  <li>Unit tests</li>
-                  <li>Install via npm or bower</li>
-                  <li>Minimalist and concise plugin API</li>
-                  <li>Use git and open source</li>
-                  <li>MIT License</li>
-                </ul>
-              </p>
-              <p class="lead">OpenSource project</p>
-              <p>
-                <a href="https://github.com/AlekseyLeshko/testimonial.js" class="btn btn-lg btn-default">
-                  View on GitHub
-                </a>
-              </p>
-              <hr>
-              <iframe src="https://ghbtns.com/github-btn.html?user=AlekseyLeshko&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
+              <input id="stop_slider_button" type="button" class="btn btn-default col-xs-4 col-sm-4 col-md-4 col-lg-4" value="Stop" onclick="testimonialMain.stop();">
+              <input id="start_slider_button" type="button" class="btn btn-default col-xs-4 col-sm-4 col-md-4 col-lg-4" value="Start" onclick="testimonialMain.start();">
+              <input id="next_slider_button" type="button" class="btn btn-default col-xs-4 col-sm-4 col-md-4 col-lg-4" value="Next" onclick="nextButton();">
             </div>
           </div>
         </div>
@@ -189,8 +69,6 @@
             </div>
         </div>
     </div>
-  <script src="node_modules/jquery/dist/jquery.min.js"></script>
-  <script src="node_modules/handlebars/dist/handlebars.min.js"></script>
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -200,17 +78,25 @@
     ga('require', 'displayfeatures');
     ga('send','pageview', location.pathname + location.search + location.hash);
   </script>
-  <script src="node_modules/testimonial/dist/js/testimonial.js"></script>
+  <script src="javascripts/testimonial.min.js"></script>
   <script src="node_modules/jsonlint/lib/jsonlint.js"></script>
   <script src="javascripts/helper.js"></script>
   <script src="javascripts/examples.js"></script>
   <script src="javascripts/gaEvents.js"></script>
 
   <script>
-    $(window).load(function() {
+    function ready(fn) {
+      if (document.readyState != 'loading'){
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+    function start() {
+      createTestimonial();
       createGAEvents();
-      runExamples();
-    });
+    }
+    ready(start);
   </script>
   </body>
 </html>
