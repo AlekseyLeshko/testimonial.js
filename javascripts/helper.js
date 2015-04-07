@@ -1,8 +1,3 @@
-function setJson(obj, id) {
-  var data = JSON.stringify(obj, null, '  ');
-  $(id).val(data);
-}
-
 function getDefaultSlide() {
   var slide = {
     author: {
@@ -19,93 +14,25 @@ function getDefaultSlide() {
   return slide;
 }
 
-function textareaForSlide(selector) {
-  $(selector).bind('input propertychange', function() {
-    checkTextarea(selector);
-  });
-  checkTextarea(selector);
-}
+function nextButton() {
+  var el = document.getElementsByClassName('next_slide')[0];
+  var s = el.style;
+  s.opacity = 0.7;
+  s['background-color'] = '#7a62d3';
 
-function checkTextarea(textareaSelector) {
-  var errorClass = 'has-error';
-  var $textarea = $(textareaSelector);
-  var $addSlideButton = $('input#add_slide_button');
+  testimonialMain.next();
 
-  var data = $textarea.val();
-  try {
-    slideMainSlide = jsonlint.parse(data);
-    if (slideMainSlide) {
-      var $container = $textarea.parent().parent();
-      $container.removeClass(errorClass);
-      $addSlideButton.prop('disabled', false);
-    }
-  } catch(e) {
-    var $container = $textarea.parent().parent();
-    $container.addClass(errorClass);
-    $addSlideButton.prop('disabled', true);
-  }
-}
-
-function setRandomSlide() {
-  var slide = getRandomSlide();
-  slideMainSlide = slide;
-  setJson(slide, selectorMainSlide);
-}
-
-function getRandomInt(min, max) {
-  var number = Math.floor(Math.random() * (max - min + 1)) + min;
-  return number;
+  (function fade() {
+    (s.opacity -= .1) < 0 ? el.removeAttribute("style") : setTimeout(fade, 100);
+  })();
 }
 
 function getRandomSlide() {
-  var min = 0;
-  var max = slideArr.length - 1;
-  var number = getRandomInt(min, max);
-  var slide = slideArr[number];
-  return slide;
-}
-
-function addSlide() {
-
-}
-
-function getQuote() {
-  number++;
-  var quote = number + ': ' + Math.random().toString(36);
-  return quote;
-}
-
-function slideLoader() {
   var slide = getDefaultSlide();
-  var quote = getQuote();
+  var quote = 'Random slide: ' + Math.random().toString(36);
   slide.quote = quote;
   return slide;
 }
-
-function nextButton() {
-  var options = {
-    'background-color': '#7a62d3',
-    opacity: 0.7
-  };
-  var $button = $('.next_slide');
-  $button.css(options);
-  testimonialMain.next();
-
-  options = {
-    opacity: 0
-  };
-
-  $button.animate(options, 1000, function() {
-    $button.removeAttr('style');
-  });
-}
-
-// function getRandomSlide() {
-//   var slide = getDefaultSlide();
-//   var quote = 'Random slide: ' + Math.random().toString(36);
-//   slide.quote = quote;
-//   return slide;
-// }
 
 var slideArr = [{
     author: {

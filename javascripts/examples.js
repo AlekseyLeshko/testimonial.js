@@ -1,31 +1,18 @@
-function  runExamples() {
-  testimonialMainCreate();
-}
-
-var slideMainSlide;
 var testimonialMain;
-var selectorMainSlide = 'textarea#json_input';
-function testimonialMainCreate() {
-  var selector = '#testimonial_main';
-  var $container = $(selector);
+
+function createTestimonial() {
+  var selector = '#testimonial-main';
+  var el = document.getElementById('testimonial-main');
   var options = {
-    width: 650,
+    width: el.parentNode.offsetWidth - (15 * 2),
     slideCount: 10
   };
-  testimonialMain = new Testimonial($container, options);
+  testimonialMain = new Testimonial('#testimonial-main', options);
 
   testimonialMain.add(slideArr[0]);
   testimonialMain.add(slideArr[2]);
   testimonialMain.add(slideArr[4]);
-  testimonialMain.add(slideArr[5]);
-  testimonialMain.add(slideArr[6]);
-  testimonialMain.add(slideArr[7]);
-  // for (var i = 0; i < slideArr.length; i++) {
-  //   var slide = slideArr[i];
-  //   testimonialMain.add(slide);
-  // };
-
-  slideMainSlide = getDefaultSlide();
-  setJson(slideMainSlide, selectorMainSlide);
-  textareaForSlide(selectorMainSlide);
+  // testimonialMain.add(slideArr[5]);
+  // testimonialMain.add(slideArr[6]);
+  // testimonialMain.add(slideArr[7]);
 }
