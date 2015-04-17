@@ -1,6 +1,6 @@
 /**
   * testimonial - JS testimonial slider with AJAX
-  * @version v2.0.0
+  * @version v2.0.1
   * @link http://alekseyleshko.github.io/testimonial.js/
   * @license MIT (https://github.com/AlekseyLeshko/testimonial.js/blob/master/LICENSE)
 */
