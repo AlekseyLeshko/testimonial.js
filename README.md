@@ -101,3 +101,7 @@ Copyright (c) 2014 Aleksey Leshko Licensed under the The MIT License (MIT)
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/AlekseyLeshko/testimonial.js/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/AlekseyLeshko/testimonial.js/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
