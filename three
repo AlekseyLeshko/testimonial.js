@@ -1,0 +1,35 @@
+to more than three million developers and 450,000 teams using Bitbucket. Add-ons available for early preview We couldn&#8217;t launch an integration platform without the help of the community. Here are previews of add-ons currently available on Bitbucket: Cloud IDE: Codeanywhere, Codio Code quality: bitHound, Codacy Code search: Sourcegraph Code analytics: StiltSoft Deployment: Aerobatic, CloudCannon, Platform.sh Crash and exception handling: Rollbar Rapid integration: Wittified If you are currently a user of Bitbucket and want to take a sneak peak, click on your avatar, select &#8220;Manage Account&#8221;, and simply install these new add-ons by selecting &#8220;Find new add-ons&#8221; from the left menu. Get started with Atlassian Connect for Bitbucket It is now super-easy to extend Bitbucket so that you have the best workflow for your team. Click here for documentation to get started with Atlassian Connect for Bitbucket. We look forward to seeing what exciting and interesting add-ons you build using Atlassian Connect for Bitbucket. Imagine the possibilities &#8211; happy developing!
+]]>
+</description>
+<content:encoded>
+<![CDATA[
+<p>More than 3 million developers and 450,000 teams use <a class="external-link" href="http://bitbucket.org/" rel="nofollow">Bitbucket</a> to manage and collaborate on source code. But code collaboration is only a fraction of what software teams do on a daily basis to ship software.</p> <p>Nowadays, shipping great software involves constant context switching using tools that don’t integrate tightly. Even when integrations are made, toolchains have to be painstakingly maintained on an ongoing basis with reams of messy bespoke integration code that has to be regularly re-written.</p> <p>This is a challenge that development teams face every day. Most integration architectures available right now in the software industry only partially solve the problem. They only provide simple integration points that prevent teams from creating deeper integrations and a more unified workflow.</p> <p><strong>Not your average platform</strong></p> <p>To solve this problem, we’ve re-engineered Bitbucket into a platform that helps remove the interrupt-driven workflow <span class="inline-comment-marker" data-ref="afe9882e-2e7e-45af-9c7c-4edaad4b4c93">and brings all the information</span> to ship software in one place. <a class="external-link" href="http://developer.atlassian.com/bitbucket" rel="nofollow">Atlassian Connect for Bitbucket</a> provides an integration architecture that embeds your add-ons right within the product UI creating a more unified workflow.</p> <p>Here is a demo of code search enabled by the add-on built by Sourcegraph:</p> <div class="embed-youtube"><iframe src="https://www.youtube.com/embed/sfopM3dNIg4" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe></div> <p>&nbsp;</p> <p><strong>Why build using Atlassian Connect for Bitbucket?</strong></p> <p>If you&#8217;re still wondering why you should build an add-on using Atlassian Connect for Bitbucket, here are three reasons:</p> <ol> <li>Atlassian Connect is a next generation extensibility framework, providing much deeper integration than what is offered by standard REST APIs and webhooks.</li> <li>Add-ons are straightforward to implement. You can build an add-on in any language, on any stack, using any interface.</li> <li>You also can distribute your great add-ons to more than three million developers and 450,000 teams using Bitbucket.</li> </ol> <p><strong>Add-ons available for early preview</strong></p> <p>We couldn&#8217;t launch an integration platform without the help of the community. Here are previews of add-ons currently available on Bitbucket:</p> <ul> <li>Cloud IDE: Codeanywhere, Codio</li> <li>Code quality: bitHound, Codacy</li> <li>Code search: Sourcegraph</li> <li>Code analytics: StiltSoft</li> <li>Deployment: Aerobatic, CloudCannon, Platform.sh</li> <li>Crash and exception handling: Rollbar</li> <li>Rapid integration: Wittified</li> </ul> <p><em>If you are currently a user of Bitbucket and want to take a sneak peak, click on your avatar, select &#8220;Manage Account&#8221;, and simply install these new add-ons by selecting &#8220;<a class="external-link" href="https://bitbucket.org/account/addon-directory/" rel="nofollow">Find new add-ons</a>&#8221; from the left menu.</em></p> <p><strong>Get started with Atlassian Connect for Bitbucket</strong></p> <p>It is now super-easy to extend Bitbucket so that you have the best workflow for your team. <a class="external-link" href="http://developer.atlassian.com/bitbucket" rel="nofollow">Click here for documentation</a> to get started with Atlassian Connect for Bitbucket.</p> <p>We look forward to seeing what exciting and interesting add-ons you build using Atlassian Connect for Bitbucket. Imagine the possibilities &#8211; happy developing!</p> <p style="text-align: center;"><a href="https://developer.atlassian.com/static/bitbucket/guides/getting-started.html"><img class="alignnone wp-image-2491 size-full" src="http://blog.bitbucket.org/files/2015/06/Screen-Shot-2015-06-08-at-10.18.42-AM.png" alt="Get Started" width="120" height="41" /></a></p>
+]]>
+</content:encoded>
+<wfw:commentRss>
+http://blog.bitbucket.org/2015/06/10/atlassian-connect-for-bitbucket-a-new-way-to-extend-your-workflow-in-the-cloud/feed/
+</wfw:commentRss>
+<slash:comments>6</slash:comments>
+</item>
+<item>
+<title>Bitbucket’s SSL certificate is changing for SHA-2</title>
+<link>
+http://blog.bitbucket.org/2015/05/06/bitbuckets-ssl-certificate-is-changing-for-sha-2/
+</link>
+<comments>
+http://blog.bitbucket.org/2015/05/06/bitbuckets-ssl-certificate-is-changing-for-sha-2/#comments
+</comments>
+<pubDate>Wed, 06 May 2015 19:00:28 +0000</pubDate>
+<dc:creator>
+<![CDATA[ Raj Sarkar ]]>
+</dc:creator>
+<category>
+<![CDATA[ bitbucket ]]>
+</category>
+<category>
+<![CDATA[ ssl ]]>
+</category>
+<guid isPermaLink="false">https://blog.bitbucket.org/?p=2485</guid>
+<description>
+<![CDATA[
+We’ll be replacing our main bitbucket.org SSL certificate on May
