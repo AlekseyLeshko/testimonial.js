@@ -14,11 +14,13 @@ Testimonial.prototype = {
         self.next();
       },
       this.options.timeout);
+    return this;
   },
 
   stop: function() {
     clearInterval(this.timerId);
     this.timerId = undefined;
+    return this;
   },
 
   next: function() {
@@ -33,6 +35,7 @@ Testimonial.prototype = {
     if (this.isNeedStartSlider()) {
       this.start();
     }
+    return this;
   },
 
   add: function(slideObj) {
@@ -40,6 +43,7 @@ Testimonial.prototype = {
     var slide = this.getLastSlide();
     this.slideRendering(slide);
     this.resizePluginContainer();
+    return this;
   },
 
   setContainer: function(selector) {

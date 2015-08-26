@@ -53,6 +53,12 @@ testimonial.start();
 testimonial.next();
 testimonial.add(slideObj);
 ```
+Or chaining (start, stop, next, add):
+```js
+var slideObj = {...};
+var testimonial = new Testimonial('#testimonial-slider');
+testimonial.start().add(slideObj).next();
+```
 
 #### Slider with ajax slide load
 ```js
